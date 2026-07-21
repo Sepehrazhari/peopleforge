@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleForge - 360 Feedback Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --coral:#D85A30; --coral-dark:#993C1D; --coral-light:#FAECE7;
+  --teal:#1D9E75; --teal-light:#E1F5EE; --anvil:#141414;
+  --linen:#F7F5F0; --muted:#6B6B6B; --light:#9A9A9A;
+  --border:rgba(0,0,0,.1); --white:#fff;
+  --display:'Syne',system-ui,sans-serif;
+  --body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6px;margin:8px 0 20px}
+.prog{display:flex;gap:6px;margin-bottom:22px}
+.prog div{flex:1}
+.bar{height:4px;border-radius:4px;background:var(--border)}
+.bar.on{background:var(--coral)}
+.plab{font-size:11px;margin-top:6px;color:var(--light)}
+.plab.on{color:var(--anvil);font-weight:500}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+.sec{margin-bottom:26px}
+.lab{font-family:var(--display);font-weight:700;font-size:15px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.chip{font-family:var(--body);font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;margin:0 8px 8px 0;transition:all .15s}
+.chip:hover{border-color:var(--coral)}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
+input[type=text]{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
+input[type=text]:focus{border-color:var(--coral)}
+.scard{display:block;width:100%;text-align:left;cursor:pointer;padding:14px 16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;margin-bottom:10px}
+.scard.on{border-color:var(--coral);background:var(--coral-light)}
+.scard b{font-family:var(--display);font-size:15px;display:block}
+.scard span{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.k{font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.v{font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px}
+.btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.btn:hover{border-color:var(--anvil)}
+.btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
+.btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{border-style:dashed;border-color:var(--coral);background:var(--coral-light);color:var(--coral-dark);cursor:not-allowed;margin-left:auto}
+.note{font-size:13px;background:var(--coral-light);color:var(--coral-dark);padding:10px 14px;border-radius:10px;margin-bottom:18px;line-height:1.5}
+.fhead{border-bottom:2px solid var(--anvil);padding-bottom:14px;margin-bottom:18px}
+.eyebrow{font-size:12px;color:var(--coral);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.ftitle{font-family:var(--display);font-weight:700;font-size:22px;margin-top:4px}
+.fmeta{font-size:13px;color:var(--muted);margin-top:3px}
+.intro{font-size:14.5px;line-height:1.6;margin:0 0 20px}
+.metarow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.mf{flex:1 1 220px}
+.mf div:first-child{font-size:12px;color:var(--light);margin-bottom:5px}
+.blank{height:38px;border:1px solid var(--border);border-radius:8px;background:var(--linen)}
+.guide{background:var(--teal-light);border-radius:12px;padding:16px 18px;margin-bottom:24px;font-size:13.5px;line-height:1.6}
+.guide b.t{font-family:var(--display);font-size:14px;display:block;margin-bottom:8px}
+.guide .row span{margin-right:14px;display:inline-block}
+.guide .exp{color:var(--muted);margin-top:8px}
+.comp{margin-bottom:22px}
+.cname{font-family:var(--display);font-weight:700;font-size:16px}
+.cnum{color:var(--coral)}
+.cdef{font-size:13px;color:var(--muted);font-style:italic;margin-top:2px}
+.stmt{padding:12px 0;border-top:1px solid var(--border)}
+.stxt{font-size:14.5px}
+.scale{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:5px 9px}
+.pill.num{width:26px;text-align:center;padding:4px 0;border-radius:6px}
+.oq{margin-bottom:12px}
+.oline{height:46px;border:1px dashed var(--border);border-radius:8px;margin-top:6px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brandbar">
+    <div class="mark">P</div>
+    <div class="brand">PeopleForge</div>
+    <div class="tag">360 Feedback Builder &middot; demo</div>
+  </div>
+  <h1>Build a 360 feedback form</h1>
+  <div id="app"></div>
+  <div class="foot">Prototype &middot; the engine behind PeopleForge products</div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT LIBRARY
+   In production this is what the AI generates. Here it is
+   built in so the demo runs with no network at all.
+   ============================================================ */
+var BANK = {
+  "Communication":{def:"Shares information clearly and listens well.",st:[
+    "Explains complex ideas in terms the audience actually understands.",
+    "Listens fully before responding, and checks understanding.",
+    "Keeps the right people informed without being asked.",
+    "Writes clearly enough that follow-up questions are rare."]},
+  "Collaboration":{def:"Works with others toward a shared outcome.",st:[
+    "Offers help to teammates before being asked.",
+    "Shares credit and acknowledges others' contributions.",
+    "Handles disagreement without damaging the working relationship.",
+    "Makes it easy for other teams to work with them."]},
+  "Ownership & accountability":{def:"Takes responsibility for outcomes, not just tasks.",st:[
+    "Follows through on commitments without needing reminders.",
+    "Raises problems early rather than hiding them.",
+    "Owns mistakes openly and fixes the root cause.",
+    "Takes responsibility for the result, not just their part."]},
+  "Technical excellence":{def:"Delivers high-quality, durable technical work.",st:[
+    "Produces work that holds up well over time.",
+    "Balances speed against quality with good judgement.",
+    "Raises the technical standard of the people around them.",
+    "Considers edge cases and failure modes before shipping."]},
+  "Problem solving":{def:"Breaks down hard problems and finds workable answers.",st:[
+    "Gets to the real cause instead of treating symptoms.",
+    "Breaks large ambiguous problems into workable pieces.",
+    "Makes sound decisions when information is incomplete.",
+    "Knows when to seek input rather than pushing on alone."]},
+  "Leadership & influence":{def:"Moves people and work forward without relying on authority.",st:[
+    "Sets a clear direction others can act on.",
+    "Gives people the context they need to decide well.",
+    "Addresses difficult issues directly and fairly.",
+    "Builds trust across teams they do not manage."]},
+  "Adaptability":{def:"Adjusts well when priorities or conditions change.",st:[
+    "Stays effective when priorities shift unexpectedly.",
+    "Changes approach when the evidence says to.",
+    "Stays composed and constructive under pressure.",
+    "Picks up unfamiliar work without excessive ramp-up."]},
+  "Customer focus":{def:"Keeps the customer's real needs central.",st:[
+    "Grounds decisions in real customer needs, not assumptions.",
+    "Follows through on customer commitments reliably.",
+    "Advocates for the customer even when it is inconvenient.",
+    "Anticipates customer problems before they escalate."]},
+  "Strategic thinking":{def:"Connects daily work to longer-term direction.",st:[
+    "Connects day-to-day decisions to longer-term goals.",
+    "Prioritises the work that matters most, not the loudest.",
+    "Anticipates second-order consequences of decisions.",
+    "Says no to work that does not serve the goal."]},
+  "Feedback & growth":{def:"Gives and receives feedback that leads to change.",st:[
+    "Gives specific, timely feedback that people can act on.",
+    "Receives critical feedback without becoming defensive.",
+    "Visibly acts on feedback they have been given.",
+    "Invests real time in developing the people around them."]},
+  "Reliability":{def:"Consistent and dependable in day-to-day delivery.",st:[
+    "Delivers what they promised, by when they promised it.",
+    "Maintains consistent quality across routine work.",
+    "Flags slipping timelines early enough to matter.",
+    "Can be trusted with work that has no oversight."]},
+  "Innovation":{def:"Improves how things are done, not just what.",st:[
+    "Proposes better ways of working rather than accepting defaults.",
+    "Tests new ideas at small scale before committing.",
+    "Learns from failed experiments instead of avoiding them.",
+    "Challenges assumptions constructively."]}
+};
+
+var ROLE_MAP = {
+  "Software Engineering":["Technical excellence","Problem solving","Collaboration","Communication","Ownership & accountability"],
+  "Product & Design":["Customer focus","Communication","Collaboration","Problem solving","Strategic thinking"],
+  "Sales":["Customer focus","Communication","Ownership & accountability","Adaptability","Reliability"],
+  "Marketing":["Communication","Innovation","Customer focus","Collaboration","Ownership & accountability"],
+  "Operations":["Reliability","Problem solving","Ownership & accountability","Collaboration","Adaptability"],
+  "People & HR":["Communication","Feedback & growth","Collaboration","Reliability","Customer focus"],
+  "Customer Success":["Customer focus","Communication","Reliability","Problem solving","Ownership & accountability"],
+  "Finance":["Reliability","Problem solving","Communication","Ownership & accountability","Strategic thinking"],
+  "Leadership (General)":["Leadership & influence","Strategic thinking","Communication","Feedback & growth","Ownership & accountability"]
+};
+
+var OPEN_Q = [
+  "What is this person's single biggest strength? Give a specific example.",
+  "What is one thing they could do differently to be more effective?",
+  "What should they keep doing because it helps the team most?",
+  "Where do you see the biggest opportunity for their growth this year?"
+];
+
+var ROLES=Object.keys(ROLE_MAP);
+var SENIORITY=["IC - Junior","IC - Senior","Team Lead","Manager","Director / Exec"];
+var COMPS=Object.keys(BANK);
+var LENGTHS=[{k:"Focused",n:8},{k:"Standard",n:14},{k:"Comprehensive",n:20}];
+var PERSPECTIVES=["Manager","Peer","Direct report","Cross-functional partner","Self"];
+var TONES=["Professional","Warm","Direct"];
+var FREQ=[["Never",1],["Rarely",2],["Sometimes",3],["Usually",4],["Always",5]];
+var STEPS=["Basics","What to measure","Scoring & raters","Review"];
+
+/* ============================ STATE ============================ */
+var S={step:0,form:null,copied:false,cfg:{
+  company:"",role:"Software Engineering",seniority:"IC - Senior",
+  autoComp:true,comps:[],length:"Standard",scale:"freq",
+  perspectives:["Manager","Peer","Direct report"],anon:true,openN:3,
+  tone:"Professional",values:""
+}};
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+/* ==================== GENERATION (deterministic) ==================== */
+function buildForm(cfg){
+  var names;
+  if(!cfg.autoComp && cfg.comps.length){ names=cfg.comps.slice(0,7); }
+  else{
+    names=(ROLE_MAP[cfg.role]||COMPS.slice(0,5)).slice();
+    if(cfg.seniority==="Team Lead"||cfg.seniority==="Manager"){
+      ["Leadership & influence","Feedback & growth"].forEach(function(n){
+        if(names.indexOf(n)===-1) names.push(n);});
+    }
+    if(cfg.seniority==="Director / Exec"){
+      ["Leadership & influence","Strategic thinking"].forEach(function(n){
+        if(names.indexOf(n)===-1) names.push(n);});
+    }
+    names=names.slice(0,6);
+  }
+
+  var target=(LENGTHS.filter(function(l){return l.k===cfg.length})[0]||LENGTHS[1]).n;
+  var vals=cfg.values.split(",").map(function(v){return v.trim();}).filter(Boolean).slice(0,3);
+  var slots=names.length+(vals.length?1:0);
+  var per=Math.max(2,Math.round(target/slots));
+
+  var comps=names.map(function(n){
+    var b=BANK[n]||{def:"",st:[]};
+    var st=[];
+    for(var i=0;i<per;i++){ st.push(b.st[i%b.st.length]); }
+    return {name:n,definition:b.def,statements:st};
+  });
+
+  if(vals.length){
+    comps.push({name:"Values alignment",definition:"Lives the company values in daily work.",
+      statements:vals.map(function(v){return "Demonstrates "+v.toLowerCase()+" in everyday decisions and behaviour.";})});
+  }
+
+  var lvl=cfg.seniority.indexOf("IC")===0?"individual contributor":"people leader";
+  return {
+    intro:"This form gathers specific, behaviour-based feedback on a "+cfg.seniority+" in "+cfg.role+
+      ". Rate only what you have personally observed. Skip anything you cannot speak to. Written comments carry more weight than scores, so please be concrete: describe what the person did and what effect it had. Feedback is "+
+      (cfg.anon?"anonymous and aggregated before sharing":"attributed and shared with the reviewee")+".",
+    competencies:comps,
+    openQuestions:OPEN_Q.slice(0,cfg.openN)
+  };
+}
+
+/* ============================ RENDER ============================ */
+var app=document.getElementById("app");
+
+function chips(list,key,multi){
+  return list.map(function(o){
+    var val=typeof o==="object"?o.v:o, lab=typeof o==="object"?o.l:o;
+    var on=multi?S.cfg[key].indexOf(val)>-1:S.cfg[key]===val;
+    return '<button class="chip'+(on?" on":"")+'" data-act="'+(multi?"tog":"set")+'" data-k="'+key+'" data-v="'+esc(val)+'">'+
+      (multi&&on?"&#10003; ":"")+esc(lab)+'</button>';
+  }).join("");
+}
+
+function render(){
+  var c=S.cfg,h="";
+
+  if(S.step<4){
+    h+='<div class="prog">'+STEPS.map(function(s,i){
+      return '<div><div class="bar'+(i<=S.step?" on":"")+'"></div><div class="plab'+(i===S.step?" on":"")+'">'+s+'</div></div>';
+    }).join("")+'</div>';
+  }
+
+  h+='<div class="card">';
+
+  if(S.step===0){
+    h+='<div class="sec"><div class="lab">Team or company name</div><div class="hint">Appears at the top of the form. Optional.</div>'+
+       '<input type="text" id="company" value="'+esc(c.company)+'" placeholder="e.g. Fakir Technology"></div>';
+    h+='<div class="sec"><div class="lab">Function being evaluated</div><div class="hint">Tailors competencies and language to the job.</div>'+chips(ROLES,"role")+'</div>';
+    h+='<div class="sec"><div class="lab">Seniority level</div><div class="hint">A senior IC and a manager are judged on different things.</div>'+chips(SENIORITY,"seniority")+'</div>';
+  }
+
+  if(S.step===1){
+    h+='<div class="sec"><div class="lab">Competencies</div><div class="hint">Pick automatically for this role, or choose your own.</div>'+
+       '<button class="chip'+(c.autoComp?" on":"")+'" data-act="set" data-k="autoComp" data-v="1">Auto - pick for this role</button>'+
+       '<button class="chip'+(!c.autoComp?" on":"")+'" data-act="set" data-k="autoComp" data-v="">I will choose</button>';
+    if(!c.autoComp){ h+='<div style="margin-top:14px">'+chips(COMPS,"comps",true)+'</div>'; }
+    h+='</div>';
+    h+='<div class="sec"><div class="lab">Form length</div><div class="hint">How many rating statements the form contains.</div>'+
+       chips(LENGTHS.map(function(l){return {v:l.k,l:l.k+" &middot; ~"+l.n+" items"};}),"length")+'</div>';
+  }
+
+  if(S.step===2){
+    h+='<div class="sec"><div class="lab">Rating scale</div><div class="hint">Whichever you pick is explained inside the finished form.</div>'+
+      '<button class="scard'+(c.scale==="freq"?" on":"")+'" data-act="set" data-k="scale" data-v="freq">'+
+        '<b>Frequency &middot; 1-5</b><span>Never &middot; Rarely &middot; Sometimes &middot; Usually &middot; Always</span></button>'+
+      '<button class="scard'+(c.scale==="exp"?" on":"")+'" data-act="set" data-k="scale" data-v="exp">'+
+        '<b>Expectation &middot; 0-10</b><span>Room for growth (below 6) &middot; Meets (6-9) &middot; Exceeds (10)</span></button></div>';
+    h+='<div class="sec"><div class="lab">Rater perspectives</div><div class="hint">Who gives feedback. Captured on each response.</div>'+chips(PERSPECTIVES,"perspectives",true)+'</div>';
+    h+='<div class="sec"><div class="lab">Anonymous responses</div><div class="hint">&nbsp;</div>'+
+       '<button class="chip'+(c.anon?" on":"")+'" data-act="set" data-k="anon" data-v="1">Yes</button>'+
+       '<button class="chip'+(!c.anon?" on":"")+'" data-act="set" data-k="anon" data-v="">No</button></div>';
+    h+='<div class="sec"><div class="lab">Open comment questions</div><div class="hint">Where the real feedback lives.</div>'+
+       chips([{v:"2",l:"2"},{v:"3",l:"3"},{v:"4",l:"4"}],"openN")+'</div>';
+    h+='<div class="sec"><div class="lab">Tone</div><div class="hint">&nbsp;</div>'+chips(TONES,"tone")+'</div>';
+    h+='<div class="sec"><div class="lab">Company values</div><div class="hint">Optional. Comma separated. Adds a values section to the form.</div>'+
+       '<input type="text" id="values" value="'+esc(c.values)+'" placeholder="e.g. Candor, Ownership, Craft"></div>';
+  }
+
+  if(S.step===3){
+    var kv=[["Company",c.company||"-"],["Function",c.role],["Seniority",c.seniority],
+      ["Competencies",(c.autoComp||!c.comps.length)?"Auto (picked for role)":c.comps.join(", ")],
+      ["Length",c.length],["Scale",c.scale==="freq"?"Frequency 1-5":"Expectation 0-10"],
+      ["Raters",c.perspectives.join(", ")||"-"],["Anonymous",c.anon?"Yes":"No"],
+      ["Open questions",String(c.openN)],["Tone",c.tone]];
+    h+='<div class="lab">Review your setup</div><div class="hint">Step back to change anything.</div><div class="grid">'+
+       kv.map(function(p){return '<div><div class="k">'+p[0]+'</div><div class="v">'+esc(p[1])+'</div></div>';}).join("")+'</div>';
+  }
+
+  if(S.step===4&&S.form){ h+=resultHTML(c,S.form); }
+
+  if(S.step<4){
+    h+='<div class="nav"><button class="btn" data-act="back"'+(S.step===0?" disabled":"")+'>&larr; Back</button>';
+    h+= S.step<3
+      ? '<button class="btn dark" data-act="next">Continue &rarr;</button>'
+      : '<button class="btn coral" data-act="gen">Generate form</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  app.innerHTML=h;
+}
+
+function resultHTML(c,f){
+  var h="";
+  h+='<div class="note">Local preview: this form is assembled by the built-in library so it works offline. '+
+     'On the live site this step is where the AI call happens, through your backend.</div>';
+
+  h+='<div class="fhead"><div class="eyebrow">360&deg; Feedback</div>'+
+     '<div class="ftitle">'+esc(c.company?c.company+" \u00b7 "+c.role:c.role)+'</div>'+
+     '<div class="fmeta">'+esc(c.seniority)+' &middot; '+(c.anon?"Anonymous":"Attributed")+' &middot; Raters: '+esc(c.perspectives.join(", "))+'</div></div>';
+
+  h+='<p class="intro">'+esc(f.intro)+'</p>';
+
+  h+='<div class="metarow"><div class="mf"><div>Person being reviewed</div><div class="blank"></div></div>'+
+     '<div class="mf"><div>Your relationship ('+esc(c.perspectives.join(" / "))+')</div><div class="blank"></div></div></div>';
+
+  h+='<div class="guide"><b class="t">How to score</b>';
+  if(c.scale==="freq"){
+    h+='Rate how often you observe each behaviour:<div class="row" style="margin-top:6px">'+
+       FREQ.map(function(f2){return '<span><b>'+f2[1]+'</b> '+f2[0]+'</span>';}).join("")+'</div>'+
+       '<div class="exp">Average the statements within each competency. A high average means a consistent strength. '+
+       'A low or mixed average marks a development area - check the written comments for why.</div>';
+  }else{
+    h+='Score each item 0-10 against what is expected for this role:<div class="row" style="margin-top:6px">'+
+       '<span><b>10</b> Exceeds expectation</span><span><b>6-9</b> Meets expectation</span><span><b>Below 6</b> Room for growth</span></div>'+
+       '<div class="exp">Average the statements within each competency. 10 is a strength to lean on, 6-9 is on track, '+
+       'below 6 should be prioritised for development this cycle.</div>';
+  }
+  h+='</div>';
+
+  f.competencies.forEach(function(cp,i){
+    h+='<div class="comp"><div class="cname"><span class="cnum">'+("0"+(i+1)).slice(-2)+'</span>&nbsp; '+esc(cp.name)+'</div>';
+    if(cp.definition) h+='<div class="cdef">'+esc(cp.definition)+'</div>';
+    cp.statements.forEach(function(s){
+      h+='<div class="stmt"><div class="stxt">'+esc(s)+'</div><div class="scale">';
+      if(c.scale==="freq"){ h+=FREQ.map(function(f2){return '<span class="pill">'+f2[1]+' &middot; '+f2[0]+'</span>';}).join(""); }
+      else{ for(var n=0;n<=10;n++){ h+='<span class="pill num">'+n+'</span>'; } }
+      h+='</div></div>';
+    });
+    h+='</div>';
+  });
+
+  h+='<div class="comp"><div class="cname"><span class="cnum">'+("0"+(f.competencies.length+1)).slice(-2)+'</span>&nbsp; Written feedback</div>';
+  f.openQuestions.forEach(function(q){
+    h+='<div class="oq" style="margin-top:12px"><div class="stxt">'+esc(q)+'</div><div class="oline"></div></div>';
+  });
+  h+='</div>';
+
+  h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy form (Markdown)")+'</button>'+
+     '<button class="btn" data-act="restart">Start over</button>'+
+     '<button class="btn ghost" title="Add-on, to be specified">Analysis report &middot; add-on</button></div>';
+  return h;
+}
+
+/* ============================ MARKDOWN ============================ */
+function toMarkdown(c,f){
+  var m="# 360 Feedback - "+(c.company?c.company+" - ":"")+c.role+"\n";
+  m+="_"+c.seniority+" | "+(c.anon?"Anonymous":"Attributed")+" | Raters: "+c.perspectives.join(", ")+"_\n\n";
+  m+=f.intro+"\n\n## How to score\n";
+  m+= c.scale==="freq"
+    ? "Rate how often you observe each behaviour: 1 Never, 2 Rarely, 3 Sometimes, 4 Usually, 5 Always. Average the statements in each competency.\n\n"
+    : "Score each item 0-10 against expectation: 10 Exceeds, 6-9 Meets, below 6 Room for growth. Average the statements in each competency.\n\n";
+  f.competencies.forEach(function(cp,i){
+    m+="### "+("0"+(i+1)).slice(-2)+". "+cp.name+"\n";
+    if(cp.definition) m+="_"+cp.definition+"_\n";
+    cp.statements.forEach(function(s){ m+="- "+s+"  ("+(c.scale==="freq"?"1-5":"0-10")+")\n"; });
+    m+="\n";
+  });
+  m+="### Written feedback\n";
+  f.openQuestions.forEach(function(q){ m+="- "+q+"\n\n\n"; });
+  return m;
+}
+
+/* ============================ EVENTS ============================ */
+app.addEventListener("input",function(e){
+  if(e.target.id==="company") S.cfg.company=e.target.value;
+  if(e.target.id==="values")  S.cfg.values=e.target.value;
+});
+
+app.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act"),k=b.getAttribute("data-k"),v=b.getAttribute("data-v");
+
+  if(act==="set"){
+    if(k==="autoComp"||k==="anon") S.cfg[k]=!!v;
+    else if(k==="openN") S.cfg[k]=parseInt(v,10);
+    else S.cfg[k]=v;
+    render();
+  }
+  else if(act==="tog"){
+    var a=S.cfg[k],i=a.indexOf(v);
+    if(i>-1) a.splice(i,1); else a.push(v);
+    render();
+  }
+  else if(act==="next"){ S.step++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.form=buildForm(S.cfg); S.step=4; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="restart"){ S.step=0; S.form=null; S.copied=false; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="copy"){
+    var txt=toMarkdown(S.cfg,S.form);
+    var done=function(){ S.copied=true; render(); setTimeout(function(){S.copied=false;render();},1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();});
+    } else { fallbackCopy(txt); done(); }
+  }
+});
+
+function fallbackCopy(t){
+  var ta=document.createElement("textarea");
+  ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy");}catch(err){}
+  document.body.removeChild(ta);
+}
+
+render();
+</script>
+</body>
+</html>
