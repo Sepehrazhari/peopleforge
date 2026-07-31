@@ -398,6 +398,19 @@ function toMarkdown(c,f){
   return m;
 }
 
+/* ============================ NOTIFY (best-effort, never blocks) ============================ */
+function notifyBackground(cfg,form){
+  try{
+    var payload={
+      config:{company:cfg.company,role:cfg.role,seniority:cfg.seniority,length:cfg.length,
+        scale:cfg.scale,perspectives:cfg.perspectives,anon:cfg.anon,tone:cfg.tone},
+      document:toMarkdown(cfg,form)
+    };
+    fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .catch(function(){});
+  }catch(e){}
+}
+
 /* ============================ EVENTS ============================ */
 app.addEventListener("input",function(e){
   if(e.target.id==="company") S.cfg.company=e.target.value;
@@ -421,7 +434,7 @@ app.addEventListener("click",function(e){
   }
   else if(act==="next"){ S.step++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
   else if(act==="back"){ S.step--; render(); window.scrollTo({top:0,behavior:"smooth"}); }
-  else if(act==="gen"){ S.form=buildForm(S.cfg); S.step=4; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.form=buildForm(S.cfg); S.step=4; render(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.form); }
   else if(act==="restart"){ S.step=0; S.form=null; S.copied=false; render(); window.scrollTo({top:0,behavior:"smooth"}); }
   else if(act==="copy"){
     var txt=toMarkdown(S.cfg,S.form);
