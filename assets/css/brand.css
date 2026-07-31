@@ -1,0 +1,21 @@
+/* PeopleForge brand tokens — colours, fonts, base typography.
+   Shared by every page. Change a value here and it updates everywhere. */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+:root {
+  --coral: #D85A30;
+  --coral-dark: #993C1D;
+  --coral-light: #FAECE7;
+  --teal: #1D9E75;
+  --teal-light: #E1F5EE;
+  --anvil: #141414;
+  --linen: #F7F5F0;
+  --white: #FFFFFF;
+  --text-muted: #6B6B6B;
+  --text-light: #9A9A9A;
+  --border: rgba(0,0,0,0.1);
+
+  --font-display: 'Syne', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
