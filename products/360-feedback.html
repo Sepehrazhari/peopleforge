@@ -17,6 +17,8 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
 .wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.backlink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.backlink:hover{color:var(--coral)}
 .brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
 .brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
@@ -85,6 +87,7 @@ input[type=text]:focus{border-color:var(--coral)}
 </head>
 <body>
 <div class="wrap">
+  <a class="backlink" href="/">&larr; Back to PeopleForge</a>
   <div class="brandbar">
     <div class="mark">P</div>
     <div class="brand">PeopleForge</div>
