@@ -27,6 +27,8 @@ h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6p
 .plab{font-size:11px;margin-top:6px;color:var(--light)}
 .plab.on{color:var(--anvil);font-weight:500}
 .card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.step-anim{animation:stepIn .3s ease}
 .sec{margin-bottom:26px}
 .lab{font-family:var(--display);font-weight:700;font-size:15px}
 .hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
@@ -36,7 +38,7 @@ h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6p
 .chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
 input[type=text]{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
 input[type=text]:focus{border-color:var(--coral)}
-.scard{display:block;width:100%;text-align:left;cursor:pointer;padding:14px 16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;margin-bottom:10px}
+.scard{display:block;width:100%;text-align:left;cursor:pointer;padding:14px 16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;margin-bottom:10px;transition:border-color .15s,background .15s}
 .scard.on{border-color:var(--coral);background:var(--coral-light)}
 .scard b{font-family:var(--display);font-size:15px;display:block}
 .scard span{font-size:13px;color:var(--muted)}
@@ -45,7 +47,7 @@ input[type=text]:focus{border-color:var(--coral)}
 .v{font-size:14px;margin-top:2px}
 .nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px}
 .btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
-  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,background .15s}
 .btn:hover{border-color:var(--anvil)}
 .btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
 .btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
@@ -283,7 +285,7 @@ function render(){
     if(!c.autoComp){ h+='<div style="margin-top:14px">'+chips(COMPS,"comps",true)+'</div>'; }
     h+='</div>';
     h+='<div class="sec"><div class="lab">Form length</div><div class="hint">How many rating statements the form contains.</div>'+
-       chips(LENGTHS.map(function(l){return {v:l.k,l:l.k+" &middot; ~"+l.n+" items"};}),"length")+'</div>';
+       chips(LENGTHS.map(function(l){return {v:l.k,l:l.k+" · ~"+l.n+" items"};}),"length")+'</div>';
   }
 
   if(S.step===2){
@@ -411,6 +413,13 @@ function notifyBackground(cfg,form){
   }catch(e){}
 }
 
+/* ============================ STEP TRANSITION ============================ */
+function renderStep(){
+  render();
+  var card=app.querySelector(".card");
+  if(card) card.classList.add("step-anim");
+}
+
 /* ============================ EVENTS ============================ */
 app.addEventListener("input",function(e){
   if(e.target.id==="company") S.cfg.company=e.target.value;
@@ -432,10 +441,10 @@ app.addEventListener("click",function(e){
     if(i>-1) a.splice(i,1); else a.push(v);
     render();
   }
-  else if(act==="next"){ S.step++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
-  else if(act==="back"){ S.step--; render(); window.scrollTo({top:0,behavior:"smooth"}); }
-  else if(act==="gen"){ S.form=buildForm(S.cfg); S.step=4; render(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.form); }
-  else if(act==="restart"){ S.step=0; S.form=null; S.copied=false; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="next"){ S.step++; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.form=buildForm(S.cfg); S.step=4; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.form); }
+  else if(act==="restart"){ S.step=0; S.form=null; S.copied=false; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
   else if(act==="copy"){
     var txt=toMarkdown(S.cfg,S.form);
     var done=function(){ S.copied=true; render(); setTimeout(function(){S.copied=false;render();},1800); };
