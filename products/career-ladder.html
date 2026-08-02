@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleForge - Career Ladder Builder</title>
+<link rel="stylesheet" href="/assets/css/brand.css">
+<style>
+:root{
+  --muted:var(--text-muted); --light:var(--text-light);
+  --display:var(--font-display); --body:var(--font-body);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.backlink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.backlink:hover{color:var(--coral)}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6px;margin:8px 0 20px}
+.prog{display:flex;gap:6px;margin-bottom:22px}
+.prog div{flex:1}
+.bar{height:4px;border-radius:4px;background:var(--border)}
+.bar.on{background:var(--coral)}
+.plab{font-size:11px;margin-top:6px;color:var(--light)}
+.plab.on{color:var(--anvil);font-weight:500}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.step-anim{animation:stepIn .3s ease}
+.sec{margin-bottom:26px}
+.lab{font-family:var(--display);font-weight:700;font-size:15px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.chip{font-family:var(--body);font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;margin:0 8px 8px 0;transition:all .15s}
+.chip:hover{border-color:var(--coral)}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
+input[type=text]{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
+input[type=text]:focus{border-color:var(--coral)}
+.scard{display:block;width:100%;text-align:left;cursor:pointer;padding:14px 16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;margin-bottom:10px;transition:border-color .15s,background .15s}
+.scard.on{border-color:var(--coral);background:var(--coral-light)}
+.scard b{font-family:var(--display);font-size:15px;display:block}
+.scard span{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.k{font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.v{font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px}
+.btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--anvil)}
+.btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
+.btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
+.btn:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;background:var(--coral-light);color:var(--coral-dark);padding:10px 14px;border-radius:10px;margin-bottom:18px;line-height:1.5}
+.fhead{border-bottom:2px solid var(--anvil);padding-bottom:14px;margin-bottom:18px}
+.eyebrow{font-size:12px;color:var(--coral);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.ftitle{font-family:var(--display);font-weight:700;font-size:22px;margin-top:4px}
+.fmeta{font-size:13px;color:var(--muted);margin-top:3px}
+.intro{font-size:14.5px;line-height:1.6;margin:0 0 20px}
+.tracklab{font-family:var(--display);font-weight:700;font-size:16px;margin:26px 0 4px;padding-top:10px;border-top:1px solid var(--border)}
+.tracklab:first-of-type{border-top:none;padding-top:0}
+.lvl{margin-bottom:20px}
+.lvlname{font-family:var(--display);font-weight:700;font-size:16px}
+.lvlnum{color:var(--coral)}
+.comp{padding:10px 0;border-top:1px solid var(--border)}
+.cname{font-weight:700;font-size:14px}
+.cdef{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:1px}
+.cstmt{font-size:14px;margin-top:5px}
+.guide{background:var(--teal-light);border-radius:12px;padding:14px 16px;margin-top:10px;font-size:13.5px;line-height:1.6}
+.guide b.t{font-family:var(--display);font-size:13px;display:block;margin-bottom:6px}
+.guide ul{margin:0;padding-left:18px}
+.guide li{margin-bottom:4px}
+.promo{background:var(--linen);border-radius:12px;padding:16px 18px;margin-top:24px;font-size:13.5px;line-height:1.6}
+.promo b.t{font-family:var(--display);font-size:14px;display:block;margin-bottom:6px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="/">&larr; Back to PeopleForge</a>
+  <div class="brandbar">
+    <div class="mark">P</div>
+    <div class="brand">PeopleForge</div>
+    <div class="tag">Career Ladder Builder &middot; demo</div>
+  </div>
+  <h1>Build a career ladder framework</h1>
+  <div id="app"></div>
+  <div class="foot">Prototype &middot; the engine behind PeopleForge products</div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT LIBRARY
+   Deterministic, built in so the demo runs with no network at all.
+   Each competency has a 6-tier progression (Junior -> Principal for
+   an IC track; the 6th/Executive tier only ever shows up for a VP in
+   the Management track). The Management track reuses the same tiers,
+   shifted up by one, since a first-line manager already implies more
+   scope than a junior IC.
+   ============================================================ */
+var COMP = {
+  "Communication":{def:"Shares information clearly and listens well.",levels:[
+    "Communicates own work clearly to their immediate team.",
+    "Explains tradeoffs and decisions so others can follow the reasoning.",
+    "Communicates complex, ambiguous topics clearly across the team.",
+    "Shapes how the wider org talks about a technical or functional area.",
+    "Sets the communication standard other senior people are measured against.",
+    "Represents the company's voice on this topic to the outside world."]},
+  "Collaboration":{def:"Works with others toward a shared outcome.",levels:[
+    "Works well within their immediate team on assigned tasks.",
+    "Coordinates smoothly with adjacent teams on shared work.",
+    "Actively unblocks cross-team collaboration without being asked.",
+    "Builds the relationships and norms that make cross-org collaboration work.",
+    "Is trusted to represent the company's interests in cross-org or external collaboration.",
+    "Aligns the company's most senior stakeholders toward a shared outcome."]},
+  "Ownership & accountability":{def:"Takes responsibility for outcomes, not just tasks.",levels:[
+    "Owns their assigned tasks through to completion.",
+    "Owns a defined project end-to-end, including the parts nobody assigned.",
+    "Owns outcomes for a whole area, not just their piece of it.",
+    "Owns outcomes that span multiple teams or a whole function.",
+    "Is accountable for outcomes at a company level.",
+    "Is ultimately accountable for the company's results in this area."]},
+  "Technical excellence":{def:"Delivers high-quality, durable work.",levels:[
+    "Produces solid, reviewed work on well-scoped tasks.",
+    "Delivers technically sound work on ambiguous problems with limited guidance.",
+    "Raises the technical bar for the team through their own work and reviews.",
+    "Sets technical direction and standards for a whole area.",
+    "Sets technical direction the company relies on for multi-year decisions.",
+    "Sets the technical bar the entire company is measured against."]},
+  "Problem solving":{def:"Breaks down hard problems and finds workable answers.",levels:[
+    "Solves well-defined problems with support from others.",
+    "Breaks down ambiguous problems into a workable plan independently.",
+    "Solves problems that span systems or teams, not just their own.",
+    "Identifies and solves problems nobody has framed as a problem yet.",
+    "Solves the problems that determine whether a whole function succeeds.",
+    "Solves the problems that determine whether the company succeeds."]},
+  "Leadership & influence":{def:"Moves people and work forward without relying on authority.",levels:[
+    "Influences their immediate team through the quality of their work.",
+    "Influences decisions in their area even without formal authority.",
+    "Sets direction for a team or initiative that others align around.",
+    "Influences decisions and direction across multiple teams.",
+    "Shapes company-level direction through influence, not authority.",
+    "Shapes direction at the board or executive level."]},
+  "Adaptability":{def:"Adjusts well when priorities or conditions change.",levels:[
+    "Adjusts to changing instructions without losing pace.",
+    "Stays effective when priorities shift with little notice.",
+    "Helps the team stay steady and effective through ambiguity or change.",
+    "Anticipates change and repositions the team ahead of it.",
+    "Guides the org through major shifts in direction or market conditions.",
+    "Steers the company through existential shifts in the market."]},
+  "Customer focus":{def:"Keeps the customer's real needs central.",levels:[
+    "Understands who the immediate customer of their work is.",
+    "Makes decisions grounded in real customer needs, not assumptions.",
+    "Advocates for the customer in decisions that don't obviously involve them.",
+    "Shapes how the team or org thinks about the customer.",
+    "Represents the customer's interest at the highest level of decision-making.",
+    "Is accountable for the company's relationship with the market as a whole."]},
+  "Strategic thinking":{def:"Connects daily work to longer-term direction.",levels:[
+    "Understands how their task fits the team's current goal.",
+    "Connects their day-to-day work to the team's quarterly goals.",
+    "Shapes the plan for their area, not just executes someone else's.",
+    "Sets multi-quarter direction for their area.",
+    "Shapes company strategy, not just their function's execution of it.",
+    "Sets the company's strategy, not just a function's part of it."]},
+  "Feedback & growth":{def:"Gives and receives feedback that leads to change.",levels:[
+    "Acts on feedback when it's given.",
+    "Actively seeks feedback and visibly acts on it.",
+    "Gives feedback that measurably improves how others work.",
+    "Develops other senior people, not just direct collaborators.",
+    "Shapes how the org gives and uses feedback at scale.",
+    "Builds the leadership bench the company will run on in five years."]},
+  "Reliability":{def:"Consistent and dependable in day-to-day delivery.",levels:[
+    "Delivers what they promised, by when they promised it.",
+    "Maintains consistent quality across routine work.",
+    "Flags slipping timelines early enough to matter.",
+    "Can be trusted with work that has no oversight.",
+    "Is the standard others are held to for dependability.",
+    "Is the reason the company can make commitments it knows it will keep."]},
+  "Innovation":{def:"Improves how things are done, not just what.",levels:[
+    "Suggests small improvements to their own work.",
+    "Proposes and tests better ways of doing their team's work.",
+    "Introduces changes that measurably improve how the team operates.",
+    "Introduces changes that change how multiple teams operate.",
+    "Introduces ideas that change company-level practice.",
+    "Sets the innovation agenda the company is known for."]}
+};
+
+var STRETCH = {
+  "Communication":[{lever:"Community & culture",text:"Write the update that keeps a cross-team project visible without being asked."},
+    {lever:"Mentorship",text:"Explain a technical or process topic to a new hire until it clicks."}],
+  "Collaboration":[{lever:"Cross-functional projects",text:"Volunteer to be the point of contact for a project with another team."},
+    {lever:"Process improvement",text:"Fix a recurring handoff problem between two teams."}],
+  "Ownership & accountability":[{lever:"Domain ownership",text:"Ask to own a specific area end-to-end, including the unglamorous parts."},
+    {lever:"Process improvement",text:"Take ownership of a process nobody currently owns."}],
+  "Technical excellence":[{lever:"Technical/functional depth",text:"Become the person people ask when something in your area breaks."},
+    {lever:"Mentorship",text:"Review others' work and give feedback that raises the bar."}],
+  "Problem solving":[{lever:"Domain ownership",text:"Take on the messiest unresolved problem in your area."},
+    {lever:"Process improvement",text:"Propose and run a fix for a problem nobody has prioritised."}],
+  "Leadership & influence":[{lever:"Cross-functional projects",text:"Lead a cross-functional initiative, even a small one, start to finish."},
+    {lever:"Mentorship",text:"Mentor a newer teammate without being asked to."}],
+  "Adaptability":[{lever:"Cross-functional projects",text:"Volunteer for the project with the least certainty attached to it."},
+    {lever:"Domain ownership",text:"Pick up an area outside your usual scope for a quarter."}],
+  "Customer focus":[{lever:"Domain ownership",text:"Own the relationship with a specific customer segment or account."},
+    {lever:"Cross-functional projects",text:"Join a customer-facing conversation outside your usual role."}],
+  "Strategic thinking":[{lever:"Domain ownership",text:"Write the plan for your area's next quarter, not just execute someone else's."},
+    {lever:"Community & culture",text:"Connect your team's work to the company goal in a way others can repeat."}],
+  "Feedback & growth":[{lever:"Mentorship",text:"Take on a mentee and commit to it for a full quarter."},
+    {lever:"Community & culture",text:"Start a practice (a review ritual, a learning session) that outlives you."}],
+  "Innovation":[{lever:"Process improvement",text:"Ship a small process change and measure whether it actually helped."},
+    {lever:"Technical/functional depth",text:"Prototype a better way of doing a piece of your team's work."}]
+};
+
+var ROLE_MAP = {
+  "Software Engineering":["Technical excellence","Problem solving","Collaboration","Communication","Ownership & accountability"],
+  "Product & Design":["Customer focus","Communication","Collaboration","Problem solving","Strategic thinking"],
+  "Sales":["Customer focus","Communication","Ownership & accountability","Adaptability","Reliability"],
+  "Marketing":["Communication","Innovation","Customer focus","Collaboration","Ownership & accountability"],
+  "Operations":["Reliability","Problem solving","Ownership & accountability","Collaboration","Adaptability"],
+  "People & HR":["Communication","Feedback & growth","Collaboration","Reliability","Customer focus"],
+  "Customer Success":["Customer focus","Communication","Reliability","Problem solving","Ownership & accountability"],
+  "Finance":["Reliability","Problem solving","Communication","Ownership & accountability","Strategic thinking"],
+  "Leadership (General)":["Leadership & influence","Strategic thinking","Communication","Feedback & growth","Ownership & accountability"]
+};
+
+var LEVEL_NAMES = {
+  IC:{3:["Junior","Mid-level","Senior"],5:["Junior","Mid-level","Senior","Staff","Principal"]},
+  Management:{3:["Team Lead","Manager","Senior Manager"],5:["Team Lead","Manager","Senior Manager","Director","VP"]}
+};
+var TRACK_OFFSET = {IC:0, Management:1};
+var TRACK_LABEL = {IC:"Individual contributor track", Management:"Management track"};
+
+var ROLES=Object.keys(ROLE_MAP);
+var TRACKS=[{v:"IC",l:"Individual contributor track"},{v:"Management",l:"Management track"},{v:"Dual",l:"Dual ladder (IC + Management)"}];
+var LEVEL_COUNTS=[{v:"3",l:"Compact · 3 levels"},{v:"5",l:"Full · 5 levels"}];
+var GROWTH_STYLES=[{v:"balanced",l:"Vertical + horizontal (recommended)"},{v:"vertical",l:"Vertical only"}];
+var LEVERS=["Mentorship","Cross-functional projects","Domain ownership","Process improvement","Community & culture","Technical/functional depth"];
+var ASSESSMENTS=["Manager only","Manager + peer input","Committee / calibration review"];
+var CADENCES=["Every 6 months","Annually"];
+var STEPS=["Basics","Levels & growth","Review process","Review"];
+
+/* ============================ STATE ============================ */
+var S={step:0,form:null,copied:false,cfg:{
+  company:"",role:"Software Engineering",track:"IC",
+  levelCount:"5",growthStyle:"balanced",
+  levers:["Mentorship","Cross-functional projects","Domain ownership"],
+  assessment:"Manager + peer input",cadence:"Every 6 months"
+}};
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+/* ==================== GENERATION (deterministic) ==================== */
+function buildLadder(cfg){
+  var compNames = ROLE_MAP[cfg.role] || Object.keys(COMP).slice(0,5);
+  var count = parseInt(cfg.levelCount,10);
+  var tracks = cfg.track==="Dual" ? ["IC","Management"] : [cfg.track];
+
+  var trackSections = tracks.map(function(tr){
+    var names = LEVEL_NAMES[tr][count];
+    var levels = names.map(function(levelName, tierIdx){
+      var progIdx = Math.min(5, TRACK_OFFSET[tr] + tierIdx);
+      var comps = compNames.map(function(cn){
+        return {name:cn, definition:COMP[cn].def, statement:COMP[cn].levels[progIdx]};
+      });
+      var stretch=[];
+      if(cfg.growthStyle==="balanced" && tierIdx>0){
+        var featured=[compNames[(tierIdx-1)%compNames.length], compNames[tierIdx%compNames.length]];
+        featured.forEach(function(cn){
+          (STRETCH[cn]||[]).forEach(function(s){
+            if(cfg.levers.indexOf(s.lever)>-1 && stretch.indexOf(s.text)===-1) stretch.push(s.text);
+          });
+        });
+      }
+      return {name:levelName, tier:tierIdx+1, competencies:comps, stretch:stretch};
+    });
+    return {track:tr, levels:levels};
+  });
+
+  var introBits = ["This career ladder for "+cfg.role+" sets out what's expected at each level."];
+  if(cfg.growthStyle==="balanced"){
+    introBits.push("Growth here runs two ways: moving up a level (vertical), and taking on new scope or ownership at your current level (horizontal). The second one matters just as much — someone who hasn't had the chance to manage people can still build and prove leadership through the stretch opportunities listed at each level.");
+  } else {
+    introBits.push("This version tracks vertical progression only — what's expected to move from one level to the next.");
+  }
+  if(cfg.track==="Dual"){
+    introBits.push("Two tracks are shown below: individual contributor and management. Both are valid ways to grow — pick whichever matches how someone wants to have impact. A first-line manager role assumes roughly the scope of a mid-to-senior IC, which is reflected in the expectations below.");
+  }
+
+  return {
+    intro: introBits.join(" "),
+    trackSections: trackSections
+  };
+}
+
+/* ============================ RENDER ============================ */
+var app=document.getElementById("app");
+
+function chips(list,key,multi){
+  return list.map(function(o){
+    var val=typeof o==="object"?o.v:o, lab=typeof o==="object"?o.l:o;
+    var on=multi?S.cfg[key].indexOf(val)>-1:S.cfg[key]===val;
+    return '<button class="chip'+(on?" on":"")+'" data-act="'+(multi?"tog":"set")+'" data-k="'+key+'" data-v="'+esc(val)+'">'+
+      (multi&&on?"&#10003; ":"")+esc(lab)+'</button>';
+  }).join("");
+}
+
+function render(){
+  var c=S.cfg,h="";
+
+  if(S.step<4){
+    h+='<div class="prog">'+STEPS.map(function(s,i){
+      return '<div><div class="bar'+(i<=S.step?" on":"")+'"></div><div class="plab'+(i===S.step?" on":"")+'">'+s+'</div></div>';
+    }).join("")+'</div>';
+  }
+
+  h+='<div class="card">';
+
+  if(S.step===0){
+    h+='<div class="sec"><div class="lab">Team or company name</div><div class="hint">Appears at the top of the framework. Optional.</div>'+
+       '<input type="text" id="company" value="'+esc(c.company)+'" placeholder="e.g. Fakir Technology"></div>';
+    h+='<div class="sec"><div class="lab">Function</div><div class="hint">Tailors competencies and language to the job.</div>'+chips(ROLES,"role")+'</div>';
+    h+='<div class="sec"><div class="lab">Track</div><div class="hint">A dual ladder lets people grow into senior IC roles without becoming a manager.</div>'+chips(TRACKS,"track")+'</div>';
+  }
+
+  if(S.step===1){
+    h+='<div class="sec"><div class="lab">Number of levels</div><div class="hint">A smaller team usually needs fewer levels.</div>'+chips(LEVEL_COUNTS,"levelCount")+'</div>';
+    h+='<div class="sec"><div class="lab">Growth style</div><div class="hint">Whether the framework includes ways to grow scope without a title change.</div>'+chips(GROWTH_STYLES,"growthStyle")+'</div>';
+    if(c.growthStyle==="balanced"){
+      h+='<div class="sec"><div class="lab">Growth levers</div><div class="hint">Pick the ways people can realistically take on new scope here. These populate the "ways to grow" suggestions.</div>'+chips(LEVERS,"levers",true)+'</div>';
+    }
+  }
+
+  if(S.step===2){
+    h+='<div class="sec"><div class="lab">How promotions are decided</div><div class="hint">&nbsp;</div>'+chips(ASSESSMENTS,"assessment")+'</div>';
+    h+='<div class="sec"><div class="lab">Review cadence</div><div class="hint">&nbsp;</div>'+chips(CADENCES,"cadence")+'</div>';
+  }
+
+  if(S.step===3){
+    var kv=[["Company",c.company||"-"],["Function",c.role],["Track",TRACKS.filter(function(t){return t.v===c.track;})[0].l],
+      ["Levels",c.levelCount],["Growth style",c.growthStyle==="balanced"?"Vertical + horizontal":"Vertical only"],
+      ["Growth levers",c.growthStyle==="balanced"?(c.levers.join(", ")||"-"):"-"],
+      ["Decided by",c.assessment],["Cadence",c.cadence]];
+    h+='<div class="lab">Review your setup</div><div class="hint">Step back to change anything.</div><div class="grid">'+
+       kv.map(function(p){return '<div><div class="k">'+p[0]+'</div><div class="v">'+esc(p[1])+'</div></div>';}).join("")+'</div>';
+  }
+
+  if(S.step===4&&S.form){ h+=resultHTML(c,S.form); }
+
+  if(S.step<4){
+    h+='<div class="nav"><button class="btn" data-act="back"'+(S.step===0?" disabled":"")+'>&larr; Back</button>';
+    h+= S.step<3
+      ? '<button class="btn dark" data-act="next">Continue &rarr;</button>'
+      : '<button class="btn coral" data-act="gen">Generate framework</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  app.innerHTML=h;
+}
+
+function levelSectionHTML(section, showTrackLabel){
+  var h="";
+  if(showTrackLabel){ h+='<div class="tracklab">'+esc(TRACK_LABEL[section.track])+'</div>'; }
+  section.levels.forEach(function(lvl){
+    h+='<div class="lvl"><div class="lvlname"><span class="lvlnum">'+("0"+lvl.tier).slice(-2)+'</span>&nbsp; '+esc(lvl.name)+'</div>';
+    lvl.competencies.forEach(function(cp){
+      h+='<div class="comp"><div class="cname">'+esc(cp.name)+'</div><div class="cdef">'+esc(cp.definition)+'</div>'+
+         '<div class="cstmt">'+esc(cp.statement)+'</div></div>';
+    });
+    if(lvl.stretch.length){
+      h+='<div class="guide"><b class="t">Ways to grow into this level (no title change needed)</b><ul>'+
+         lvl.stretch.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul></div>';
+    }
+    h+='</div>';
+  });
+  return h;
+}
+
+function resultHTML(c,f){
+  var h="";
+  h+='<div class="note">Local preview: this framework is assembled by the built-in library so it works offline. '+
+     'On the live site this step is where the AI call happens, through your backend.</div>';
+
+  h+='<div class="fhead"><div class="eyebrow">Career Ladder</div>'+
+     '<div class="ftitle">'+esc(c.company?c.company+" · "+c.role:c.role)+'</div>'+
+     '<div class="fmeta">Reviewed '+esc(c.cadence.toLowerCase())+' &middot; Decided by '+esc(c.assessment.toLowerCase())+'</div></div>';
+
+  h+='<p class="intro">'+esc(f.intro)+'</p>';
+
+  f.trackSections.forEach(function(section){
+    h+=levelSectionHTML(section, c.track==="Dual");
+  });
+
+  h+='<div class="promo"><b class="t">How promotions are decided</b>'+
+     esc(c.assessment)+', reviewed '+esc(c.cadence.toLowerCase())+
+     '. A move up a level should reflect what someone has already been doing for a while, not what they might be able to do — use the "ways to grow" suggestions above to build that evidence before the review.</div>';
+
+  h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy framework (Markdown)")+'</button>'+
+     '<button class="btn" data-act="restart">Start over</button></div>';
+  return h;
+}
+
+/* ============================ MARKDOWN ============================ */
+function toMarkdown(c,f){
+  var m="# Career Ladder - "+(c.company?c.company+" - ":"")+c.role+"\n";
+  m+="_Reviewed "+c.cadence.toLowerCase()+" | Decided by "+c.assessment.toLowerCase()+"_\n\n";
+  m+=f.intro+"\n\n";
+  f.trackSections.forEach(function(section){
+    if(c.track==="Dual") m+="## "+TRACK_LABEL[section.track]+"\n\n";
+    section.levels.forEach(function(lvl){
+      m+="### "+("0"+lvl.tier).slice(-2)+". "+lvl.name+"\n";
+      lvl.competencies.forEach(function(cp){
+        m+="- **"+cp.name+"** ("+cp.definition+"): "+cp.statement+"\n";
+      });
+      if(lvl.stretch.length){
+        m+="\n_Ways to grow into this level:_\n";
+        lvl.stretch.forEach(function(s){ m+="- "+s+"\n"; });
+      }
+      m+="\n";
+    });
+  });
+  m+="### How promotions are decided\n"+c.assessment+", reviewed "+c.cadence.toLowerCase()+".\n";
+  return m;
+}
+
+/* ============================ NOTIFY (best-effort, never blocks) ============================ */
+function notifyBackground(cfg,form){
+  try{
+    var payload={
+      config:{company:cfg.company,role:cfg.role,track:cfg.track,levelCount:cfg.levelCount,
+        growthStyle:cfg.growthStyle,levers:cfg.levers,assessment:cfg.assessment,cadence:cfg.cadence},
+      document:toMarkdown(cfg,form)
+    };
+    fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .catch(function(){});
+  }catch(e){}
+}
+
+/* ============================ STEP TRANSITION ============================ */
+function renderStep(){
+  render();
+  var card=app.querySelector(".card");
+  if(card) card.classList.add("step-anim");
+}
+
+/* ============================ EVENTS ============================ */
+app.addEventListener("input",function(e){
+  if(e.target.id==="company") S.cfg.company=e.target.value;
+});
+
+app.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act"),k=b.getAttribute("data-k"),v=b.getAttribute("data-v");
+
+  if(act==="set"){
+    S.cfg[k]=v;
+    render();
+  }
+  else if(act==="tog"){
+    var a=S.cfg[k],i=a.indexOf(v);
+    if(i>-1) a.splice(i,1); else a.push(v);
+    render();
+  }
+  else if(act==="next"){ S.step++; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.form=buildLadder(S.cfg); S.step=4; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.form); }
+  else if(act==="restart"){ S.step=0; S.form=null; S.copied=false; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="copy"){
+    var txt=toMarkdown(S.cfg,S.form);
+    var done=function(){ S.copied=true; render(); setTimeout(function(){S.copied=false;render();},1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();});
+    } else { fallbackCopy(txt); done(); }
+  }
+});
+
+function fallbackCopy(t){
+  var ta=document.createElement("textarea");
+  ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy");}catch(err){}
+  document.body.removeChild(ta);
+}
+
+render();
+</script>
+</body>
+</html>

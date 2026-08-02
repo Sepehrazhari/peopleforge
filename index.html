@@ -705,12 +705,12 @@ footer {
           <div class="product-desc">30-60-90 day plans, buddy programs, and exit interview frameworks.</div>
           <div class="product-footer"><span class="product-price">$49</span><span class="badge badge-gray">Coming soon</span></div>
         </div>
-        <div class="product-card is-soon">
+        <a class="product-card" href="/products/career-ladder">
           <div class="product-icon icon-a">CL</div>
           <div class="product-name">Career ladder framework</div>
           <div class="product-desc">Level definitions, competencies, and promotion criteria for any team size.</div>
-          <div class="product-footer"><span class="product-price">$99</span><span class="badge badge-gray">Coming soon</span></div>
-        </div>
+          <div class="product-footer"><span class="product-price">$99</span><span class="product-add">Build your ladder →</span></div>
+        </a>
         <div class="product-card is-soon">
           <div class="product-icon icon-c">CS</div>
           <div class="product-name">Compensation system</div>
@@ -1196,10 +1196,10 @@ footer {
 <!-- ═══════════════════════════════════════ SCRIPTS ═══ -->
 <script>
 const shopProducts=[
-  {id:1,name:"Custom Performance Evaluation Form",desc:"Forms, rating rubrics, and manager guide. A complete review process, not just a form.",price:19,cat:"template",icon:"PE",ic:"icon-c",link:"/products/360-feedback"},
+  {id:1,name:"Custom Performance Evaluation Form",desc:"Forms, rating rubrics, and manager guide. A complete review process, not just a form.",price:19,cat:"template",icon:"PE",ic:"icon-c",link:"/products/360-feedback",cta:"Build your form →"},
   {id:2,name:"Company handbook",desc:"Full Notion + PDF template covering culture, policies, and values. Editable in 30 minutes.",price:79,cat:"template",icon:"HB",ic:"icon-t"},
   {id:3,name:"Onboarding & offboarding kit",desc:"30-60-90 day plans, buddy programs, and exit interview frameworks.",price:49,cat:"template",icon:"OB",ic:"icon-b"},
-  {id:4,name:"Career ladder framework",desc:"Level definitions, competencies, and promotion criteria for any team size.",price:99,cat:"framework",icon:"CL",ic:"icon-a"},
+  {id:4,name:"Career ladder framework",desc:"Level definitions, competencies, and promotion criteria for any team size.",price:99,cat:"framework",icon:"CL",ic:"icon-a",link:"/products/career-ladder",cta:"Build your ladder →"},
   {id:5,name:"Compensation system",desc:"Salary bands, benchmarking guide, and pay equity audit template.",price:149,cat:"framework",icon:"CS",ic:"icon-c"},
   {id:6,name:"Engagement survey + analysis",desc:"The survey questions AND the playbook for when results show burnout.",price:59,cat:"template",icon:"ES",ic:"icon-t"},
   {id:7,name:"Remote & hybrid work playbook",desc:"Async norms, meeting rhythms, and time-zone policies for distributed teams.",price:49,cat:"template",icon:"RW",ic:"icon-p"},
@@ -1221,7 +1221,7 @@ function renderShop(list){
     const tag=p.link?'a':'div';
     const href=p.link?` href="${p.link}"`:'';
     const footer=p.link
-      ? `<span class="product-price">$${p.price.toLocaleString()}</span><span class="product-add">Build your form →</span>`
+      ? `<span class="product-price">$${p.price.toLocaleString()}</span><span class="product-add">${p.cta||'Build it →'}</span>`
       : `<span class="product-price">$${p.price.toLocaleString()}${p.cat==='consulting'?'+':''}</span><span class="badge badge-gray">Coming soon</span>`;
     return `
     <${tag} class="product-card${p.link?'':' is-soon'}"${href}>
