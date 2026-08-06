@@ -230,6 +230,46 @@ nav.site-nav {
   align-items: center;
   gap: 10px;
 }
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-mobile-panel {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 1.25rem 20px;
+  border-top: 1px solid var(--border);
+}
+.nav-mobile-panel a {
+  padding: 10px 0;
+  font-size: 15px;
+  color: var(--text);
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+}
+.nav-mobile-panel .btn { margin-top: 12px; align-self: flex-start; }
+.nav-mobile-panel.open { display: flex; }
 
 /* ── Buttons ── */
 .btn {
@@ -592,6 +632,8 @@ footer {
 @media (max-width: 768px) {
   .container { padding: 0 1.25rem; }
   .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
   .hero { padding: 4rem 0 2.5rem; }
   .stats-bar { flex-wrap: wrap; }
   .stat-item { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border); }
@@ -630,6 +672,16 @@ footer {
       <div class="pill"><div class="pill-dot"></div>Crypto accepted</div>
       <button class="btn btn-primary btn-sm" onclick="showPage('shop')">Browse products →</button>
     </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a onclick="showPage('shop');closeMobileNav()">Products</a>
+    <a onclick="showPage('about');closeMobileNav()">About</a>
+    <a onclick="showPage('blog');closeMobileNav()">Blog</a>
+    <a href="mailto:hello@peopleforge.co">Contact</a>
+    <button class="btn btn-primary btn-sm" onclick="showPage('shop');closeMobileNav()">Browse products →</button>
   </div>
 </nav>
 
@@ -1266,6 +1318,21 @@ function showPage(id){
   if(navLink) navLink.classList.add('active');
   if(id==='shop') renderShop(shopProducts);
   document.title={home:'PeopleForge — HR Infrastructure for Companies That Give a Damn',shop:'HR Templates & Frameworks — PeopleForge Shop',about:'About PeopleForge — Our Story & Team',blog:'HR Blog & Insights — PeopleForge Journal'}[id]||'PeopleForge';
+}
+
+function toggleMobileNav(){
+  const panel=document.getElementById('navMobilePanel');
+  const btn=document.querySelector('.nav-toggle');
+  const isOpen=panel.classList.toggle('open');
+  btn.classList.toggle('open',isOpen);
+  btn.setAttribute('aria-expanded',isOpen?'true':'false');
+}
+
+function closeMobileNav(){
+  document.getElementById('navMobilePanel').classList.remove('open');
+  const btn=document.querySelector('.nav-toggle');
+  btn.classList.remove('open');
+  btn.setAttribute('aria-expanded','false');
 }
 
 function toggleFaq(el){
