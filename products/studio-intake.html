@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleForge Studio - Tell us what you need</title>
+<link rel="stylesheet" href="/assets/css/brand.css">
+<style>
+:root{
+  --muted:var(--text-muted); --light:var(--text-light);
+  --display:var(--font-display); --body:var(--font-body);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.backlink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.backlink:hover{color:var(--coral)}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6px;margin:8px 0 6px}
+.lede{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 20px}
+.prog{display:flex;gap:6px;margin-bottom:22px}
+.prog div{flex:1}
+.bar{height:4px;border-radius:4px;background:var(--border)}
+.bar.on{background:var(--coral)}
+.plab{font-size:11px;margin-top:6px;color:var(--light)}
+.plab.on{color:var(--anvil);font-weight:500}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.step-anim{animation:stepIn .3s ease}
+.sec{margin-bottom:26px}
+.lab{font-family:var(--display);font-weight:700;font-size:15px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.chip{font-family:var(--body);font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;margin:0 8px 8px 0;transition:all .15s}
+.chip:hover{border-color:var(--coral)}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
+input[type=text],input[type=email],textarea{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
+input[type=text]:focus,input[type=email]:focus,textarea:focus{border-color:var(--coral)}
+textarea{resize:vertical;min-height:80px;font-family:var(--body)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.k{font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.v{font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px}
+.btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--anvil)}
+.btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
+.btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
+.btn:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;background:var(--coral-light);color:var(--coral-dark);padding:10px 14px;border-radius:10px;margin-bottom:18px;line-height:1.5}
+.errbox{font-size:13.5px;background:var(--coral-light);color:var(--coral-dark);padding:14px 16px;border-radius:10px;margin-top:16px;line-height:1.6}
+.errbox a{color:var(--coral-dark);font-weight:500}
+.confirm{text-align:center;padding:20px 0}
+.confirm .big{font-size:44px;margin-bottom:10px}
+.confirm h2{font-family:var(--display);font-size:22px;margin:0 0 10px}
+.confirm p{font-size:14.5px;color:var(--muted);line-height:1.7;max-width:440px;margin:0 auto 22px}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="/">&larr; Back to PeopleForge</a>
+  <div class="brandbar">
+    <div class="mark">P</div>
+    <div class="brand">PeopleForge</div>
+    <div class="tag">PeopleForge Studio &middot; intake</div>
+  </div>
+  <h1>Tell us what you need</h1>
+  <p class="lede">A few questions about your team and how you work. Takes about 2 minutes — we'll follow up personally once we've read it.</p>
+  <div id="app"></div>
+  <div class="foot">Prototype &middot; the engine behind PeopleForge products</div>
+</div>
+
+<script>
+var TEAM_SIZES=["1-10","11-50","51-200","200+"];
+var TOOLS=["Spreadsheets","Airtable","Notion","An HRIS (BambooHR, Rippling, etc.)","Nothing / ad-hoc"];
+var PAIN_POINTS=["Too manual","Doesn't fit our process","Data scattered everywhere","Too expensive","Something else"];
+var NEEDS=["Employee records & org chart","Onboarding workflows","Performance tracking","Time off & leave","Custom reporting & dashboards","Integrations with other tools","Something else"];
+var TIMELINES=["ASAP","Within a quarter","Just exploring"];
+var STEPS=["About you","Current setup","What you need","Contact & submit"];
+
+/* ============================ STATE ============================ */
+var S={step:0,sending:false,sendError:false,sent:false,cfg:{
+  company:"",teamSize:"11-50",
+  tools:[],painPoint:"Doesn't fit our process",
+  needs:[],details:"",
+  timeline:"Within a quarter",name:"",email:""
+}};
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+/* ============================ RENDER ============================ */
+var app=document.getElementById("app");
+
+function chips(list,key,multi){
+  return list.map(function(o){
+    var on=multi?S.cfg[key].indexOf(o)>-1:S.cfg[key]===o;
+    return '<button class="chip'+(on?" on":"")+'" data-act="'+(multi?"tog":"set")+'" data-k="'+key+'" data-v="'+esc(o)+'">'+
+      (multi&&on?"&#10003; ":"")+esc(o)+'</button>';
+  }).join("");
+}
+
+function render(){
+  var c=S.cfg,h="";
+
+  if(S.step<4){
+    h+='<div class="prog">'+STEPS.map(function(s,i){
+      return '<div><div class="bar'+(i<=S.step?" on":"")+'"></div><div class="plab'+(i===S.step?" on":"")+'">'+s+'</div></div>';
+    }).join("")+'</div>';
+  }
+
+  h+='<div class="card">';
+
+  if(S.step===0){
+    h+='<div class="sec"><div class="lab">Company name</div><div class="hint">&nbsp;</div>'+
+       '<input type="text" id="company" value="'+esc(c.company)+'" placeholder="e.g. Fakir Technology"></div>';
+    h+='<div class="sec"><div class="lab">Team size</div><div class="hint">&nbsp;</div>'+chips(TEAM_SIZES,"teamSize")+'</div>';
+  }
+
+  if(S.step===1){
+    h+='<div class="sec"><div class="lab">What do you use today?</div><div class="hint">Pick everything that applies.</div>'+chips(TOOLS,"tools",true)+'</div>';
+    h+='<div class="sec"><div class="lab">What’s the main problem with it?</div><div class="hint">&nbsp;</div>'+chips(PAIN_POINTS,"painPoint")+'</div>';
+  }
+
+  if(S.step===2){
+    h+='<div class="sec"><div class="lab">What do you need it to handle?</div><div class="hint">Pick everything that applies.</div>'+chips(NEEDS,"needs",true)+'</div>';
+    h+='<div class="sec"><div class="lab">Anything else worth knowing?</div><div class="hint">Optional. Quirks, must-haves, tools it needs to talk to.</div>'+
+       '<textarea id="details" placeholder="e.g. Needs to sync with our payroll provider">'+esc(c.details)+'</textarea></div>';
+  }
+
+  if(S.step===3){
+    h+='<div class="sec"><div class="lab">Timeline</div><div class="hint">&nbsp;</div>'+chips(TIMELINES,"timeline")+'</div>';
+    h+='<div class="sec"><div class="lab">Your name</div><div class="hint">&nbsp;</div>'+
+       '<input type="text" id="name" value="'+esc(c.name)+'" placeholder="e.g. Sepehr Azhari"></div>';
+    h+='<div class="sec"><div class="lab">Work email</div><div class="hint">So we know where to reply.</div>'+
+       '<input type="email" id="email" value="'+esc(c.email)+'" placeholder="you@company.com"></div>';
+    var kv=[["Company",c.company||"-"],["Team size",c.teamSize],
+      ["Current tools",c.tools.join(", ")||"-"],["Main pain point",c.painPoint],
+      ["Needs",c.needs.join(", ")||"-"],["Timeline",c.timeline]];
+    h+='<div class="lab">Review</div><div class="hint">Step back to change anything.</div><div class="grid">'+
+       kv.map(function(p){return '<div><div class="k">'+p[0]+'</div><div class="v">'+esc(p[1])+'</div></div>';}).join("")+'</div>';
+    if(S.sendError){
+      h+='<div class="errbox">Something went wrong sending this — your connection may have dropped. Please try again, or email us directly at '+
+         '<a href="mailto:hello@peopleforge.co">hello@peopleforge.co</a> and we’ll pick it up from there.</div>';
+    }
+  }
+
+  if(S.step===4){ h+=confirmHTML(c); }
+
+  if(S.step<4){
+    h+='<div class="nav"><button class="btn" data-act="back"'+(S.step===0?" disabled":"")+'>&larr; Back</button>';
+    h+= S.step<3
+      ? '<button class="btn dark" data-act="next">Continue &rarr;</button>'
+      : '<button class="btn coral" data-act="send"'+(S.sending?" disabled":"")+'>'+(S.sending?"Sending…":"Send inquiry")+'</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  app.innerHTML=h;
+}
+
+function confirmHTML(c){
+  var h='<div class="confirm">';
+  h+='<div class="big">&#10003;</div>';
+  h+='<h2>Got it, '+esc(c.name.split(" ")[0]||"thanks")+'.</h2>';
+  h+='<p>We’ve got what you sent and will reply at '+esc(c.email)+' within a couple of business days. '+
+     'If it’s urgent, feel free to book a call in the meantime.</p>';
+  h+='<div class="nav" style="justify-content:center;gap:10px">'+
+     '<button class="btn" onclick="location.href=\'/\'">&larr; Back to PeopleForge</button>'+
+     '<button class="btn dark" onclick="location.href=\'mailto:hello@peopleforge.co?subject=PeopleForge%20Studio%20%E2%80%94%20discovery%20call\'">Book a discovery call</button>'+
+     '</div>';
+  h+='</div>';
+  return h;
+}
+
+/* ============================ SUBMIT ============================ */
+function toSummary(c){
+  var lines=[];
+  lines.push("New PeopleForge Studio inquiry");
+  lines.push("");
+  lines.push("Company: "+(c.company||"-"));
+  lines.push("Team size: "+c.teamSize);
+  lines.push("Contact: "+(c.name||"-")+" <"+(c.email||"-")+">");
+  lines.push("Timeline: "+c.timeline);
+  lines.push("");
+  lines.push("Current tools: "+(c.tools.join(", ")||"-"));
+  lines.push("Main pain point: "+c.painPoint);
+  lines.push("Needs: "+(c.needs.join(", ")||"-"));
+  if(c.details) lines.push("Notes: "+c.details);
+  return lines.join("\n");
+}
+
+function submitInquiry(){
+  S.sending=true; S.sendError=false; render();
+  var payload={config:{company:S.cfg.company||"(no company given)"},document:toSummary(S.cfg)};
+  fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+    .then(function(res){
+      if(!res.ok) throw new Error("bad status");
+      return res.json();
+    })
+    .then(function(data){
+      S.sending=false;
+      if(data && data.ok){ S.step=4; S.sent=true; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+      else { S.sendError=true; render(); }
+    })
+    .catch(function(){
+      S.sending=false; S.sendError=true; render();
+    });
+}
+
+/* ============================ STEP TRANSITION ============================ */
+function renderStep(){
+  render();
+  var card=app.querySelector(".card");
+  if(card) card.classList.add("step-anim");
+}
+
+/* ============================ EVENTS ============================ */
+app.addEventListener("input",function(e){
+  if(e.target.id==="company") S.cfg.company=e.target.value;
+  if(e.target.id==="details") S.cfg.details=e.target.value;
+  if(e.target.id==="name") S.cfg.name=e.target.value;
+  if(e.target.id==="email") S.cfg.email=e.target.value;
+});
+
+app.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act"),k=b.getAttribute("data-k"),v=b.getAttribute("data-v");
+
+  if(act==="set"){ S.cfg[k]=v; render(); }
+  else if(act==="tog"){
+    var a=S.cfg[k],i=a.indexOf(v);
+    if(i>-1) a.splice(i,1); else a.push(v);
+    render();
+  }
+  else if(act==="next"){ S.step++; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="send"){ submitInquiry(); }
+});
+
+render();
+</script>
+</body>
+</html>

@@ -526,6 +526,26 @@ nav.site-nav {
 }
 .nl-form input::placeholder { color: rgba(255,255,255,0.45); }
 
+/* ── Flagship (PeopleForge Studio) ── */
+.flagship { background: var(--anvil); color: #fff; padding: 5rem 0; }
+.flagship-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start; }
+.flagship-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); font-weight: 500; margin-bottom: 1rem; }
+.flagship-title { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+.flagship-sub { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.75); margin-bottom: 1.5rem; max-width: 480px; }
+.flagship-points { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0 0 2rem; padding: 0; }
+.flagship-points li { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.85); padding-left: 24px; position: relative; }
+.flagship-points li::before { content: "✓"; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+.flagship-price { font-family: var(--font-display); font-size: 28px; font-weight: 700; margin-bottom: 1.5rem; }
+.flagship-price span { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.55); margin-left: 8px; }
+.flagship-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-invert { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
+.btn-invert:hover { border-color: #fff; }
+.flagship-steps { display: flex; flex-direction: column; gap: 1.25rem; }
+.flagship-step { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 1.25rem 1.5rem; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.85); }
+.flagship-step b { display: block; font-family: var(--font-display); color: var(--coral); font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+.flagship-by { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.12); font-size: 13px; color: rgba(255,255,255,0.55); }
+.flagship-by strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+
 /* ── CTA bar ── */
 .cta-bar {
   background: var(--linen);
@@ -635,6 +655,8 @@ footer {
   .nav-cta { display: none; }
   .nav-toggle { display: flex; }
   .hero { padding: 4rem 0 2.5rem; }
+  .flagship { padding: 3rem 0; }
+  .flagship-grid { grid-template-columns: 1fr; gap: 2rem; }
   .stats-bar { flex-wrap: wrap; }
   .stat-item { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border); }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
@@ -732,6 +754,34 @@ footer {
       <span class="marquee-item">L&amp;D Programs<span class="marquee-sep">✦</span></span>
     </div>
   </div>
+
+  <section class="flagship" aria-labelledby="flagship-heading">
+    <div class="container">
+      <div class="flagship-grid">
+        <div>
+          <p class="flagship-eyebrow">The flagship build</p>
+          <h2 class="flagship-title" id="flagship-heading">PeopleForge Studio</h2>
+          <p class="flagship-sub">A fully custom people-management platform, built on your own AWS infrastructure and shaped entirely around how your company actually works — not a template you have to bend to fit.</p>
+          <ul class="flagship-points">
+            <li>Not Airtable. Not Notion. A system designed from scratch around your workflows, your data, your team.</li>
+            <li>Runs on your own AWS account — you own the infrastructure and the data, not a vendor.</li>
+            <li>Pay once, own it forever. New features or hands-on support later are an optional subscription, never a requirement.</li>
+          </ul>
+          <div class="flagship-price">From $7,500 <span>one-time build</span></div>
+          <div class="flagship-ctas">
+            <button class="btn btn-primary" onclick="location.href='/products/studio-intake'">Tell us what you need →</button>
+            <button class="btn btn-invert" onclick="location.href='mailto:hello@peopleforge.co?subject=PeopleForge%20Studio%20%E2%80%94%20discovery%20call'">Book a discovery call</button>
+          </div>
+          <p class="flagship-by">Engineered by <strong>Fakir Technology Consultants</strong> — the team behind PeopleForge's custom builds.</p>
+        </div>
+        <div class="flagship-steps">
+          <div class="flagship-step"><b>01 · Tell us what you need</b>Meet with us or fill out a short intake form describing your team and workflows.</div>
+          <div class="flagship-step"><b>02 · We design and build it</b>A system matched to your exact process, running on your own AWS infrastructure.</div>
+          <div class="flagship-step"><b>03 · You own it outright</b>It's yours forever. Ongoing changes or support are available by subscription, never required.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="section" aria-labelledby="products-heading">
     <div class="container">
