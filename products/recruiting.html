@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleForge - Recruiting Framework Builder</title>
+<link rel="stylesheet" href="/assets/css/brand.css">
+<style>
+:root{
+  --muted:var(--text-muted); --light:var(--text-light);
+  --display:var(--font-display); --body:var(--font-body);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.backlink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.backlink:hover{color:var(--coral)}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6px;margin:8px 0 20px}
+.prog{display:flex;gap:6px;margin-bottom:22px}
+.prog div{flex:1}
+.bar{height:4px;border-radius:4px;background:var(--border)}
+.bar.on{background:var(--coral)}
+.plab{font-size:11px;margin-top:6px;color:var(--light)}
+.plab.on{color:var(--anvil);font-weight:500}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.step-anim{animation:stepIn .3s ease}
+.sec{margin-bottom:26px}
+.lab{font-family:var(--display);font-weight:700;font-size:15px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.chip{font-family:var(--body);font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;margin:0 8px 8px 0;transition:all .15s}
+.chip:hover{border-color:var(--coral)}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
+input[type=text]{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
+input[type=text]:focus{border-color:var(--coral)}
+.scard{display:block;width:100%;text-align:left;cursor:pointer;padding:14px 16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;margin-bottom:10px;transition:border-color .15s,background .15s}
+.scard.on{border-color:var(--coral);background:var(--coral-light)}
+.scard b{font-family:var(--display);font-size:15px;display:block}
+.scard span{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.k{font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.v{font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px}
+.btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--anvil)}
+.btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
+.btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
+.btn:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;background:var(--coral-light);color:var(--coral-dark);padding:10px 14px;border-radius:10px;margin-bottom:18px;line-height:1.5}
+.fhead{border-bottom:2px solid var(--anvil);padding-bottom:14px;margin-bottom:18px}
+.eyebrow{font-size:12px;color:var(--coral);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.ftitle{font-family:var(--display);font-weight:700;font-size:22px;margin-top:4px}
+.fmeta{font-size:13px;color:var(--muted);margin-top:3px}
+.intro{font-size:14.5px;line-height:1.6;margin:0 0 20px}
+.h2{font-family:var(--display);font-weight:700;font-size:17px;margin:30px 0 10px;padding-top:16px;border-top:2px solid var(--anvil)}
+.h2:first-of-type{border-top:none;padding-top:0}
+.loop{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.loopstep{flex:1 1 130px;border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:var(--linen)}
+.loopstep b{display:block;font-family:var(--display);font-size:13.5px}
+.loopstep span{font-size:12px;color:var(--muted)}
+.checklist{background:var(--teal-light);border-radius:12px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;line-height:1.7}
+.checklist b.t{font-family:var(--display);font-size:13px;display:block;margin-bottom:6px}
+.checklist div{display:flex;gap:8px;align-items:flex-start}
+.box{width:13px;height:13px;border:1.5px solid var(--muted);border-radius:3px;flex-shrink:0;margin-top:4px}
+.stage{margin-bottom:24px;padding-bottom:4px}
+.stagehead{font-family:var(--display);font-weight:700;font-size:16px}
+.snum{color:var(--coral)}
+.stagemeta{font-size:12.5px;color:var(--light);margin-top:2px}
+.stagepurpose{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:6px;margin-bottom:4px}
+.qc{padding:12px 0;border-top:1px solid var(--border)}
+.qcname{font-weight:700;font-size:14px}
+.qcdef{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:1px}
+.qlist{margin:8px 0 0;padding-left:18px;font-size:14px;line-height:1.65}
+.qlist li{margin-bottom:4px}
+.sig{font-size:12.5px;line-height:1.6;margin-top:8px}
+.sig b{font-family:var(--display);font-size:12px}
+.sig .good{color:var(--teal)}
+.sig .bad{color:var(--coral-dark)}
+.scale{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:5px 9px}
+.rubric{background:var(--linen);border-radius:12px;padding:16px 18px;font-size:13.5px;line-height:1.7}
+.rubric b.t{font-family:var(--display);font-size:14px;display:block;margin-bottom:8px}
+.rubric ul{margin:6px 0 0;padding-left:18px}
+.rubric li{margin-bottom:5px}
+.email{border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.emailname{font-family:var(--display);font-weight:700;font-size:14px}
+.emailwhen{font-size:12px;color:var(--light);margin-top:1px;margin-bottom:8px}
+.emailsubj{font-size:13px;background:var(--linen);border-radius:7px;padding:7px 10px;margin-bottom:8px}
+.emailbody{font-size:13.5px;line-height:1.65;white-space:pre-wrap}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="/">&larr; Back to PeopleForge</a>
+  <div class="brandbar">
+    <div class="mark">P</div>
+    <div class="brand">PeopleForge</div>
+    <div class="tag">Recruiting Framework Builder &middot; demo</div>
+  </div>
+  <h1>Build a recruiting framework</h1>
+  <div id="app"></div>
+  <div class="foot">Prototype &middot; the engine behind PeopleForge products</div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT LIBRARY
+   Deterministic, built in so the demo runs with no network at all.
+   Each competency carries behavioural interview questions plus the
+   signals that separate a real answer from a rehearsed one.
+   ============================================================ */
+var COMP = {
+  "Communication":{def:"Shares information clearly and listens well.",
+    q:["Tell me about a time you had to explain something complicated to someone without your background. How did you know they understood?",
+       "Describe a moment you realised you had been misunderstood. What did you do about it?",
+       "Walk me through a piece of writing you did that changed what someone else decided."],
+    strong:["Adjusts the explanation to the listener rather than repeating themselves louder.","Checks for understanding instead of assuming it."],
+    weak:["Blames the other party for not getting it.","Answers in jargon even after you ask them to simplify."]},
+  "Collaboration":{def:"Works with others toward a shared outcome.",
+    q:["Tell me about a project that only worked because of how the group operated. What was your part in that?",
+       "Describe a disagreement with a colleague where you ended up changing your position.",
+       "When did you last make someone else's work easier without being asked?"],
+    strong:["Names specific colleagues and what they contributed.","Describes disagreement without making the other person the villain."],
+    weak:["Uses 'we' so broadly you cannot tell what they personally did.","Every past team conflict was someone else's fault."]},
+  "Ownership & accountability":{def:"Takes responsibility for outcomes, not just tasks.",
+    q:["Tell me about something you shipped that did not work. What did you do next?",
+       "Describe a problem you fixed that was not technically yours to fix.",
+       "When did you last have to tell someone bad news about your own work?"],
+    strong:["Volunteers the failure before you dig for it.","Talks about the root cause, not just the patch."],
+    weak:["Cannot name a real mistake, or names a humblebrag one.","Waited to be told there was a problem."]},
+  "Technical excellence":{def:"Delivers high-quality, durable work.",
+    q:["Show me something you built that you are still proud of. What makes it good?",
+       "Tell me about a time you chose the slower, more careful approach. How did you justify it?",
+       "What is something in your last role you would rebuild differently now?"],
+    strong:["Can articulate why a decision was right, not just what it was.","Has opinions about quality that survive follow-up questions."],
+    weak:["Quality means 'it worked' and nothing more.","Cannot explain trade-offs they made."]},
+  "Problem solving":{def:"Breaks down hard problems and finds workable answers.",
+    q:["Describe the messiest problem you have untangled. How did you start?",
+       "Tell me about a decision you made without enough information.",
+       "When did you discover the problem you were solving was the wrong one?"],
+    strong:["Starts by framing the problem, not by jumping to a solution.","Comfortable saying what they did not know at the time."],
+    weak:["Every problem in their telling had an obvious answer.","Cannot describe an approach, only an outcome."]},
+  "Leadership & influence":{def:"Moves people and work forward without relying on authority.",
+    q:["Tell me about a time you got a group to do something they were not initially sold on.",
+       "Describe someone whose work got better because of you. What did you actually do?",
+       "When did you have to push back on a decision from above?"],
+    strong:["Influence came from reasoning or evidence, not seniority.","Can name the person who grew and how."],
+    weak:["Leadership described purely as being in charge.","Never disagreed upward, or did so only after it was safe."]},
+  "Adaptability":{def:"Adjusts well when priorities or conditions change.",
+    q:["Tell me about a time your priorities changed completely mid-project.",
+       "Describe something you had to learn fast to do your job. How did you go about it?",
+       "When did new evidence make you abandon an approach you liked?"],
+    strong:["Changed course on evidence rather than on instruction.","Describes the learning process, not just the result."],
+    weak:["Treats every change as mismanagement by someone else.","Cannot name anything they have changed their mind about."]},
+  "Customer focus":{def:"Keeps the customer's real needs central.",
+    q:["Tell me about a time you pushed back on an internal decision on behalf of a customer.",
+       "Describe how you found out what a customer actually needed, versus what they asked for.",
+       "When did you last talk to a customer directly? What surprised you?"],
+    strong:["Has actually spoken to customers, not just read about them.","Can separate stated wants from underlying needs."],
+    weak:["Customer needs are always assumed, never checked.","Has never advocated for a customer against internal convenience."]},
+  "Strategic thinking":{def:"Connects daily work to longer-term direction.",
+    q:["Tell me about something you chose not to do, and why.",
+       "How did your last team's work connect to what the company was trying to achieve?",
+       "Describe a decision whose second-order effects you had to think through."],
+    strong:["Can explain the goal behind the work, not just the work.","Says no to things with a reason attached."],
+    weak:["Cannot connect their work to any larger objective.","Prioritises whatever was loudest."]},
+  "Feedback & growth":{def:"Gives and receives feedback that leads to change.",
+    q:["What is the most useful piece of critical feedback you have received? What changed after it?",
+       "Tell me about feedback you gave that was hard to deliver.",
+       "How do you find out whether you are actually good at something?"],
+    strong:["Can name a specific behaviour they changed.","Seeks feedback rather than waiting for review season."],
+    weak:["The critical feedback they name is not actually critical.","Gave feedback only through a manager, never directly."]},
+  "Reliability":{def:"Consistent and dependable in day-to-day delivery.",
+    q:["Tell me about a deadline you were going to miss. What did you do?",
+       "How do you keep track of what you have committed to?",
+       "Describe a stretch where you had more work than time. How did you decide what gave?"],
+    strong:["Flagged the slip early, with a revised plan.","Has an actual system, not just a good memory."],
+    weak:["Missed deadlines surface only at the deadline.","Quality quietly dropped and nobody was told."]},
+  "Innovation":{def:"Improves how things are done, not just what.",
+    q:["Tell me about a way of working you changed. How did you know it was better?",
+       "Describe an experiment you ran that failed. What did it teach you?",
+       "What is something everyone in your field accepts that you think is wrong?"],
+    strong:["Measured whether the change actually helped.","Can defend a contrarian view with reasoning."],
+    weak:["Novelty for its own sake, with no evidence of improvement.","Has never tested an idea at small scale first."]}
+};
+
+var ROLE_MAP = {
+  "Software Engineering":["Technical excellence","Problem solving","Collaboration","Communication","Ownership & accountability"],
+  "Product & Design":["Customer focus","Communication","Collaboration","Problem solving","Strategic thinking"],
+  "Sales":["Customer focus","Communication","Ownership & accountability","Adaptability","Reliability"],
+  "Marketing":["Communication","Innovation","Customer focus","Collaboration","Ownership & accountability"],
+  "Operations":["Reliability","Problem solving","Ownership & accountability","Collaboration","Adaptability"],
+  "People & HR":["Communication","Feedback & growth","Collaboration","Reliability","Customer focus"],
+  "Customer Success":["Customer focus","Communication","Reliability","Problem solving","Ownership & accountability"],
+  "Finance":["Reliability","Problem solving","Communication","Ownership & accountability","Strategic thinking"],
+  "Leadership (General)":["Leadership & influence","Strategic thinking","Communication","Feedback & growth","Ownership & accountability"]
+};
+
+var STAGE_META = {
+  "Screen":{dur:"30 min",who:"Recruiter or hiring manager",
+    purpose:"Confirm the must-haves, motivation, and basic communication. This stage is cheap to run, so use it to rule out early rather than to sell.",
+    affinity:["Communication","Reliability"]},
+  "Skills":{dur:"60 min",who:"Hiring manager plus one peer",
+    purpose:"Watch how they actually do the work. A real task or a walkthrough of something they built beats abstract questions every time.",
+    affinity:["Technical excellence","Problem solving","Innovation"]},
+  "Team fit":{dur:"45 min",who:"Two people who would work with them weekly",
+    purpose:"How they operate with other people day to day. Not whether you would enjoy a drink with them, which is how teams end up hiring the same person repeatedly.",
+    affinity:["Collaboration","Feedback & growth","Adaptability"]},
+  "Values":{dur:"45 min",who:"Someone outside the hiring team",
+    purpose:"Values alignment and ownership, run by someone with no stake in filling the seat quickly.",
+    affinity:["Ownership & accountability","Customer focus"]},
+  "Final":{dur:"45 min",who:"Department lead or founder",
+    purpose:"Scope, judgement, and whether the role is big enough to keep them for two years. Also their chance to interview you.",
+    affinity:["Strategic thinking","Leadership & influence"]}
+};
+
+/* A Skills stage should always contain an actual work sample. Watching someone
+   do a version of the job predicts performance better than asking them to
+   describe doing it. These are role-specific. */
+var WORK_SAMPLE = {
+  "Software Engineering":{note:"Give them a real problem from your own codebase, scoped to about 40 minutes. Ask them to think out loud — you are assessing the reasoning, not whether they finish.",
+    q:["Walk me through the hardest technical decision in something you built. What were the alternatives, and why did you rule them out?",
+       "Here is a real problem we hit recently: [describe it]. How would you approach it?"]},
+  "Product & Design":{note:"Hand them one of your real product problems and 30 minutes to think out loud. Do not brief them perfectly — ambiguity is part of the test.",
+    q:["Critique a product you use daily. What would you change first, and how would you know it worked?",
+       "Walk me through a decision where the data and your instinct disagreed. What did you do?"]},
+  "Sales":{note:"Run a discovery-call role-play. You play a prospect with a vaguely described problem and a budget objection.",
+    q:["Sell me the last product you worked on. Then tell me who it is wrong for.",
+       "Role-play: I am a prospect who says you are too expensive. Take it from there."]},
+  "Marketing":{note:"Ask them to critique your actual positioning or a recent campaign. Real material, not a hypothetical.",
+    q:["Pick a campaign you ran. What did you expect, what actually happened, and what did you change after?",
+       "Here is our current positioning: [share it]. What is weak about it?"]},
+  "Operations":{note:"Bring a real operational bottleneck you have not solved yet. Their first three questions tell you more than their answer.",
+    q:["Describe a process you inherited that was broken. What did you change first, and why that?",
+       "Here is a real bottleneck we have: [describe it]. Where would you start?"]},
+  "People & HR":{note:"Role-play a difficult conversation. HR work is mostly judgement under pressure, which a CV cannot show you.",
+    q:["Role-play: a manager wants to dismiss someone immediately, with no documentation. Handle the conversation.",
+       "Describe a policy you wrote. Who pushed back, and what did you do about it?"]},
+  "Customer Success":{note:"Role-play an escalation. You play a customer who is angry about something that is genuinely your fault.",
+    q:["Role-play: I am threatening to churn over an outage we caused. Go.",
+       "Tell me about an account you saved. What specifically did you do that made the difference?"]},
+  "Finance":{note:"Ask them to walk through a real analysis they built, then probe the assumptions underneath it.",
+    q:["Walk me through a model you built. Which assumption was it most sensitive to?",
+       "Here is a number that looks wrong to us: [share it]. How would you investigate?"]},
+  "Leadership (General)":{note:"Give them a real organisational problem you are facing right now. Vague on purpose.",
+    q:["Describe the last team you inherited. What was broken, and what did you do in the first month?",
+       "Role-play: two of your reports are in open conflict and both have come to you separately. Walk me through your first week."]}
+};
+
+var STAGE_CORE = {
+  "Screen":{name:"Motivation & basics",note:"Not scored. Establishes why they are here and whether the practical basics line up.",
+    q:["Why this role, and why now?",
+       "Walk me through the last two roles on your CV — what changed between them?",
+       "What do you want to be different about your next job?"]},
+  "Team fit":{name:"Working together",note:"Use when no named competency is assigned to this stage.",
+    q:["Tell me about the best team you have been on. What specifically made it work?",
+       "Describe a colleague you found difficult to work with. How did you handle it?",
+       "How do you prefer to receive feedback when something has gone wrong?"]},
+  "Values":{name:"Judgement & ownership",note:"Use when no named competency or stated value is assigned to this stage.",
+    q:["Tell me about a time the easy option and the right option were different.",
+       "What would make you leave a job?",
+       "What is something you were asked to do that you pushed back on?"]}
+};
+
+var LOOPS = [
+  {v:"Lean",l:"Lean · 3 stages",stages:["Screen","Skills","Final"]},
+  {v:"Standard",l:"Standard · 4 stages",stages:["Screen","Skills","Team fit","Final"]},
+  {v:"Thorough",l:"Thorough · 5 stages",stages:["Screen","Skills","Team fit","Values","Final"]}
+];
+
+var RATING = [["1","Strong no"],["2","No"],["3","Yes"],["4","Strong yes"]];
+
+var EMAIL_GROUPS = ["Sourcing & outreach","Scheduling & progress","Holds & rejections","Offer"];
+
+var ROLES=Object.keys(ROLE_MAP);
+var COMPS=Object.keys(COMP);
+var SENIORITY=["IC - Junior","IC - Senior","Team Lead","Manager","Director / Exec"];
+var TONES=["Professional","Warm","Direct"];
+var STEPS=["Basics","What to assess","Interview loop","Communications","Review"];
+
+/* ============================ STATE ============================ */
+var S={step:0,kit:null,copied:false,cfg:{
+  company:"",role:"Software Engineering",seniority:"IC - Senior",
+  autoComp:true,comps:[],values:"",musts:"",
+  loop:"Standard",emailGroups:EMAIL_GROUPS.slice(),tone:"Professional"
+}};
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+function splitList(s,cap){
+  return String(s||"").split(",").map(function(v){return v.trim();}).filter(Boolean).slice(0,cap);
+}
+
+/* ==================== EMAIL TEMPLATES ==================== */
+function buildEmails(cfg){
+  var co = cfg.company || "our team";
+  var role = cfg.role;
+  var warm = cfg.tone==="Warm", direct = cfg.tone==="Direct";
+  var signoff = warm ? "Looking forward to hearing from you,\n[Your name]" : direct ? "[Your name]" : "Best,\n[Your name]";
+
+  var out = [];
+
+  if(cfg.emailGroups.indexOf("Sourcing & outreach")>-1){
+    out.push({group:"Sourcing & outreach",name:"LinkedIn cold outreach",when:"You found them. First contact, nothing sent yet.",
+      subj:"(LinkedIn message, no subject line)",
+      body:"Hi [Candidate name],\n\nI came across your profile and the "+
+        "[specific thing they did] stood out — that is close to the work we have open on the "+role+" side at "+co+".\n\n"+
+        "Not a mass message: I am hiring one person for this and I think your background actually fits. Happy to send the details and let you judge, no pressure either way.\n\n"+
+        "Worth a short conversation?\n\n"+signoff});
+
+    out.push({group:"Sourcing & outreach",name:"Reply to inbound LinkedIn message",when:"They messaged you first about opportunities.",
+      subj:"(LinkedIn reply, no subject line)",
+      body:"Hi [Candidate name],\n\nThanks for reaching out, and for the context on what you are looking for.\n\n"+
+        "We do have a "+role+" role open at "+co+". Based on what you have described, the closest fit is [role or level] — I have put the full details here: [link].\n\n"+
+        "If it looks right, the next step is a "+(cfg.loop==="Lean"?"short screen":"30-minute screen")+" with me. If it does not, tell me and I will keep you in mind for what comes next.\n\n"+signoff});
+
+    out.push({group:"Sourcing & outreach",name:"Website / inbound application acknowledgement",when:"They applied through your site. Send within 24 hours.",
+      subj:"Your application for "+role+" at "+co,
+      body:"Hi [Candidate name],\n\nThanks for applying for the "+role+" role — your application is in and a real person is reading it, not just a filter.\n\n"+
+        "You will hear from us by [date] either way. If we are moving forward, the first step is a "+STAGE_META.Screen.dur+" conversation.\n\n"+
+        "If you have questions in the meantime, reply here.\n\n"+signoff});
+
+    out.push({group:"Sourcing & outreach",name:"Reach out after reviewing their CV",when:"They applied, you read the CV, you want to talk.",
+      subj:"Your application for "+role+" at "+co,
+      body:"Hi [Candidate name],\n\nI read your CV properly — the [specific project or experience] is the part that made me want to talk.\n\n"+
+        "I would like to set up a "+STAGE_META.Screen.dur+" call to cover what the role actually involves and hear how you are thinking about your next move.\n\n"+
+        "Here are a few times that work: [times]. If none suit, send me what does.\n\n"+signoff});
+  }
+
+  if(cfg.emailGroups.indexOf("Scheduling & progress")>-1){
+    out.push({group:"Scheduling & progress",name:"Interview invitation",when:"Use for any stage. Swap in the stage name and interviewers.",
+      subj:"["+role+"] Next step: [stage name]",
+      body:"Hi [Candidate name],\n\nGood news — we would like to move you to the [stage name] stage.\n\n"+
+        "Format: [duration] with [interviewer names and roles].\nFocus: [what this stage assesses].\n"+
+        "To prepare: [what to bring, or 'nothing — come as you are'].\n\n"+
+        "Times available: [times].\n\n"+
+        "If you need anything to do your best in this conversation — a different time, materials in advance, adjustments of any kind — just say so.\n\n"+signoff});
+
+    out.push({group:"Scheduling & progress",name:"Stage passed, moving forward",when:"They cleared a stage and the next one is scheduled.",
+      subj:"["+role+"] You are through to [next stage]",
+      body:"Hi [Candidate name],\n\nThe team enjoyed the conversation and we would like to keep going.\n\n"+
+        "What stood out: [one specific, true thing].\n\n"+
+        "Next is [next stage] — [duration] with [names]. I will send times shortly.\n\n"+
+        "We have [number] stages left in total, so you know where you stand.\n\n"+signoff});
+  }
+
+  if(cfg.emailGroups.indexOf("Holds & rejections")>-1){
+    out.push({group:"Holds & rejections",name:"Process paused / on hold",when:"Budget, reorg, or priorities changed mid-process. Send it — do not go quiet.",
+      subj:"["+role+"] An honest update",
+      body:"Hi [Candidate name],\n\nI want to be straight with you rather than leave you guessing: we have paused the "+role+" search because [real reason — budget, reprioritisation, internal change].\n\n"+
+        "This is not about your candidacy. You were [where they actually stood].\n\n"+
+        "Realistic timeline: I expect to know more by [date]. If your situation changes before then, tell me and I will tell you honestly whether it is worth waiting.\n\n"+
+        "Sorry to interrupt the momentum.\n\n"+signoff});
+
+    out.push({group:"Holds & rejections",name:"Rejection — application or screen stage",when:"Early exit. Keep it short and prompt; do not let it sit.",
+      subj:"["+role+"] Update on your application",
+      body:"Hi [Candidate name],\n\nThank you for the time you put into this. We are not moving forward with your application for the "+role+" role.\n\n"+
+        "The deciding factor was [specific, honest gap — not 'we went with someone more suitable'].\n\n"+
+        "That is a comment on the fit for this particular role, nothing more. If [that gap] changes, I would genuinely welcome another application.\n\n"+signoff});
+
+    out.push({group:"Holds & rejections",name:"Rejection — after final interview",when:"They invested hours. This one gets written individually, never bulk-sent.",
+      subj:"["+role+"] Our decision",
+      body:"Hi [Candidate name],\n\nThis is a harder email to write than the usual one. We have decided not to make you an offer for the "+role+" role.\n\n"+
+        "You got to the final stage out of [number] candidates, which is a real result. What the team valued: [two specific things].\n\n"+
+        "The decision came down to [specific differentiator]. That is a narrow gap, not a verdict on your ability.\n\n"+
+        "If you want the detailed feedback from each interviewer, reply and I will send it — most people do not ask and I think that is a waste.\n\n"+
+        "I would like to stay in touch about future roles, if you are open to that.\n\n"+signoff});
+  }
+
+  if(cfg.emailGroups.indexOf("Offer")>-1){
+    out.push({group:"Offer",name:"Offer",when:"Call them first. This is the written confirmation, not the news.",
+      subj:"["+role+"] Your offer from "+co,
+      body:"Hi [Candidate name],\n\nGreat speaking just now — putting it in writing as promised.\n\n"+
+        "Role: "+role+" ("+cfg.seniority+")\nStart date: [date]\nCompensation: [amount and structure]\n"+
+        "Reporting to: [name]\nOther terms: [holiday, remote policy, equity, whatever applies]\n\n"+
+        "Formal paperwork is attached. Take until [date] to decide — and if you want to talk any of it through, including the parts that are negotiable, I would rather have that conversation than have you accept something you are unsure about.\n\n"+
+        "The team is genuinely glad this worked out.\n\n"+signoff});
+  }
+
+  return out;
+}
+
+/* ==================== GENERATION (deterministic) ==================== */
+function buildKit(cfg){
+  var names;
+  if(!cfg.autoComp && cfg.comps.length){ names=cfg.comps.slice(0,7); }
+  else{
+    names=(ROLE_MAP[cfg.role]||COMPS.slice(0,5)).slice();
+    if(cfg.seniority==="Team Lead"||cfg.seniority==="Manager"){
+      ["Leadership & influence","Feedback & growth"].forEach(function(n){ if(names.indexOf(n)===-1) names.push(n); });
+    }
+    if(cfg.seniority==="Director / Exec"){
+      ["Leadership & influence","Strategic thinking"].forEach(function(n){ if(names.indexOf(n)===-1) names.push(n); });
+    }
+    names=names.slice(0,6);
+  }
+
+  var stageNames=(LOOPS.filter(function(l){return l.v===cfg.loop;})[0]||LOOPS[1]).stages;
+  var values=splitList(cfg.values,4);
+  var musts=splitList(cfg.musts,6);
+
+  // Assign each competency to the stage whose focus it best matches;
+  // anything left over is spread across stages round-robin.
+  var assigned={}; stageNames.forEach(function(s){ assigned[s]=[]; });
+  var unplaced=[];
+  names.forEach(function(n){
+    var target=null;
+    for(var i=0;i<stageNames.length;i++){
+      if((STAGE_META[stageNames[i]].affinity||[]).indexOf(n)>-1){ target=stageNames[i]; break; }
+    }
+    if(target) assigned[target].push(n); else unplaced.push(n);
+  });
+  var ri=0;
+  unplaced.forEach(function(n){
+    // prefer a stage that has nothing yet, otherwise round-robin
+    var empty=stageNames.filter(function(s){return assigned[s].length===0;});
+    var target = empty.length ? empty[0] : stageNames[ri++ % stageNames.length];
+    assigned[target].push(n);
+  });
+  // If a stage ended up empty, give it a competency nobody else is covering.
+  // Never duplicate one that another stage already assesses — a repeated
+  // competency wastes the stage and tells you nothing new.
+  stageNames.forEach(function(s){
+    if(assigned[s].length) return;
+    var used={}; stageNames.forEach(function(x){ assigned[x].forEach(function(n){ used[n]=1; }); });
+    var spare=names.filter(function(n){ return !used[n]; });
+    if(spare.length) assigned[s].push(spare[0]);
+  });
+
+  var valueStage = stageNames.indexOf("Values")>-1 ? "Values" : stageNames[stageNames.length-1];
+
+  var stages=stageNames.map(function(sn,i){
+    var meta=STAGE_META[sn];
+    var comps=assigned[sn].map(function(n){
+      return {name:n, definition:COMP[n].def, questions:COMP[n].q.slice(0,3),
+              strong:COMP[n].strong, weak:COMP[n].weak};
+    });
+    var valueQs=[];
+    if(values.length && sn===valueStage){
+      values.forEach(function(v){
+        valueQs.push("Tell me about a decision where living up to "+v.toLowerCase()+" cost you something. What did you do?");
+        valueQs.push("What does "+v.toLowerCase()+" look like in practice on a bad week, not a good one?");
+      });
+    }
+    // The final conversation is a different kind of interview: scope, motivation,
+    // and their questions for you. It gets its own block regardless of competencies.
+    var closing = sn==="Final" ? [
+      "What would need to be true two years from now for you to say this was the right move?",
+      "Which part of this role are you least sure about?",
+      "What do you want to ask us?"
+    ] : [];
+    // Every stage needs substance of its own, whether or not a competency
+    // happened to land on it.
+    var core=null;
+    if(sn==="Screen") core=STAGE_CORE.Screen;
+    else if(sn==="Skills"){
+      var ws=WORK_SAMPLE[cfg.role]||WORK_SAMPLE["Software Engineering"];
+      core={name:"Work sample", note:ws.note, q:ws.q};
+    }
+    else if(sn==="Team fit" && !comps.length) core=STAGE_CORE["Team fit"];
+    else if(sn==="Values" && !comps.length && !valueQs.length) core=STAGE_CORE.Values;
+
+    return {name:sn, num:i+1, duration:meta.dur, who:meta.who, purpose:meta.purpose,
+            core:core, competencies:comps, valueQuestions:valueQs, closing:closing};
+  });
+
+  var intro="This is the hiring kit for the "+cfg.seniority+" "+cfg.role+" role"+(cfg.company?" at "+cfg.company:"")+
+    ". Every candidate goes through the same stages, gets asked about the same competencies, and is scored on the same scale. "+
+    "That is the entire point: structured interviews predict performance considerably better than unstructured ones, mostly because they stop each interviewer from quietly assessing something different. "+
+    "Use the questions as starting points and follow up hard on specifics — the follow-up is where the signal is.";
+
+  return {intro:intro, stages:stages, values:values, musts:musts, emails:buildEmails(cfg), competencyCount:names.length};
+}
+
+/* ============================ RENDER ============================ */
+var app=document.getElementById("app");
+
+function chips(list,key,multi){
+  return list.map(function(o){
+    var val=typeof o==="object"?o.v:o, lab=typeof o==="object"?o.l:o;
+    var on=multi?S.cfg[key].indexOf(val)>-1:S.cfg[key]===val;
+    return '<button class="chip'+(on?" on":"")+'" data-act="'+(multi?"tog":"set")+'" data-k="'+key+'" data-v="'+esc(val)+'">'+
+      (multi&&on?"&#10003; ":"")+esc(lab)+'</button>';
+  }).join("");
+}
+
+function render(){
+  var c=S.cfg,h="";
+
+  if(S.step<5){
+    h+='<div class="prog">'+STEPS.map(function(s,i){
+      return '<div><div class="bar'+(i<=S.step?" on":"")+'"></div><div class="plab'+(i===S.step?" on":"")+'">'+s+'</div></div>';
+    }).join("")+'</div>';
+  }
+
+  h+='<div class="card">';
+
+  if(S.step===0){
+    h+='<div class="sec"><div class="lab">Team or company name</div><div class="hint">Appears in the kit and in the email templates. Optional.</div>'+
+       '<input type="text" id="company" value="'+esc(c.company)+'" placeholder="e.g. Fakir Technology"></div>';
+    h+='<div class="sec"><div class="lab">Role you are hiring for</div><div class="hint">Tailors the competencies and questions.</div>'+chips(ROLES,"role")+'</div>';
+    h+='<div class="sec"><div class="lab">Seniority level</div><div class="hint">A junior and a director are interviewed for different things.</div>'+chips(SENIORITY,"seniority")+'</div>';
+  }
+
+  if(S.step===1){
+    h+='<div class="sec"><div class="lab">Competencies to assess</div><div class="hint">Pick automatically for this role, or choose your own.</div>'+
+       '<button class="chip'+(c.autoComp?" on":"")+'" data-act="set" data-k="autoComp" data-v="1">Auto - pick for this role</button>'+
+       '<button class="chip'+(!c.autoComp?" on":"")+'" data-act="set" data-k="autoComp" data-v="">I will choose</button>';
+    if(!c.autoComp){ h+='<div style="margin-top:14px">'+chips(COMPS,"comps",true)+'</div>'; }
+    h+='</div>';
+    h+='<div class="sec"><div class="lab">Your core values</div><div class="hint">Comma separated. Each one gets its own interview questions, so candidates are actually assessed against them rather than just shown them.</div>'+
+       '<input type="text" id="values" value="'+esc(c.values)+'" placeholder="e.g. Candor, Ownership, Craft"></div>';
+    h+='<div class="sec"><div class="lab">Must-have requirements</div><div class="hint">Comma separated. Becomes a screening checklist — the things that are genuinely non-negotiable, not the wish list.</div>'+
+       '<input type="text" id="musts" value="'+esc(c.musts)+'" placeholder="e.g. Works CET hours, Fluent German, 3+ years in B2B SaaS"></div>';
+  }
+
+  if(S.step===2){
+    h+='<div class="sec"><div class="lab">Interview loop</div><div class="hint">Your competencies get spread across these stages so interviewers are not all asking the same questions.</div>';
+    LOOPS.forEach(function(l){
+      h+='<button class="scard'+(c.loop===l.v?" on":"")+'" data-act="set" data-k="loop" data-v="'+l.v+'">'+
+         '<b>'+esc(l.l)+'</b><span>'+l.stages.join(" · ")+'</span></button>';
+    });
+    h+='</div>';
+  }
+
+  if(S.step===3){
+    h+='<div class="sec"><div class="lab">Email templates to include</div><div class="hint">Every point where a candidate is waiting to hear from you.</div>'+
+       chips(EMAIL_GROUPS,"emailGroups",true)+'</div>';
+    h+='<div class="sec"><div class="lab">Tone</div><div class="hint">Affects how the emails are written.</div>'+chips(TONES,"tone")+'</div>';
+  }
+
+  if(S.step===4){
+    var kv=[["Company",c.company||"-"],["Role",c.role],["Seniority",c.seniority],
+      ["Competencies",(c.autoComp||!c.comps.length)?"Auto (picked for role)":c.comps.join(", ")],
+      ["Core values",splitList(c.values,4).join(", ")||"-"],
+      ["Must-haves",splitList(c.musts,6).join(", ")||"-"],
+      ["Interview loop",(LOOPS.filter(function(l){return l.v===c.loop;})[0]||LOOPS[1]).l],
+      ["Emails",c.emailGroups.join(", ")||"None"],["Tone",c.tone]];
+    h+='<div class="lab">Review your setup</div><div class="hint">Step back to change anything.</div><div class="grid">'+
+       kv.map(function(p){return '<div><div class="k">'+p[0]+'</div><div class="v">'+esc(p[1])+'</div></div>';}).join("")+'</div>';
+  }
+
+  if(S.step===5&&S.kit){ h+=resultHTML(c,S.kit); }
+
+  if(S.step<5){
+    h+='<div class="nav"><button class="btn" data-act="back"'+(S.step===0?" disabled":"")+'>&larr; Back</button>';
+    h+= S.step<4
+      ? '<button class="btn dark" data-act="next">Continue &rarr;</button>'
+      : '<button class="btn coral" data-act="gen">Generate hiring kit</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  app.innerHTML=h;
+}
+
+function resultHTML(c,k){
+  var h="";
+  h+='<div class="note">Local preview: this kit is assembled by the built-in library so it works offline. '+
+     'On the live site this step is where the AI call happens, through your backend.</div>';
+
+  h+='<div class="fhead"><div class="eyebrow">Hiring Kit</div>'+
+     '<div class="ftitle">'+esc(c.company?c.company+" · "+c.role:c.role)+'</div>'+
+     '<div class="fmeta">'+esc(c.seniority)+' &middot; '+k.stages.length+'-stage loop &middot; '+k.competencyCount+' competencies assessed</div></div>';
+
+  h+='<p class="intro">'+esc(k.intro)+'</p>';
+
+  if(k.musts.length){
+    h+='<div class="checklist"><b class="t">Screening checklist — must-haves</b>'+
+       k.musts.map(function(m){return '<div><span class="box"></span><span>'+esc(m)+'</span></div>';}).join("")+
+       '<div style="margin-top:8px;color:var(--muted)">If any of these is a no, stop here and send the early rejection. Carrying a known dealbreaker through four stages wastes their time more than yours.</div></div>';
+  }
+
+  h+='<div class="h2">The loop</div>';
+  h+='<div class="loop">'+k.stages.map(function(s){
+    return '<div class="loopstep"><b>'+s.num+'. '+esc(s.name)+'</b><span>'+esc(s.duration)+' · '+esc(s.who)+'</span></div>';
+  }).join("")+'</div>';
+
+  k.stages.forEach(function(s){
+    h+='<div class="h2">Stage '+s.num+' · '+esc(s.name)+'</div>';
+    h+='<div class="stage"><div class="stagemeta">'+esc(s.duration)+' &middot; Run by '+esc(s.who)+'</div>'+
+       '<div class="stagepurpose">'+esc(s.purpose)+'</div>';
+
+    if(s.core){
+      h+='<div class="qc"><div class="qcname">'+esc(s.core.name)+'</div>'+
+         '<div class="qcdef">'+esc(s.core.note)+'</div>'+
+         '<ul class="qlist">'+s.core.q.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul></div>';
+    }
+
+    s.competencies.forEach(function(cp){
+      h+='<div class="qc"><div class="qcname">'+esc(cp.name)+'</div><div class="qcdef">'+esc(cp.definition)+'</div>'+
+         '<ul class="qlist">'+cp.questions.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul>'+
+         '<div class="sig"><b class="good">Strong signal:</b> '+cp.strong.map(esc).join(" · ")+'<br>'+
+         '<b class="bad">Weak signal:</b> '+cp.weak.map(esc).join(" · ")+'</div>'+
+         '<div class="scale">'+RATING.map(function(r){return '<span class="pill">'+r[0]+' · '+r[1]+'</span>';}).join("")+'</div></div>';
+    });
+
+    if(s.valueQuestions.length){
+      h+='<div class="qc"><div class="qcname">Values alignment</div>'+
+         '<div class="qcdef">Assessed against your stated values, not against culture fit.</div>'+
+         '<ul class="qlist">'+s.valueQuestions.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul>'+
+         '<div class="scale">'+RATING.map(function(r){return '<span class="pill">'+r[0]+' · '+r[1]+'</span>';}).join("")+'</div></div>';
+    }
+
+    if(s.closing.length){
+      h+='<div class="qc"><div class="qcname">Scope &amp; motivation</div>'+
+         '<div class="qcdef">Not scored. This is where you find out whether the role is big enough to keep them.</div>'+
+         '<ul class="qlist">'+s.closing.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul>'+
+         '<div class="sig"><b class="good">Worth noticing:</b> what they ask you about tells you what they actually care about. No questions at all is itself an answer.</div></div>';
+    }
+    h+='</div>';
+  });
+
+  h+='<div class="h2">Making the decision</div>';
+  h+='<div class="rubric"><b class="t">Debrief rules</b><ul>'+
+     '<li>Everyone submits their scores <b>before</b> the debrief, not during. The first person to speak otherwise sets the anchor for the room.</li>'+
+     '<li>The scale has no neutral option on purpose. There is no "maybe": 2 is a no and 3 is a yes, and choosing between them is exactly the judgement you are being asked for.</li>'+
+     '<li>Any score of 1 on a competency gets discussed properly, even if every other score is high. One serious gap in the wrong area outweighs an even spread.</li>'+
+     '<li>Disagreement between interviewers is information, not a problem to average away. Ask what one person saw that the other did not.</li>'+
+     '<li>Nobody is allowed to say "culture fit" without naming the specific behaviour behind it. Unexamined, it is where bias goes to hide.</li>'+
+     '<li>The bar is "clearly better than the alternative of leaving it open" — not "the best of the people we happened to see."</li>'+
+     '</ul></div>';
+
+  if(k.emails.length){
+    h+='<div class="h2">Email templates</div>';
+    var lastGroup="";
+    k.emails.forEach(function(e){
+      if(e.group!==lastGroup){
+        h+='<div style="font-size:12px;color:var(--light);text-transform:uppercase;letter-spacing:.4px;margin:16px 0 8px">'+esc(e.group)+'</div>';
+        lastGroup=e.group;
+      }
+      h+='<div class="email"><div class="emailname">'+esc(e.name)+'</div>'+
+         '<div class="emailwhen">'+esc(e.when)+'</div>'+
+         '<div class="emailsubj"><b>Subject:</b> '+esc(e.subj)+'</div>'+
+         '<div class="emailbody">'+esc(e.body)+'</div></div>';
+    });
+    h+='<div class="rubric" style="margin-top:8px"><b class="t">One rule for all of these</b>'+
+       'Anything in [square brackets] must be replaced before sending. A candidate who receives "[specific thing they did]" learns exactly how much attention they got.</div>';
+  }
+
+  h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy kit (Markdown)")+'</button>'+
+     '<button class="btn" data-act="restart">Start over</button></div>';
+  return h;
+}
+
+/* ============================ MARKDOWN ============================ */
+function toMarkdown(c,k){
+  var m="# Hiring Kit - "+(c.company?c.company+" - ":"")+c.role+"\n";
+  m+="_"+c.seniority+" | "+k.stages.length+"-stage loop | "+k.competencyCount+" competencies_\n\n";
+  m+=k.intro+"\n\n";
+
+  if(k.musts.length){
+    m+="## Screening checklist - must-haves\n";
+    k.musts.forEach(function(x){ m+="- [ ] "+x+"\n"; });
+    m+="\nIf any of these is a no, stop here and send the early rejection.\n\n";
+  }
+
+  m+="## The loop\n";
+  k.stages.forEach(function(s){ m+=s.num+". **"+s.name+"** - "+s.duration+", run by "+s.who+"\n"; });
+  m+="\n";
+
+  k.stages.forEach(function(s){
+    m+="## Stage "+s.num+": "+s.name+"\n";
+    m+="_"+s.duration+" | Run by "+s.who+"_\n\n"+s.purpose+"\n\n";
+    if(s.core){
+      m+="### "+s.core.name+"\n_"+s.core.note+"_\n\n";
+      s.core.q.forEach(function(q){ m+="- "+q+"\n"; });
+      m+="\n";
+    }
+    s.competencies.forEach(function(cp){
+      m+="### "+cp.name+"\n_"+cp.definition+"_\n\n";
+      cp.questions.forEach(function(q){ m+="- "+q+"\n"; });
+      m+="\nStrong signal: "+cp.strong.join(" / ")+"\n";
+      m+="Weak signal: "+cp.weak.join(" / ")+"\n";
+      m+="Score: 1 Strong no | 2 No | 3 Yes | 4 Strong yes\n\n";
+    });
+    if(s.valueQuestions.length){
+      m+="### Values alignment\n";
+      s.valueQuestions.forEach(function(q){ m+="- "+q+"\n"; });
+      m+="\nScore: 1 Strong no | 2 No | 3 Yes | 4 Strong yes\n\n";
+    }
+    if(s.closing.length){
+      m+="### Scope & motivation\n_Not scored._\n\n";
+      s.closing.forEach(function(q){ m+="- "+q+"\n"; });
+      m+="\nWhat they ask you about tells you what they actually care about.\n\n";
+    }
+  });
+
+  m+="## Making the decision\n";
+  m+="- Everyone submits scores before the debrief, not during.\n";
+  m+="- The scale has no neutral option. 2 is a no and 3 is a yes; choosing between them is the judgement.\n";
+  m+="- Any score of 1 gets discussed properly, even if every other score is high.\n";
+  m+="- Disagreement between interviewers is information, not a problem to average away.\n";
+  m+="- Nobody says \"culture fit\" without naming the specific behaviour behind it.\n";
+  m+="- The bar is \"clearly better than leaving the role open\", not \"best of who we saw\".\n\n";
+
+  if(k.emails.length){
+    m+="## Email templates\n\n";
+    var lastGroup="";
+    k.emails.forEach(function(e){
+      if(e.group!==lastGroup){ m+="### "+e.group+"\n\n"; lastGroup=e.group; }
+      m+="**"+e.name+"**\n_"+e.when+"_\n\n";
+      m+="Subject: "+e.subj+"\n\n";
+      m+=e.body+"\n\n---\n\n";
+    });
+    m+="Anything in [square brackets] must be replaced before sending.\n";
+  }
+  return m;
+}
+
+/* ============================ NOTIFY (best-effort, never blocks) ============================ */
+function notifyBackground(cfg,kit){
+  try{
+    var payload={
+      config:{company:cfg.company,role:cfg.role,seniority:cfg.seniority,loop:cfg.loop,
+        values:cfg.values,musts:cfg.musts,emailGroups:cfg.emailGroups,tone:cfg.tone},
+      document:toMarkdown(cfg,kit)
+    };
+    fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .catch(function(){});
+  }catch(e){}
+}
+
+/* ============================ STEP TRANSITION ============================ */
+function renderStep(){
+  render();
+  var card=app.querySelector(".card");
+  if(card) card.classList.add("step-anim");
+}
+
+/* ============================ EVENTS ============================ */
+app.addEventListener("input",function(e){
+  if(e.target.id==="company") S.cfg.company=e.target.value;
+  if(e.target.id==="values")  S.cfg.values=e.target.value;
+  if(e.target.id==="musts")   S.cfg.musts=e.target.value;
+});
+
+app.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act"),k=b.getAttribute("data-k"),v=b.getAttribute("data-v");
+
+  if(act==="set"){
+    if(k==="autoComp") S.cfg[k]=!!v;
+    else S.cfg[k]=v;
+    render();
+  }
+  else if(act==="tog"){
+    var a=S.cfg[k],i=a.indexOf(v);
+    if(i>-1) a.splice(i,1); else a.push(v);
+    render();
+  }
+  else if(act==="next"){ S.step++; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.kit=buildKit(S.cfg); S.step=5; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.kit); }
+  else if(act==="restart"){ S.step=0; S.kit=null; S.copied=false; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="copy"){
+    var txt=toMarkdown(S.cfg,S.kit);
+    var done=function(){ S.copied=true; render(); setTimeout(function(){S.copied=false;render();},1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();});
+    } else { fallbackCopy(txt); done(); }
+  }
+});
+
+function fallbackCopy(t){
+  var ta=document.createElement("textarea");
+  ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy");}catch(err){}
+  document.body.removeChild(ta);
+}
+
+render();
+</script>
+</body>
+</html>
