@@ -209,8 +209,8 @@ var STAGE_META = {
   "Screen":{dur:"30 min",who:"Recruiter or hiring manager",
     purpose:"Confirm the must-haves, motivation, and basic communication. This stage is cheap to run, so use it to rule out early rather than to sell.",
     affinity:["Communication","Reliability"]},
-  "Skills":{dur:"60 min",who:"Hiring manager plus one peer",
-    purpose:"Watch how they actually do the work. A real task or a walkthrough of something they built beats abstract questions every time.",
+  "Skills":{dur:"60 min",who:"Someone who does this job, plus the hiring manager",
+    purpose:"Watch them do a version of the work. This is the one stage HR does not write — the task comes from your own specialist. What HR owns is that it is the same task for everyone and scored on the same scale.",
     affinity:["Technical excellence","Problem solving","Innovation"]},
   "Team fit":{dur:"45 min",who:"Two people who would work with them weekly",
     purpose:"How they operate with other people day to day. Not whether you would enjoy a drink with them, which is how teams end up hiring the same person repeatedly.",
@@ -223,40 +223,14 @@ var STAGE_META = {
     affinity:["Strategic thinking","Leadership & influence"]}
 };
 
-/* A Skills stage should always contain an actual work sample. Watching someone
-   do a version of the job predicts performance better than asking them to
-   describe doing it. These are role-specific. */
-var WORK_SAMPLE = {
-  "Software Engineering":{note:"Give them a real problem from your own codebase, scoped to about 40 minutes. Ask them to think out loud — you are assessing the reasoning, not whether they finish.",
-    q:["Walk me through the hardest technical decision in something you built. What were the alternatives, and why did you rule them out?",
-       "Here is a real problem we hit recently: [describe it]. How would you approach it?"]},
-  "Product & Design":{note:"Hand them one of your real product problems and 30 minutes to think out loud. Do not brief them perfectly — ambiguity is part of the test.",
-    q:["Critique a product you use daily. What would you change first, and how would you know it worked?",
-       "Walk me through a decision where the data and your instinct disagreed. What did you do?"]},
-  "Sales":{note:"Run a discovery-call role-play. You play a prospect with a vaguely described problem and a budget objection.",
-    q:["Sell me the last product you worked on. Then tell me who it is wrong for.",
-       "Role-play: I am a prospect who says you are too expensive. Take it from there."]},
-  "Marketing":{note:"Ask them to critique your actual positioning or a recent campaign. Real material, not a hypothetical.",
-    q:["Pick a campaign you ran. What did you expect, what actually happened, and what did you change after?",
-       "Here is our current positioning: [share it]. What is weak about it?"]},
-  "Operations":{note:"Bring a real operational bottleneck you have not solved yet. Their first three questions tell you more than their answer.",
-    q:["Describe a process you inherited that was broken. What did you change first, and why that?",
-       "Here is a real bottleneck we have: [describe it]. Where would you start?"]},
-  "People & HR":{note:"Role-play a difficult conversation. HR work is mostly judgement under pressure, which a CV cannot show you.",
-    q:["Role-play: a manager wants to dismiss someone immediately, with no documentation. Handle the conversation.",
-       "Describe a policy you wrote. Who pushed back, and what did you do about it?"]},
-  "Customer Success":{note:"Role-play an escalation. You play a customer who is angry about something that is genuinely your fault.",
-    q:["Role-play: I am threatening to churn over an outage we caused. Go.",
-       "Tell me about an account you saved. What specifically did you do that made the difference?"]},
-  "Finance":{note:"Ask them to walk through a real analysis they built, then probe the assumptions underneath it.",
-    q:["Walk me through a model you built. Which assumption was it most sensitive to?",
-       "Here is a number that looks wrong to us: [share it]. How would you investigate?"]},
-  "Leadership (General)":{note:"Give them a real organisational problem you are facing right now. Vague on purpose.",
-    q:["Describe the last team you inherited. What was broken, and what did you do in the first month?",
-       "Role-play: two of your reports are in open conflict and both have come to you separately. Walk me through your first week."]}
-};
-
 var STAGE_CORE = {
+  "Skills":{name:"Brief for whoever runs this stage",
+    note:"The content of this stage is designed by someone who actually does this job — not by HR, and not by us. A generic technical question is worse than no technical question. What follows is the structure HR owns around it.",
+    guidance:["Give the interviewer the competencies listed below and ask them to design one task that surfaces them. They pick the task; you keep the standard.",
+      "Every candidate for this role gets the same task. A bespoke exercise per candidate makes them impossible to compare, which is the whole point of the scale.",
+      "Time-box it, and tell the candidate in advance what format to expect and whether they need to prepare anything.",
+      "Require a written score on the same 1-4 scale below, submitted before the debrief — not a verbal impression afterwards.",
+      "If the interviewer cannot say which competency a question was testing, it does not belong in the stage."]},
   "Screen":{name:"Motivation & basics",note:"Not scored. Establishes why they are here and whether the practical basics line up.",
     q:["Why this role, and why now?",
        "Walk me through the last two roles on your CV — what changed between them?",
@@ -463,10 +437,7 @@ function buildKit(cfg){
     // happened to land on it.
     var core=null;
     if(sn==="Screen") core=STAGE_CORE.Screen;
-    else if(sn==="Skills"){
-      var ws=WORK_SAMPLE[cfg.role]||WORK_SAMPLE["Software Engineering"];
-      core={name:"Work sample", note:ws.note, q:ws.q};
-    }
+    else if(sn==="Skills") core=STAGE_CORE.Skills;
     else if(sn==="Team fit" && !comps.length) core=STAGE_CORE["Team fit"];
     else if(sn==="Values" && !comps.length && !valueQs.length) core=STAGE_CORE.Values;
 
@@ -477,7 +448,10 @@ function buildKit(cfg){
   var intro="This is the hiring kit for the "+cfg.seniority+" "+cfg.role+" role"+(cfg.company?" at "+cfg.company:"")+
     ". Every candidate goes through the same stages, gets asked about the same competencies, and is scored on the same scale. "+
     "That is the entire point: structured interviews predict performance considerably better than unstructured ones, mostly because they stop each interviewer from quietly assessing something different. "+
-    "Use the questions as starting points and follow up hard on specifics — the follow-up is where the signal is.";
+    "Use the questions as starting points and follow up hard on specifics — the follow-up is where the signal is."+
+    (stageNames.indexOf("Skills")>-1
+      ? " One division of labour worth being explicit about: every question in this kit is a behavioural or values question, which is HR's ground and generalises across companies. The role-specific assessment in the Skills stage is designed by your own specialist, because a generic technical question tells you less than no technical question. This kit gives that stage its structure, not its content."
+      : "");
 
   return {intro:intro, stages:stages, values:values, musts:musts, emails:buildEmails(cfg), competencyCount:names.length};
 }
@@ -594,7 +568,7 @@ function resultHTML(c,k){
     if(s.core){
       h+='<div class="qc"><div class="qcname">'+esc(s.core.name)+'</div>'+
          '<div class="qcdef">'+esc(s.core.note)+'</div>'+
-         '<ul class="qlist">'+s.core.q.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul></div>';
+         '<ul class="qlist">'+(s.core.q||s.core.guidance).map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul></div>';
     }
 
     s.competencies.forEach(function(cp){
@@ -674,7 +648,7 @@ function toMarkdown(c,k){
     m+="_"+s.duration+" | Run by "+s.who+"_\n\n"+s.purpose+"\n\n";
     if(s.core){
       m+="### "+s.core.name+"\n_"+s.core.note+"_\n\n";
-      s.core.q.forEach(function(q){ m+="- "+q+"\n"; });
+      (s.core.q||s.core.guidance).forEach(function(q){ m+="- "+q+"\n"; });
       m+="\n";
     }
     s.competencies.forEach(function(cp){
