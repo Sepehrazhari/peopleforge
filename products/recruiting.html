@@ -77,7 +77,9 @@ input[type=text]:focus{border-color:var(--coral)}
 .qcname{font-weight:700;font-size:14px}
 .qcdef{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:1px}
 .qlist{margin:8px 0 0;padding-left:18px;font-size:14px;line-height:1.65}
-.qlist li{margin-bottom:4px}
+.qlist li{margin-bottom:9px}
+.probe{display:block;font-size:13px;color:var(--muted);margin-top:4px;padding-left:10px;border-left:2px solid var(--border)}
+.probe b{font-family:var(--display);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--coral-dark)}
 .sig{font-size:12.5px;line-height:1.6;margin-top:8px}
 .sig b{font-family:var(--display);font-size:12px}
 .sig .good{color:var(--teal)}
@@ -115,82 +117,107 @@ input[type=text]:focus{border-color:var(--coral)}
 /* ============================================================
    CONTENT LIBRARY
    Deterministic, built in so the demo runs with no network at all.
-   Each competency carries behavioural interview questions plus the
-   signals that separate a real answer from a rehearsed one.
+   Every question is situational: a scenario the candidate reasons
+   through, not a request to recount or demonstrate past work. Each
+   scenario carries an escalation probe that adds a constraint, which
+   is where a rehearsed answer separates from real judgement.
    ============================================================ */
 var COMP = {
   "Communication":{def:"Shares information clearly and listens well.",
-    q:["Tell me about a time you had to explain something complicated to someone without your background. How did you know they understood?",
-       "Describe a moment you realised you had been misunderstood. What did you do about it?",
-       "Walk me through a piece of writing you did that changed what someone else decided."],
-    strong:["Adjusts the explanation to the listener rather than repeating themselves louder.","Checks for understanding instead of assuming it."],
-    weak:["Blames the other party for not getting it.","Answers in jargon even after you ask them to simplify."]},
+    sc:[{s:"You have to present a decision your team made to a group who do not share your background and are sceptical about it. Part-way through you can see you have lost the room. What do you do?",
+         p:"One of them cuts in and says your explanation makes no sense. How do you run the rest of that meeting?"},
+        {s:"A colleague in another team acts on something you wrote and does close to the opposite of what you intended. You only find out a week later, after the work is done. What do you do?",
+         p:"Reading it back, your message genuinely was ambiguous. Does that change how you handle it?"}],
+    strong:["Adapts the explanation to the audience rather than restating it more slowly.","Treats being misunderstood as their problem to solve, not the listener's failure."],
+    weak:["Solution is always 'send more detail' or 'document it better'.","Handles the interruption by defending rather than by listening."]},
+
   "Collaboration":{def:"Works with others toward a shared outcome.",
-    q:["Tell me about a project that only worked because of how the group operated. What was your part in that?",
-       "Describe a disagreement with a colleague where you ended up changing your position.",
-       "When did you last make someone else's work easier without being asked?"],
-    strong:["Names specific colleagues and what they contributed.","Describes disagreement without making the other person the villain."],
-    weak:["Uses 'we' so broadly you cannot tell what they personally did.","Every past team conflict was someone else's fault."]},
+    sc:[{s:"You depend on another team to hit a shared deadline. They keep missing handoffs and your part is now at risk. Their manager does not think there is a problem. What do you do?",
+         p:"You raise it once and nothing changes. What is your next move, and when do you escalate?"},
+        {s:"In a meeting with senior people present, a teammate presents work that was largely yours as their own. What do you do?",
+         p:"It happens again a month later. Does your response change?"}],
+    strong:["Tries to fix the working relationship before escalating, but has a clear escalation trigger.","Separates the outcome that matters from the credit that does not."],
+    weak:["Either escalates immediately or never escalates at all.","Frames the other party as the obstacle rather than the situation."]},
+
   "Ownership & accountability":{def:"Takes responsibility for outcomes, not just tasks.",
-    q:["Tell me about something you shipped that did not work. What did you do next?",
-       "Describe a problem you fixed that was not technically yours to fix.",
-       "When did you last have to tell someone bad news about your own work?"],
-    strong:["Volunteers the failure before you dig for it.","Talks about the root cause, not just the patch."],
-    weak:["Cannot name a real mistake, or names a humblebrag one.","Waited to be told there was a problem."]},
+    sc:[{s:"You find a mistake in work you delivered three weeks ago. Nobody has noticed. Raising it costs the team roughly a week. What do you do?",
+         p:"Your manager is under pressure and has asked the team for no new surprises this quarter. Same answer?"},
+        {s:"A project you are on is clearly going to miss its date. The cause is a dependency that slipped, not anything you did. What do you do?",
+         p:"You flag it early and are told to just make it work. What now?"}],
+    strong:["Surfaces the problem regardless of personal cost, and comes with options rather than only bad news.","Distinguishes owning the outcome from having caused it."],
+    weak:["Answer depends on whether they would be caught.","Treats 'it was not my fault' as the end of their responsibility."]},
+
   "Technical excellence":{def:"Delivers high-quality, durable work.",
-    q:["Show me something you built that you are still proud of. What makes it good?",
-       "Tell me about a time you chose the slower, more careful approach. How did you justify it?",
-       "What is something in your last role you would rebuild differently now?"],
-    strong:["Can articulate why a decision was right, not just what it was.","Has opinions about quality that survive follow-up questions."],
-    weak:["Quality means 'it worked' and nothing more.","Cannot explain trade-offs they made."]},
+    sc:[{s:"You are asked to deliver something in half the time you think it needs. You could hit the date by cutting corners in ways nobody would see for months. What do you do?",
+         p:"The date turns out to be genuinely immovable. What exactly do you cut, and how do you make that visible to the people who will live with it?"},
+        {s:"You inherit work from someone who has left. It functions, but it is fragile and you do not fully understand it. A change is needed next week. How do you approach it?",
+         p:"You find a flaw that has quietly been causing problems for months. Do you fix it now or ship the change first?"}],
+    strong:["Makes the trade-off explicit and visible instead of absorbing it silently.","Distinguishes shortcuts that can be paid back from ones that compound."],
+    weak:["Either refuses the constraint outright or accepts it without naming the cost.","Quality is described only as effort, never as a decision."]},
+
   "Problem solving":{def:"Breaks down hard problems and finds workable answers.",
-    q:["Describe the messiest problem you have untangled. How did you start?",
-       "Tell me about a decision you made without enough information.",
-       "When did you discover the problem you were solving was the wrong one?"],
-    strong:["Starts by framing the problem, not by jumping to a solution.","Comfortable saying what they did not know at the time."],
-    weak:["Every problem in their telling had an obvious answer.","Cannot describe an approach, only an outcome."]},
+    sc:[{s:"Something is going wrong intermittently and nobody can reproduce it. Three people have already looked and given up. It lands on you. Where do you start?",
+         p:"Two days in, you know no more than when you started. What do you change about your approach?"},
+        {s:"Part-way into a task you become convinced the real problem is somewhere else entirely, outside your remit. What do you do?",
+         p:"The person who assigned it disagrees with your diagnosis. How do you proceed?"}],
+    strong:["Starts by narrowing the problem rather than by guessing at solutions.","Says explicitly what they would do differently after the failed approach."],
+    weak:["Restarts the same method with more effort.","Cannot describe how they would know they were wrong."]},
+
   "Leadership & influence":{def:"Moves people and work forward without relying on authority.",
-    q:["Tell me about a time you got a group to do something they were not initially sold on.",
-       "Describe someone whose work got better because of you. What did you actually do?",
-       "When did you have to push back on a decision from above?"],
-    strong:["Influence came from reasoning or evidence, not seniority.","Can name the person who grew and how."],
-    weak:["Leadership described purely as being in charge.","Never disagreed upward, or did so only after it was safe."]},
+    sc:[{s:"You are convinced the team is about to make a bad decision. You have no authority over it and the person who does has already made up their mind. What do you do?",
+         p:"It goes ahead anyway and starts going wrong. What is your role now?"},
+        {s:"You are leading a piece of work and one person is quietly not delivering. Everyone has noticed. Nobody has said anything. What do you do?",
+         p:"You speak to them and they tell you something personal is going on. How does that change your plan?"}],
+    strong:["Influence comes from framing and evidence, not from position or volume.","Handles the underperformance directly and privately before it becomes a group problem."],
+    weak:["Disengages once the decision goes against them, or says 'I told you so'.","Escalates to a manager as the first step rather than the last."]},
+
   "Adaptability":{def:"Adjusts well when priorities or conditions change.",
-    q:["Tell me about a time your priorities changed completely mid-project.",
-       "Describe something you had to learn fast to do your job. How did you go about it?",
-       "When did new evidence make you abandon an approach you liked?"],
-    strong:["Changed course on evidence rather than on instruction.","Describes the learning process, not just the result."],
-    weak:["Treats every change as mismanagement by someone else.","Cannot name anything they have changed their mind about."]},
+    sc:[{s:"You are a week from finishing a two-month project when priorities shift and it is shelved. You start something else on Monday. What do you do?",
+         p:"You think shelving it was the wrong call and the new work is less interesting. How do you handle that, with your manager and with yourself?"},
+        {s:"Half-way through an approach you personally argued for, evidence appears that it is not working. Changing course means saying so publicly. What do you do?",
+         p:"Someone who opposed your original plan is in the room. Does that change anything?"}],
+    strong:["Separates disagreeing with a decision from undermining it.","Changes course on the evidence and says plainly why."],
+    weak:["Treats every change of direction as somebody else's incompetence.","Defends the original position past the point the evidence supports it."]},
+
   "Customer focus":{def:"Keeps the customer's real needs central.",
-    q:["Tell me about a time you pushed back on an internal decision on behalf of a customer.",
-       "Describe how you found out what a customer actually needed, versus what they asked for.",
-       "When did you last talk to a customer directly? What surprised you?"],
-    strong:["Has actually spoken to customers, not just read about them.","Can separate stated wants from underlying needs."],
-    weak:["Customer needs are always assumed, never checked.","Has never advocated for a customer against internal convenience."]},
+    sc:[{s:"A customer asks for a specific feature. You are fairly sure it will not solve their underlying problem. Building what they asked for is easy; the right fix is hard. What do you do?",
+         p:"They insist, and they are one of your largest accounts. Now what?"},
+        {s:"You discover an issue affecting a handful of customers. None have complained and they may never notice. Telling them costs credibility. What do you do?",
+         p:"Your team is split on it. How do you make the call?"}],
+    strong:["Digs for the problem behind the request before agreeing or refusing.","Weighs long-term trust against short-term comfort explicitly."],
+    weak:["Defaults to whatever the customer said, or overrides them without checking.","Decision is driven purely by account size."]},
+
   "Strategic thinking":{def:"Connects daily work to longer-term direction.",
-    q:["Tell me about something you chose not to do, and why.",
-       "How did your last team's work connect to what the company was trying to achieve?",
-       "Describe a decision whose second-order effects you had to think through."],
-    strong:["Can explain the goal behind the work, not just the work.","Says no to things with a reason attached."],
-    weak:["Cannot connect their work to any larger objective.","Prioritises whatever was loudest."]},
+    sc:[{s:"You have capacity for one of two things. One is clearly useful this quarter. The other is larger but only pays off in about a year. Which do you argue for, and how?",
+         p:"You are told to do both. What do you actually do?"},
+        {s:"A request arrives that is easy to say yes to and does not obviously serve your team's goals. Everyone expects you to take it. What do you do?",
+         p:"It comes from someone senior. Same answer?"}],
+    strong:["Argues from the goal rather than from workload.","Says no with a reason and an alternative attached."],
+    weak:["Chooses based on what is easiest or most visible.","Accepts 'do both' without renegotiating anything."]},
+
   "Feedback & growth":{def:"Gives and receives feedback that leads to change.",
-    q:["What is the most useful piece of critical feedback you have received? What changed after it?",
-       "Tell me about feedback you gave that was hard to deliver.",
-       "How do you find out whether you are actually good at something?"],
-    strong:["Can name a specific behaviour they changed.","Seeks feedback rather than waiting for review season."],
-    weak:["The critical feedback they name is not actually critical.","Gave feedback only through a manager, never directly."]},
+    sc:[{s:"Someone on your team does consistently good work but talks over people in meetings. Nobody has told them. You are the one who has noticed. What do you do?",
+         p:"You tell them and they get defensive and dismiss it. What next?"},
+        {s:"In a review you are told something about your work that you believe is factually wrong. What do you do in the moment, and afterwards?",
+         p:"You look into it and find they were partly right. What do you do with that?"}],
+    strong:["Gives the feedback directly and privately, close to the event.","Separates their reaction in the moment from what they do with it afterwards."],
+    weak:["Routes feedback through a manager rather than giving it.","Being partly right is treated as being right."]},
+
   "Reliability":{def:"Consistent and dependable in day-to-day delivery.",
-    q:["Tell me about a deadline you were going to miss. What did you do?",
-       "How do you keep track of what you have committed to?",
-       "Describe a stretch where you had more work than time. How did you decide what gave?"],
-    strong:["Flagged the slip early, with a revised plan.","Has an actual system, not just a good memory."],
-    weak:["Missed deadlines surface only at the deadline.","Quality quietly dropped and nobody was told."]},
+    sc:[{s:"You have committed to three things this week and it becomes clear you can do two of them well. What do you do?",
+         p:"All three were promised to different people, each of whom believes theirs is the priority. Walk me through those conversations."},
+        {s:"You are given a six-week piece of work with no oversight. Nobody will check on you until the end. How do you run it?",
+         p:"At week four you realise you are behind. What happens?"}],
+    strong:["Renegotiates early and explicitly rather than quietly dropping quality.","Builds their own checkpoints when nobody else imposes them."],
+    weak:["Absorbs the overload silently and hopes.","The slip surfaces at the deadline."]},
+
   "Innovation":{def:"Improves how things are done, not just what.",
-    q:["Tell me about a way of working you changed. How did you know it was better?",
-       "Describe an experiment you ran that failed. What did it teach you?",
-       "What is something everyone in your field accepts that you think is wrong?"],
-    strong:["Measured whether the change actually helped.","Can defend a contrarian view with reasoning."],
-    weak:["Novelty for its own sake, with no evidence of improvement.","Has never tested an idea at small scale first."]}
+    sc:[{s:"You think there is a much better way to do something the team has done the same way for years. Trying it costs time and may fail. How do you proceed?",
+         p:"You get a small trial approved and the results are mixed. What do you do with that?"},
+        {s:"You are asked to follow a process you believe produces worse outcomes. What do you do?",
+         p:"You raise it and are told that is simply how things are done here. Then what?"}],
+    strong:["Proposes a small, reversible test rather than a wholesale change.","Defines in advance what would count as it not working."],
+    weak:["Wants to change things without a way to tell whether it helped.","Either complies silently or ignores the process unilaterally."]}
 };
 
 var ROLE_MAP = {
@@ -231,18 +258,24 @@ var STAGE_CORE = {
       "Time-box it, and tell the candidate in advance what format to expect and whether they need to prepare anything.",
       "Require a written score on the same 1-4 scale below, submitted before the debrief — not a verbal impression afterwards.",
       "If the interviewer cannot say which competency a question was testing, it does not belong in the stage."]},
-  "Screen":{name:"Motivation & basics",note:"Not scored. Establishes why they are here and whether the practical basics line up.",
+  "Screen":{name:"Motivation & basics",
+    note:"Not scored, and deliberately not scenarios — these are about their actual situation, which no hypothetical can stand in for. Keep it to a few minutes; do not let it become a CV walkthrough.",
     q:["Why this role, and why now?",
-       "Walk me through the last two roles on your CV — what changed between them?",
        "What do you want to be different about your next job?"]},
   "Team fit":{name:"Working together",note:"Use when no named competency is assigned to this stage.",
-    q:["Tell me about the best team you have been on. What specifically made it work?",
-       "Describe a colleague you found difficult to work with. How did you handle it?",
-       "How do you prefer to receive feedback when something has gone wrong?"]},
+    sc:[{s:"You join a team whose way of working does not suit you at all — the meeting rhythm, how decisions get made, how much is written down. What do you do in your first month?",
+         p:"You suggest a change and the team is lukewarm. Do you push, adapt, or drop it?"},
+        {s:"A colleague criticises your work in front of others, and you think the criticism is unfair. What do you do in the moment?",
+         p:"Afterwards you realise part of it was fair. What do you do then?"},
+        {s:"You are paired with someone whose working style is the opposite of yours on a six-week project. How do you set the first week up?",
+         p:"Three weeks in it is not working and the deadline is fixed. What now?"}]},
   "Values":{name:"Judgement & ownership",note:"Use when no named competency or stated value is assigned to this stage.",
-    q:["Tell me about a time the easy option and the right option were different.",
-       "What would make you leave a job?",
-       "What is something you were asked to do that you pushed back on?"]}
+    sc:[{s:"You are asked to do something that is not wrong exactly, but you are uncomfortable with it. What do you do?",
+         p:"You raise it and are told it is normal here. Do you do it?"},
+        {s:"You spot something that is technically within the rules but clearly against the spirit of them, and it benefits your team. What do you do?",
+         p:"Nobody else has noticed and raising it slows your team down. Same answer?"},
+        {s:"You are offered a shortcut that saves a week, carries a small risk nobody would trace back to you, and everybody is under pressure. Walk me through your thinking.",
+         p:"Your manager suggested the shortcut. What changes?"}]}
 };
 
 var LOOPS = [
@@ -416,14 +449,17 @@ function buildKit(cfg){
   var stages=stageNames.map(function(sn,i){
     var meta=STAGE_META[sn];
     var comps=assigned[sn].map(function(n){
-      return {name:n, definition:COMP[n].def, questions:COMP[n].q.slice(0,3),
+      return {name:n, definition:COMP[n].def, scenarios:COMP[n].sc,
               strong:COMP[n].strong, weak:COMP[n].weak};
     });
     var valueQs=[];
     if(values.length && sn===valueStage){
       values.forEach(function(v){
-        valueQs.push("Tell me about a decision where living up to "+v.toLowerCase()+" cost you something. What did you do?");
-        valueQs.push("What does "+v.toLowerCase()+" look like in practice on a bad week, not a good one?");
+        var lv=v.toLowerCase();
+        valueQs.push({s:"Suppose acting on "+lv+" here would cost you something real — the deadline, a working relationship, or how the result looks to someone senior. Nobody would know if you quietly did not. Walk me through how you decide.",
+                      p:"Now the person who would be affected is someone you depend on every week. Does that change it?"});
+        valueQs.push({s:"Describe a situation in this role where "+lv+" and getting the result quickly would pull in opposite directions. How would you handle it?",
+                      p:"You are told the quick result is what matters this quarter. What do you actually do?"});
       });
     }
     // The final conversation is a different kind of interview: scope, motivation,
@@ -448,9 +484,9 @@ function buildKit(cfg){
   var intro="This is the hiring kit for the "+cfg.seniority+" "+cfg.role+" role"+(cfg.company?" at "+cfg.company:"")+
     ". Every candidate goes through the same stages, gets asked about the same competencies, and is scored on the same scale. "+
     "That is the entire point: structured interviews predict performance considerably better than unstructured ones, mostly because they stop each interviewer from quietly assessing something different. "+
-    "Use the questions as starting points and follow up hard on specifics — the follow-up is where the signal is."+
+    "Every question here is a scenario. Candidates are not asked to recount their CV or to present work they prepared earlier — they are put in a situation and asked what they would do. Preparation and polish stop being an advantage; reasoning is what shows."+
     (stageNames.indexOf("Skills")>-1
-      ? " One division of labour worth being explicit about: every question in this kit is a behavioural or values question, which is HR's ground and generalises across companies. The role-specific assessment in the Skills stage is designed by your own specialist, because a generic technical question tells you less than no technical question. This kit gives that stage its structure, not its content."
+      ? " One division of labour worth being explicit about: these scenarios are behavioural and values-based, which is HR's ground and generalises across companies. The role-specific assessment in the Skills stage is designed by your own specialist, because a generic technical question tells you less than no technical question. This kit gives that stage its structure, not its content."
       : "");
 
   return {intro:intro, stages:stages, values:values, musts:musts, emails:buildEmails(cfg), competencyCount:names.length};
@@ -538,6 +574,25 @@ function render(){
   app.innerHTML=h;
 }
 
+/* Scenario list: the scenario itself, then the escalation that adds a
+   constraint. Plain strings are supported for the few non-scenario prompts. */
+function scenarioListHTML(items){
+  return '<ul class="qlist">'+items.map(function(it){
+    if(typeof it==="string") return '<li>'+esc(it)+'</li>';
+    return '<li>'+esc(it.s)+(it.p?'<span class="probe"><b>Press further:</b> '+esc(it.p)+'</span>':'')+'</li>';
+  }).join("")+'</ul>';
+}
+
+function scenarioListMD(items){
+  var m="";
+  items.forEach(function(it){
+    if(typeof it==="string"){ m+="- "+it+"\n"; return; }
+    m+="- "+it.s+"\n";
+    if(it.p) m+="  - _Press further:_ "+it.p+"\n";
+  });
+  return m;
+}
+
 function resultHTML(c,k){
   var h="";
   h+='<div class="note">Local preview: this kit is assembled by the built-in library so it works offline. '+
@@ -555,6 +610,12 @@ function resultHTML(c,k){
        '<div style="margin-top:8px;color:var(--muted)">If any of these is a no, stop here and send the early rejection. Carrying a known dealbreaker through four stages wastes their time more than yours.</div></div>';
   }
 
+  h+='<div class="checklist" style="background:var(--linen)"><b class="t">How to run a scenario question</b>'+
+     '<div style="display:block">Read the scenario out and then stop talking. The silence is doing work — the first thirty seconds of thinking is most of what you came for.<br><br>'+
+     'If they ask clarifying questions before answering, that is signal, not stalling. Someone who asks what the constraints are before deciding is showing you exactly what you want to see.<br><br>'+
+     'Then use the <b>press further</b> line underneath. It adds a constraint that makes the easy answer stop working. A rehearsed answer falls over here; real judgement adjusts and says why. If you only have time for one thing, do the escalation rather than a second scenario.<br><br>'+
+     'Do not lead. If you find yourself saying "so you would probably...", you have just given them the answer.</div></div>';
+
   h+='<div class="h2">The loop</div>';
   h+='<div class="loop">'+k.stages.map(function(s){
     return '<div class="loopstep"><b>'+s.num+'. '+esc(s.name)+'</b><span>'+esc(s.duration)+' · '+esc(s.who)+'</span></div>';
@@ -568,12 +629,12 @@ function resultHTML(c,k){
     if(s.core){
       h+='<div class="qc"><div class="qcname">'+esc(s.core.name)+'</div>'+
          '<div class="qcdef">'+esc(s.core.note)+'</div>'+
-         '<ul class="qlist">'+(s.core.q||s.core.guidance).map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul></div>';
+         scenarioListHTML(s.core.sc||s.core.q||s.core.guidance)+'</div>';
     }
 
     s.competencies.forEach(function(cp){
       h+='<div class="qc"><div class="qcname">'+esc(cp.name)+'</div><div class="qcdef">'+esc(cp.definition)+'</div>'+
-         '<ul class="qlist">'+cp.questions.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul>'+
+         scenarioListHTML(cp.scenarios)+
          '<div class="sig"><b class="good">Strong signal:</b> '+cp.strong.map(esc).join(" · ")+'<br>'+
          '<b class="bad">Weak signal:</b> '+cp.weak.map(esc).join(" · ")+'</div>'+
          '<div class="scale">'+RATING.map(function(r){return '<span class="pill">'+r[0]+' · '+r[1]+'</span>';}).join("")+'</div></div>';
@@ -582,14 +643,14 @@ function resultHTML(c,k){
     if(s.valueQuestions.length){
       h+='<div class="qc"><div class="qcname">Values alignment</div>'+
          '<div class="qcdef">Assessed against your stated values, not against culture fit.</div>'+
-         '<ul class="qlist">'+s.valueQuestions.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul>'+
+         scenarioListHTML(s.valueQuestions)+
          '<div class="scale">'+RATING.map(function(r){return '<span class="pill">'+r[0]+' · '+r[1]+'</span>';}).join("")+'</div></div>';
     }
 
     if(s.closing.length){
       h+='<div class="qc"><div class="qcname">Scope &amp; motivation</div>'+
          '<div class="qcdef">Not scored. This is where you find out whether the role is big enough to keep them.</div>'+
-         '<ul class="qlist">'+s.closing.map(function(q){return '<li>'+esc(q)+'</li>';}).join("")+'</ul>'+
+         scenarioListHTML(s.closing)+
          '<div class="sig"><b class="good">Worth noticing:</b> what they ask you about tells you what they actually care about. No questions at all is itself an answer.</div></div>';
     }
     h+='</div>';
@@ -639,6 +700,12 @@ function toMarkdown(c,k){
     m+="\nIf any of these is a no, stop here and send the early rejection.\n\n";
   }
 
+  m+="## How to run a scenario question\n";
+  m+="- Read the scenario out, then stop talking. The silence is doing work.\n";
+  m+="- Clarifying questions before answering are signal, not stalling.\n";
+  m+="- Always use the 'press further' line. It adds a constraint that makes the easy answer stop working. If time is short, do the escalation rather than a second scenario.\n";
+  m+="- Do not lead. If you catch yourself saying \"so you would probably...\", you have given them the answer.\n\n";
+
   m+="## The loop\n";
   k.stages.forEach(function(s){ m+=s.num+". **"+s.name+"** - "+s.duration+", run by "+s.who+"\n"; });
   m+="\n";
@@ -648,24 +715,24 @@ function toMarkdown(c,k){
     m+="_"+s.duration+" | Run by "+s.who+"_\n\n"+s.purpose+"\n\n";
     if(s.core){
       m+="### "+s.core.name+"\n_"+s.core.note+"_\n\n";
-      (s.core.q||s.core.guidance).forEach(function(q){ m+="- "+q+"\n"; });
+      m+=scenarioListMD(s.core.sc||s.core.q||s.core.guidance);
       m+="\n";
     }
     s.competencies.forEach(function(cp){
       m+="### "+cp.name+"\n_"+cp.definition+"_\n\n";
-      cp.questions.forEach(function(q){ m+="- "+q+"\n"; });
+      m+=scenarioListMD(cp.scenarios);
       m+="\nStrong signal: "+cp.strong.join(" / ")+"\n";
       m+="Weak signal: "+cp.weak.join(" / ")+"\n";
       m+="Score: 1 Strong no | 2 No | 3 Yes | 4 Strong yes\n\n";
     });
     if(s.valueQuestions.length){
       m+="### Values alignment\n";
-      s.valueQuestions.forEach(function(q){ m+="- "+q+"\n"; });
+      m+=scenarioListMD(s.valueQuestions);
       m+="\nScore: 1 Strong no | 2 No | 3 Yes | 4 Strong yes\n\n";
     }
     if(s.closing.length){
       m+="### Scope & motivation\n_Not scored._\n\n";
-      s.closing.forEach(function(q){ m+="- "+q+"\n"; });
+      m+=scenarioListMD(s.closing);
       m+="\nWhat they ask you about tells you what they actually care about.\n\n";
     }
   });
