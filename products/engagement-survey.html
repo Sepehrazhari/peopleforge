@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeopleForge - Engagement Survey Builder</title>
+<link rel="stylesheet" href="/assets/css/brand.css">
+<style>
+:root{
+  --muted:var(--text-muted); --light:var(--text-light);
+  --display:var(--font-display); --body:var(--font-body);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.backlink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.backlink:hover{color:var(--coral)}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6px;margin:8px 0 20px}
+.prog{display:flex;gap:6px;margin-bottom:22px}
+.prog div{flex:1}
+.bar{height:4px;border-radius:4px;background:var(--border)}
+.bar.on{background:var(--coral)}
+.plab{font-size:11px;margin-top:6px;color:var(--light)}
+.plab.on{color:var(--anvil);font-weight:500}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.step-anim{animation:stepIn .3s ease}
+.sec{margin-bottom:26px}
+.lab{font-family:var(--display);font-weight:700;font-size:15px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.chip{font-family:var(--body);font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;margin:0 8px 8px 0;transition:all .15s}
+.chip:hover{border-color:var(--coral)}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
+input[type=text]{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
+input[type=text]:focus{border-color:var(--coral)}
+.scard{display:block;width:100%;text-align:left;cursor:pointer;padding:14px 16px;border-radius:12px;border:1.5px solid var(--border);background:#fff;margin-bottom:10px;transition:border-color .15s,background .15s}
+.scard.on{border-color:var(--coral);background:var(--coral-light)}
+.scard b{font-family:var(--display);font-size:15px;display:block}
+.scard span{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.k{font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.v{font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px}
+.disclose{font-size:12.5px;color:var(--light);line-height:1.55;margin:16px 0 2px}
+.btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--anvil)}
+.btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
+.btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
+.btn:disabled{opacity:.45;cursor:default}
+.note{font-size:13px;background:var(--coral-light);color:var(--coral-dark);padding:10px 14px;border-radius:10px;margin-bottom:18px;line-height:1.5}
+.fhead{border-bottom:2px solid var(--anvil);padding-bottom:14px;margin-bottom:18px}
+.eyebrow{font-size:12px;color:var(--coral);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.ftitle{font-family:var(--display);font-weight:700;font-size:22px;margin-top:4px}
+.fmeta{font-size:13px;color:var(--muted);margin-top:3px}
+.intro{font-size:14.5px;line-height:1.6;margin:0 0 20px}
+.h2{font-family:var(--display);font-weight:700;font-size:17px;margin:30px 0 10px;padding-top:16px;border-top:2px solid var(--anvil)}
+.h2:first-of-type{border-top:none;padding-top:0}
+.runbox{background:var(--teal-light);border-radius:12px;padding:16px 18px;font-size:13.5px;line-height:1.7;margin-bottom:18px}
+.runbox b.t{font-family:var(--display);font-size:13px;display:block;margin-bottom:6px}
+.runbox ul{margin:6px 0 0;padding-left:18px}
+.runbox li{margin-bottom:5px}
+.topic{margin-bottom:20px}
+.tname{font-family:var(--display);font-weight:700;font-size:16px}
+.tnum{color:var(--coral)}
+.tdef{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:1px}
+.item{padding:11px 0;border-top:1px solid var(--border)}
+.itxt{font-size:14.5px}
+.scale{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:8px;padding:5px 9px}
+.pill.num{min-width:26px;text-align:center;padding:4px 7px;border-radius:6px}
+.oq{margin-bottom:12px}
+.oline{height:46px;border:1px dashed var(--border);border-radius:8px;margin-top:6px}
+.diag{background:var(--linen);border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:13.5px;line-height:1.65}
+.diag b{font-family:var(--display);font-size:13.5px;display:block;margin-bottom:3px}
+.rubric{background:var(--linen);border-radius:12px;padding:16px 18px;font-size:13.5px;line-height:1.7}
+.rubric b.t{font-family:var(--display);font-size:14px;display:block;margin-bottom:8px}
+.rubric ul{margin:6px 0 0;padding-left:18px}
+.rubric li{margin-bottom:5px}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="/">&larr; Back to PeopleForge</a>
+  <div class="brandbar">
+    <div class="mark">P</div>
+    <div class="brand">PeopleForge</div>
+    <div class="tag">Engagement Survey Builder &middot; demo</div>
+  </div>
+  <h1>Build an engagement survey</h1>
+  <div id="app"></div>
+  <div class="foot">Prototype &middot; the engine behind PeopleForge products</div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT LIBRARY
+   Deterministic, built in so the demo runs with no network at all.
+   Each topic carries survey items plus a diagnostic note for what a
+   low score on that topic usually means - the difference between a
+   survey and a survey you can act on.
+   ============================================================ */
+var TOPICS = {
+  "Role clarity":{def:"Whether people know what is expected of them.",
+    items:["I know what is expected of me at work.",
+      "I understand how my work contributes to the team's goals.",
+      "I know what good performance looks like in my role.",
+      "Priorities are clear enough that I can decide what to work on next."],
+    low:"Almost always a management communication problem rather than an individual one. Check whether goals were set once at the start of the year and never revisited, and whether people can name their team's current priority without looking it up."},
+
+  "Manager support":{def:"The quality of the relationship with the direct manager.",
+    items:["My manager gives me the support I need to do my job.",
+      "My manager gives me feedback I can act on.",
+      "I can raise a problem with my manager without it counting against me.",
+      "My manager notices when I do good work."],
+    low:"Read this one by team, never company-wide. Scores vary enormously between managers, and a mediocre average usually hides a small number of teams having a bad time. Rolling out manager training across the company when two managers need a direct conversation is the classic wrong response."},
+
+  "Growth & development":{def:"Opportunity to learn and progress.",
+    items:["I have opportunities to learn and grow here.",
+      "I can see a path forward for myself at this company.",
+      "I have had a useful conversation about my development in the last six months.",
+      "I am given work that stretches me."],
+    low:"The usual cause is not a missing training budget but missing criteria. If people cannot describe what the next level actually requires, no amount of learning spend fixes it. A career ladder addresses this far more directly than a course catalogue."},
+
+  "Recognition":{def:"Whether good work gets noticed.",
+    items:["Good work is recognised here.",
+      "Recognition goes to the people who actually did the work.",
+      "I feel my contribution is valued."],
+    low:"Check whether recognition concentrates in the visible roles. Quiet, essential work going unnoticed is the common pattern, and it tends to cost you exactly the people you would least like to lose."},
+
+  "Workload & wellbeing":{def:"Whether the pace is sustainable.",
+    items:["My workload is manageable.",
+      "I can switch off from work when I am not working.",
+      "I am not regularly working late or at weekends to keep up.",
+      "I feel able to take time off when I need it."],
+    low:"Treat this as an operational problem, not a resilience problem. Wellbeing perks layered on top of an unmanageable workload read as insulting and usually make the next survey worse. Look at headcount, scope, and how often deadlines move."},
+
+  "Team & belonging":{def:"Whether people feel part of something.",
+    items:["I feel part of my team.",
+      "People here treat each other with respect.",
+      "I can be myself at work."],
+    low:"Break this down by group before you act on it. A healthy overall average can conceal one group having a substantially worse experience, and the average is precisely what stops you seeing it."},
+
+  "Communication & transparency":{def:"How well information moves around.",
+    items:["I get the information I need to do my job well.",
+      "Leadership is open about how the company is really doing.",
+      "Changes that affect me are explained before they happen.",
+      "I understand the reasoning behind decisions that affect my work."],
+    low:"Usually about timing rather than volume. People rarely want more communication; they want to hear things before they are affected by them. Adding another all-hands is not the fix."},
+
+  "Psychological safety":{def:"Whether it is safe to speak up.",
+    items:["I can raise concerns without fear of negative consequences.",
+      "Mistakes are treated as something to learn from here.",
+      "People in my team can disagree openly.",
+      "I can admit when I do not know something."],
+    low:"Treat this as a root cause rather than a symptom, because it drives scores across most other topics. Worth knowing: when this scores low, every other answer in the survey becomes less reliable, because the same fear that suppresses concerns suppresses honest survey responses."},
+
+  "Purpose & direction":{def:"Connection to where the company is going.",
+    items:["I believe in what this company is trying to do.",
+      "I understand the company's direction.",
+      "I have confidence in the decisions leadership makes."],
+    low:"Separate people who do not know the strategy from people who know it and disagree with it. The two look identical in the numbers and need opposite responses — more communication, or an actual change."},
+
+  "Tools & environment":{def:"Whether the basics work.",
+    items:["I have the tools and equipment I need to do my job well.",
+      "Our processes help me get work done rather than getting in the way.",
+      "My working environment suits the kind of work I do."],
+    low:"The cheapest item on this list to fix and often the fastest visible win. Fixing something concrete here buys you credibility for the slower, harder items."},
+
+  "Fair treatment":{def:"Whether people are treated even-handedly.",
+    items:["People are treated fairly here regardless of who they are.",
+      "Decisions about promotion are made fairly.",
+      "I understand how pay decisions are made here."],
+    low:"Note the third item asks about clarity of process, not about pay levels — people tolerate a great deal when they understand the rules. This survey cannot tell you whether your pay is actually competitive; that needs real benchmark data, which is a separate exercise."},
+
+  "Intent to stay":{def:"Whether people plan to still be here.",
+    items:["I see myself still working here in a year.",
+      "I would recommend this as a place to work."],
+    low:"Cross-reference against your actual attrition rather than treating it as a prediction. It is most useful as an early signal broken down by team, not as a single company-level number."}
+};
+
+var DEFAULT_TOPICS = ["Role clarity","Manager support","Growth & development","Recognition",
+                      "Workload & wellbeing","Communication & transparency","Psychological safety","Intent to stay"];
+
+var OPEN_Q = [
+  "What is the single most important thing we could change to make this a better place to work?",
+  "What should we keep doing?",
+  "What is getting in the way of you doing your best work?",
+  "Is there anything you would like to raise that this survey did not ask about?"
+];
+
+var SCALES = {
+  agree5:{label:"Agreement · 1-5",
+    points:[["1","Strongly disagree"],["2","Disagree"],["3","Neither"],["4","Agree"],["5","Strongly agree"]],
+    note:"The familiar option. The midpoint is a genuine answer for people who have no view, but expect a chunk of respondents to park there rather than commit."},
+  agree4:{label:"Agreement · 1-4",
+    points:[["1","Strongly disagree"],["2","Disagree"],["3","Agree"],["4","Strongly agree"]],
+    note:"No midpoint, so everyone has to lean one way. Sharper signal, at the cost of mildly annoying people who genuinely sit in the middle."}
+};
+
+var TOPIC_NAMES=Object.keys(TOPICS);
+var LENGTHS=[{v:"Short",per:2,l:"Short · 2 statements per topic"},{v:"Standard",per:3,l:"Standard · 3 per topic"},{v:"Deep",per:4,l:"Deep · 4 per topic"}];
+var ANON=[{v:"anon",l:"Anonymous"},{v:"conf",l:"Confidential"},{v:"named",l:"Named"}];
+var ANON_TEXT={
+  anon:"No identifying data is collected at all. Highest honesty, but you cannot follow up individually and you can only break results down by whatever demographic questions you ask up front.",
+  conf:"Responses are identifiable to whoever runs the survey but are never shown to managers. A reasonable middle ground, and only credible if people believe you.",
+  named:"Responses are attributed. Expect noticeably more positive scores, and treat the results as a conversation starter rather than a measurement."
+};
+var CADENCE=["Annually","Twice a year","Quarterly pulse","Monthly pulse"];
+var STEPS=["Basics","What to measure","How to run it","Review"];
+
+/* ============================ STATE ============================ */
+var S={step:0,survey:null,copied:false,cfg:{
+  company:"",autoTopics:true,topics:DEFAULT_TOPICS.slice(),
+  length:"Standard",scale:"agree5",enps:true,
+  anon:"anon",cadence:"Twice a year",openN:3
+}};
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+/* ==================== GENERATION (deterministic) ==================== */
+function buildSurvey(cfg){
+  var names=(cfg.autoTopics||!cfg.topics.length)?DEFAULT_TOPICS.slice():cfg.topics.slice();
+  var per=(LENGTHS.filter(function(l){return l.v===cfg.length;})[0]||LENGTHS[1]).per;
+
+  var topics=names.map(function(n){
+    var t=TOPICS[n];
+    return {name:n, definition:t.def, items:t.items.slice(0,per), low:t.low};
+  });
+
+  var itemCount=topics.reduce(function(a,t){return a+t.items.length;},0);
+
+  return {
+    topics:topics,
+    itemCount:itemCount,
+    openQuestions:OPEN_Q.slice(0,cfg.openN),
+    minutes:Math.max(3,Math.round((itemCount*0.25)+(cfg.openN*1.5)))
+  };
+}
+
+/* ============================ RENDER ============================ */
+var app=document.getElementById("app");
+
+function chips(list,key,multi){
+  return list.map(function(o){
+    var val=typeof o==="object"?o.v:o, lab=typeof o==="object"?o.l:o;
+    var on=multi?S.cfg[key].indexOf(val)>-1:S.cfg[key]===val;
+    return '<button class="chip'+(on?" on":"")+'" data-act="'+(multi?"tog":"set")+'" data-k="'+key+'" data-v="'+esc(val)+'">'+
+      (multi&&on?"&#10003; ":"")+esc(lab)+'</button>';
+  }).join("");
+}
+
+function render(){
+  var c=S.cfg,h="";
+
+  if(S.step<4){
+    h+='<div class="prog">'+STEPS.map(function(s,i){
+      return '<div><div class="bar'+(i<=S.step?" on":"")+'"></div><div class="plab'+(i===S.step?" on":"")+'">'+s+'</div></div>';
+    }).join("")+'</div>';
+  }
+
+  h+='<div class="card">';
+
+  if(S.step===0){
+    h+='<div class="sec"><div class="lab">Team or company name</div><div class="hint">Appears at the top of the survey. Optional.</div>'+
+       '<input type="text" id="company" value="'+esc(c.company)+'" placeholder="e.g. Fakir Technology"></div>';
+    h+='<div class="sec"><div class="lab">Depth per topic</div><div class="hint">Shorter surveys get answered. A short one you run four times beats an epic you run once. Some topics carry fewer statements than the maximum, so the total can come out slightly lower.</div>'+
+       chips(LENGTHS.map(function(l){return {v:l.v,l:l.l};}),"length")+'</div>';
+    h+='<div class="sec"><div class="lab">How often you plan to run it</div><div class="hint">Appears in the intro so people know what they are signing up for.</div>'+chips(CADENCE,"cadence")+'</div>';
+  }
+
+  if(S.step===1){
+    h+='<div class="sec"><div class="lab">Topics</div><div class="hint">Use a standard set, or pick your own. Each topic you add makes the survey longer and the response rate lower.</div>'+
+       '<button class="chip'+(c.autoTopics?" on":"")+'" data-act="set" data-k="autoTopics" data-v="1">Standard set</button>'+
+       '<button class="chip'+(!c.autoTopics?" on":"")+'" data-act="set" data-k="autoTopics" data-v="">I will choose</button>';
+    if(!c.autoTopics){ h+='<div style="margin-top:14px">'+chips(TOPIC_NAMES,"topics",true)+'</div>'; }
+    h+='</div>';
+    h+='<div class="sec"><div class="lab">Open comment questions</div><div class="hint">Where the actual explanation lives. The scores tell you where to look; these tell you why.</div>'+
+       chips([{v:"1",l:"1"},{v:"2",l:"2"},{v:"3",l:"3"},{v:"4",l:"4"}],"openN")+'</div>';
+    h+='<div class="sec"><div class="lab">Include an eNPS question</div><div class="hint">The 0-10 "would you recommend working here" question. Useful for trend over time, near useless as a one-off number.</div>'+
+       '<button class="chip'+(c.enps?" on":"")+'" data-act="set" data-k="enps" data-v="1">Yes</button>'+
+       '<button class="chip'+(!c.enps?" on":"")+'" data-act="set" data-k="enps" data-v="">No</button></div>';
+  }
+
+  if(S.step===2){
+    h+='<div class="sec"><div class="lab">Response scale</div><div class="hint">Explained inside the finished survey.</div>';
+    Object.keys(SCALES).forEach(function(k){
+      h+='<button class="scard'+(c.scale===k?" on":"")+'" data-act="set" data-k="scale" data-v="'+k+'">'+
+         '<b>'+esc(SCALES[k].label)+'</b><span>'+esc(SCALES[k].note)+'</span></button>';
+    });
+    h+='</div>';
+    h+='<div class="sec"><div class="lab">Anonymity</div><div class="hint">The single biggest driver of whether the answers are true.</div>';
+    ANON.forEach(function(a){
+      h+='<button class="scard'+(c.anon===a.v?" on":"")+'" data-act="set" data-k="anon" data-v="'+a.v+'">'+
+         '<b>'+esc(a.l)+'</b><span>'+esc(ANON_TEXT[a.v])+'</span></button>';
+    });
+    h+='</div>';
+  }
+
+  if(S.step===3){
+    var preview=buildSurvey(c);
+    var kv=[["Company",c.company||"-"],["Depth",c.length+" ("+preview.itemCount+" rated items, about "+preview.minutes+" min)"],
+      ["Topics",(c.autoTopics||!c.topics.length)?"Standard set ("+DEFAULT_TOPICS.length+")":c.topics.length+" chosen"],
+      ["Scale",SCALES[c.scale].label],["Anonymity",ANON.filter(function(a){return a.v===c.anon;})[0].l],
+      ["Cadence",c.cadence],["Open questions",String(c.openN)],["eNPS",c.enps?"Included":"Not included"]];
+    h+='<div class="lab">Review your setup</div><div class="hint">Step back to change anything.</div><div class="grid">'+
+       kv.map(function(p){return '<div><div class="k">'+p[0]+'</div><div class="v">'+esc(p[1])+'</div></div>';}).join("")+'</div>';
+  }
+
+  if(S.step===4&&S.survey){ h+=resultHTML(c,S.survey); }
+
+  if(S.step<4){
+    if(S.step===3){ h+='<div class="disclose">When you generate, a copy of the document and the choices you made are sent to the PeopleForge team so we can see which tools people actually use. Please do not enter anything confidential.</div>'; }
+    h+='<div class="nav"><button class="btn" data-act="back"'+(S.step===0?" disabled":"")+'>&larr; Back</button>';
+    h+= S.step<3
+      ? '<button class="btn dark" data-act="next">Continue &rarr;</button>'
+      : '<button class="btn coral" data-act="gen">Generate survey</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  app.innerHTML=h;
+}
+
+function resultHTML(c,f){
+  var h="", sc=SCALES[c.scale];
+  h+='<div class="note">Built from your choices using the PeopleForge content library. '+
+     'Copy it below, put the questions into whatever survey tool you already use, and keep the playbook at the end.</div>';
+
+  h+='<div class="fhead"><div class="eyebrow">Engagement Survey</div>'+
+     '<div class="ftitle">'+esc(c.company||"Employee engagement survey")+'</div>'+
+     '<div class="fmeta">'+f.itemCount+' rated items &middot; '+f.openQuestions.length+' open questions &middot; about '+f.minutes+' minutes to complete</div></div>';
+
+  h+='<div class="h2">Before you send it</div>';
+  h+='<div class="runbox"><b class="t">Getting honest answers</b><ul>'+
+     '<li><b>'+esc(ANON.filter(function(a){return a.v===c.anon;})[0].l)+'.</b> '+esc(ANON_TEXT[c.anon])+'</li>'+
+     (c.anon==="anon"||c.anon==="conf"
+       ? '<li>Never report results for a group smaller than five people. With three responses everyone can work out who said what, and one broken anonymity promise ends your ability to run these surveys for years.</li>'
+       : '<li>Because responses are attributed, read the scores as a floor rather than a measurement — people round up when their name is attached.</li>')+
+     '<li>Say before you launch what you will do with the results and when you will share them. Then do that. A survey you run and never report back on is worse than no survey, because it teaches people that answering honestly changes nothing.</li>'+
+     '<li>Give people a two-week window and one reminder. Chasing beyond that produces compliance, not candour.</li>'+
+     '<li>Run it '+esc(c.cadence.toLowerCase())+', at roughly the same point each time. Comparing to your own previous score is far more useful than comparing to an industry benchmark.</li>'+
+     '</ul></div>';
+
+  h+='<div class="h2">The survey</div>';
+  h+='<p class="intro">This survey asks how things actually are here, not how they are supposed to be. '+
+     'It takes about '+f.minutes+' minutes. '+esc(c.anon==="anon"?"It is completely anonymous — no identifying information is collected.":c.anon==="conf"?"Responses are confidential and are never shown to your manager.":"Responses are attributed.")+' '+
+     'Please answer for how things have been over the last few months rather than this week specifically.</p>';
+
+  h+='<div class="runbox" style="background:var(--linen)"><b class="t">How to answer</b>'+
+     'Rate how strongly you agree with each statement:<div style="margin-top:6px">'+
+     sc.points.map(function(p){return '<span style="margin-right:14px;display:inline-block"><b>'+p[0]+'</b> '+p[1]+'</span>';}).join("")+
+     '</div></div>';
+
+  f.topics.forEach(function(t,i){
+    h+='<div class="topic"><div class="tname"><span class="tnum">'+("0"+(i+1)).slice(-2)+'</span>&nbsp; '+esc(t.name)+'</div>'+
+       '<div class="tdef">'+esc(t.definition)+'</div>';
+    t.items.forEach(function(it){
+      h+='<div class="item"><div class="itxt">'+esc(it)+'</div><div class="scale">'+
+         sc.points.map(function(p){return '<span class="pill">'+p[0]+' · '+p[1]+'</span>';}).join("")+'</div></div>';
+    });
+    h+='</div>';
+  });
+
+  if(c.enps){
+    h+='<div class="topic"><div class="tname"><span class="tnum">'+("0"+(f.topics.length+1)).slice(-2)+'</span>&nbsp; Recommending us</div>'+
+       '<div class="tdef">The standard eNPS question. Track the trend, not the absolute number.</div>'+
+       '<div class="item"><div class="itxt">How likely are you to recommend this company as a place to work?</div>'+
+       '<div class="scale">';
+    for(var n=0;n<=10;n++){ h+='<span class="pill num">'+n+'</span>'; }
+    h+='</div></div></div>';
+  }
+
+  h+='<div class="topic"><div class="tname"><span class="tnum">'+("0"+(f.topics.length+(c.enps?2:1))).slice(-2)+'</span>&nbsp; In your own words</div>';
+  f.openQuestions.forEach(function(q){
+    h+='<div class="oq" style="margin-top:12px"><div class="itxt">'+esc(q)+'</div><div class="oline"></div></div>';
+  });
+  h+='</div>';
+
+  h+='<div class="h2">After the results</div>';
+  h+='<div class="rubric"><b class="t">What to do with what comes back</b><ul>'+
+     '<li>Share the results within two weeks, including the bad ones. Selectively reporting the good scores is obvious to everyone who filled it in.</li>'+
+     '<li>Pick at most three things to act on. A plan addressing eleven topics addresses none of them.</li>'+
+     '<li>Give each of the three a named owner and a date. "We will look at workload" is not an action.</li>'+
+     '<li>Say out loud what you are <i>not</i> going to change and why. People accept a no with a reason far better than silence.</li>'+
+     '<li>Read the free-text answers yourself before looking at any averages. The averages tell you where to look; the comments tell you what is actually happening.</li>'+
+     '<li>Split every score by team before drawing conclusions. Company-wide averages hide the exact problems you are trying to find.</li>'+
+     '</ul></div>';
+
+  h+='<div class="h2">If a topic scores low</div>';
+  f.topics.forEach(function(t){
+    h+='<div class="diag"><b>'+esc(t.name)+'</b>'+esc(t.low)+'</div>';
+  });
+
+  h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy survey (Markdown)")+'</button>'+
+     '<button class="btn" data-act="restart">Start over</button></div>';
+  return h;
+}
+
+/* ============================ MARKDOWN ============================ */
+function toMarkdown(c,f){
+  var sc=SCALES[c.scale];
+  var m="# Engagement Survey"+(c.company?" - "+c.company:"")+"\n";
+  m+="_"+f.itemCount+" rated items | "+f.openQuestions.length+" open questions | about "+f.minutes+" minutes_\n\n";
+
+  m+="## Before you send it\n";
+  m+="- **"+ANON.filter(function(a){return a.v===c.anon;})[0].l+".** "+ANON_TEXT[c.anon]+"\n";
+  m+= (c.anon==="named")
+    ? "- Because responses are attributed, read the scores as a floor rather than a measurement.\n"
+    : "- Never report results for a group smaller than five people. One broken anonymity promise ends your ability to run these surveys for years.\n";
+  m+="- Say before you launch what you will do with the results and when you will share them, then do that.\n";
+  m+="- Give people a two-week window and one reminder.\n";
+  m+="- Run it "+c.cadence.toLowerCase()+", at roughly the same point each time.\n\n";
+
+  m+="## The survey\n\n";
+  m+="This survey asks how things actually are here, not how they are supposed to be. It takes about "+f.minutes+" minutes. ";
+  m+=(c.anon==="anon"?"It is completely anonymous.":c.anon==="conf"?"Responses are confidential and never shown to your manager.":"Responses are attributed.")+"\n\n";
+  m+="Scale: "+sc.points.map(function(p){return p[0]+" "+p[1];}).join(" | ")+"\n\n";
+
+  f.topics.forEach(function(t,i){
+    m+="### "+("0"+(i+1)).slice(-2)+". "+t.name+"\n_"+t.definition+"_\n\n";
+    t.items.forEach(function(it){ m+="- "+it+"\n"; });
+    m+="\n";
+  });
+
+  if(c.enps){
+    m+="### Recommending us\n- How likely are you to recommend this company as a place to work? (0-10)\n\n";
+  }
+
+  m+="### In your own words\n";
+  f.openQuestions.forEach(function(q){ m+="- "+q+"\n\n"; });
+  m+="\n";
+
+  m+="## After the results\n";
+  m+="- Share the results within two weeks, including the bad ones.\n";
+  m+="- Pick at most three things to act on.\n";
+  m+="- Give each one a named owner and a date.\n";
+  m+="- Say what you are not going to change, and why.\n";
+  m+="- Read the free-text answers before looking at any averages.\n";
+  m+="- Split every score by team before drawing conclusions.\n\n";
+
+  m+="## If a topic scores low\n";
+  f.topics.forEach(function(t){ m+="**"+t.name+"** — "+t.low+"\n\n"; });
+  return m;
+}
+
+/* ============================ NOTIFY (best-effort, never blocks) ============================ */
+function notifyBackground(cfg,survey){
+  try{
+    var payload={
+      config:{company:cfg.company,length:cfg.length,topics:cfg.autoTopics?"standard":cfg.topics.join(", "),
+        scale:cfg.scale,anon:cfg.anon,cadence:cfg.cadence,enps:cfg.enps,openN:cfg.openN},
+      document:toMarkdown(cfg,survey)
+    };
+    fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .catch(function(){});
+  }catch(e){}
+}
+
+/* ============================ STEP TRANSITION ============================ */
+function renderStep(){
+  render();
+  var card=app.querySelector(".card");
+  if(card) card.classList.add("step-anim");
+}
+
+/* ============================ EVENTS ============================ */
+app.addEventListener("input",function(e){
+  if(e.target.id==="company") S.cfg.company=e.target.value;
+});
+
+app.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act"),k=b.getAttribute("data-k"),v=b.getAttribute("data-v");
+
+  if(act==="set"){
+    if(k==="autoTopics"||k==="enps") S.cfg[k]=!!v;
+    else if(k==="openN") S.cfg[k]=parseInt(v,10);
+    else S.cfg[k]=v;
+    render();
+  }
+  else if(act==="tog"){
+    var a=S.cfg[k],i=a.indexOf(v);
+    if(i>-1) a.splice(i,1); else a.push(v);
+    render();
+  }
+  else if(act==="next"){ S.step++; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.survey=buildSurvey(S.cfg); S.step=4; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.survey); }
+  else if(act==="restart"){ S.step=0; S.survey=null; S.copied=false; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="copy"){
+    var txt=toMarkdown(S.cfg,S.survey);
+    var done=function(){ S.copied=true; render(); setTimeout(function(){S.copied=false;render();},1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();});
+    } else { fallbackCopy(txt); done(); }
+  }
+});
+
+function fallbackCopy(t){
+  var ta=document.createElement("textarea");
+  ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy");}catch(err){}
+  document.body.removeChild(ta);
+}
+
+render();
+</script>
+</body>
+</html>

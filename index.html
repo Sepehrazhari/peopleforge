@@ -91,7 +91,7 @@
           "name": "What HR templates does PeopleForge offer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "PeopleForge has four tools live right now, all free to use with no account: a custom performance evaluation form builder, a career ladder framework builder, a recruiting framework builder, and PeopleForge Studio for custom-built people systems. Each generates a finished document from your answers, which you can copy and edit. More products are in development."
+            "text": "PeopleForge has five tools live right now, all free to use with no account: a custom performance evaluation form builder, a career ladder framework builder, a recruiting framework builder, an engagement survey builder, and PeopleForge Studio for custom-built people systems. Each generates a finished document from your answers, which you can copy and edit. More products are in development."
           }
         },
         {
@@ -99,7 +99,7 @@
           "name": "How much do PeopleForge HR templates cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The four tools currently live are free. Listed prices for products still in development are indicative and nothing is purchasable on the site yet. PeopleForge Studio, our custom build service, starts at $7,500 and is quoted per project after a discovery call."
+            "text": "The five tools currently live are free. Listed prices for products still in development are indicative and nothing is purchasable on the site yet. PeopleForge Studio, our custom build service, starts at $7,500 and is quoted per project after a discovery call."
           }
         },
         {
@@ -725,7 +725,7 @@ footer {
   </section>
 
   <div class="stats-bar" role="region" aria-label="Company statistics">
-    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Tools live right now</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Tools live right now</div></div>
     <div class="stat-item"><div class="stat-num">Free</div><div class="stat-label">No account, no card</div></div>
     <div class="stat-item"><div class="stat-num">Minutes</div><div class="stat-label">From questions to document</div></div>
     <div class="stat-item"><div class="stat-num">Yours</div><div class="stat-label">Copy it and edit it freely</div></div>
@@ -820,12 +820,12 @@ footer {
           <div class="product-desc">Salary bands, benchmarking guide, and a pay equity audit template.</div>
           <div class="product-footer"><span class="product-price">$149</span><span class="badge badge-gray">Coming soon</span></div>
         </div>
-        <div class="product-card is-soon">
+        <a class="product-card" href="/products/engagement-survey">
           <div class="product-icon icon-t">ES</div>
-          <div class="product-name">Engagement survey + analysis</div>
-          <div class="product-desc">The survey questions AND the playbook for when results show burnout.</div>
-          <div class="product-footer"><span class="product-price">$59</span><span class="badge badge-gray">Coming soon</span></div>
-        </div>
+          <div class="product-name">Engagement survey + playbook</div>
+          <div class="product-desc">The survey questions, plus what a bad score on each topic usually means and what to do about it.</div>
+          <div class="product-footer"><span class="product-price">$59</span><span class="product-add">Build your survey →</span></div>
+        </a>
         <div class="product-card is-soon">
           <div class="product-icon icon-p">RW</div>
           <div class="product-name">Remote & hybrid work playbook</div>
@@ -880,7 +880,7 @@ footer {
             <span class="faq-toggle">+</span>
           </div>
           <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-            <p itemprop="text">PeopleForge has four tools live right now, all free to use with no account: a custom performance evaluation form builder, a career ladder framework builder, a recruiting framework builder, and PeopleForge Studio for custom-built people systems. Each generates a finished document from your answers, which you can copy and edit. More products are in development.</p>
+            <p itemprop="text">PeopleForge has five tools live right now, all free to use with no account: a custom performance evaluation form builder, a career ladder framework builder, a recruiting framework builder, an engagement survey builder, and PeopleForge Studio for custom-built people systems. Each generates a finished document from your answers, which you can copy and edit. More products are in development.</p>
           </div>
         </div>
         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -898,7 +898,7 @@ footer {
             <span class="faq-toggle">+</span>
           </div>
           <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-            <p itemprop="text">The four tools currently live are free. Listed prices for products still in development are indicative and nothing is purchasable on the site yet. PeopleForge Studio, our custom build service, starts at $7,500 and is quoted per project after a discovery call.</p>
+            <p itemprop="text">The five tools currently live are free. Listed prices for products still in development are indicative and nothing is purchasable on the site yet. PeopleForge Studio, our custom build service, starts at $7,500 and is quoted per project after a discovery call.</p>
           </div>
         </div>
         <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -1279,7 +1279,7 @@ const shopProducts=[
   {id:3,name:"Onboarding & offboarding kit",desc:"30-60-90 day plans, buddy programs, and exit interview frameworks.",price:49,cat:"template",icon:"OB",ic:"icon-b"},
   {id:4,name:"Career ladder framework",desc:"Level definitions, competencies, and promotion criteria for any team size.",price:99,cat:"framework",icon:"CL",ic:"icon-a",link:"/products/career-ladder",cta:"Build your ladder →"},
   {id:5,name:"Compensation system",desc:"Salary bands, benchmarking guide, and pay equity audit template.",price:149,cat:"framework",icon:"CS",ic:"icon-c"},
-  {id:6,name:"Engagement survey + analysis",desc:"The survey questions AND the playbook for when results show burnout.",price:59,cat:"template",icon:"ES",ic:"icon-t"},
+  {id:6,name:"Engagement survey + playbook",desc:"The survey questions, plus what a bad score on each topic usually means and what to do about it.",price:59,cat:"template",icon:"ES",ic:"icon-t",link:"/products/engagement-survey",cta:"Build your survey →"},
   {id:7,name:"Remote & hybrid work playbook",desc:"Async norms, meeting rhythms, and time-zone policies for distributed teams.",price:49,cat:"template",icon:"RW",ic:"icon-p"},
   {id:8,name:"AI prompt library for HR",desc:"200+ prompts for JDs, offer letters, PIPs, and performance reviews.",price:39,cat:"ai",icon:"AI",ic:"icon-b"},
   {id:9,name:"Recruiting framework",desc:"Interview scorecards, structured question banks, hiring decision rubrics, and email templates for every stage.",price:79,cat:"framework",icon:"RC",ic:"icon-a",link:"/products/recruiting",cta:"Build your kit →"},
