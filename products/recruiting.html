@@ -104,6 +104,11 @@ input[type=text]:focus{border-color:var(--coral)}
 .emailsubj{font-size:13px;background:var(--linen);border-radius:7px;padding:7px 10px;margin-bottom:8px}
 .emailbody{font-size:13.5px;line-height:1.65;white-space:pre-wrap}
 .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.studio{margin-top:22px;padding:18px 20px;border:1.5px solid var(--coral);border-radius:14px;background:var(--coral-light)}
+.studio b{font-family:var(--display);font-size:15px;display:block;margin-bottom:5px;color:var(--coral-dark)}
+.studio p{margin:0 0 13px;font-size:13.5px;line-height:1.6;color:var(--anvil)}
+.studio a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:#fff;background:var(--coral);padding:10px 18px;border-radius:100px;text-decoration:none}
+.studio a:hover{opacity:.92}
 .foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
 @media(max-width:560px){.grid{grid-template-columns:1fr}}
 </style>
@@ -695,6 +700,10 @@ function resultHTML(c,k){
 
   h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy kit (Markdown)")+'</button>'+
      '<button class="btn" data-act="restart">Start over</button></div>';
+
+  h+='<div class="studio"><b>This is the process on paper.</b>'+
+     '<p>Kits like this fall apart in inboxes — scorecards arrive after the debrief, candidates go quiet, nobody can remember who said what. Studio builds the process as a system that actually holds the structure you just designed.</p>'+
+     '<a href="/products/studio-intake">See what Studio builds &rarr;</a></div>';
   return h;
 }
 

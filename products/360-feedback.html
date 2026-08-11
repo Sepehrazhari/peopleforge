@@ -87,6 +87,11 @@ input[type=text]:focus{border-color:var(--coral)}
 .oq{margin-bottom:12px}
 .oline{height:46px;border:1px dashed var(--border);border-radius:8px;margin-top:6px}
 .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.studio{margin-top:22px;padding:18px 20px;border:1.5px solid var(--coral);border-radius:14px;background:var(--coral-light)}
+.studio b{font-family:var(--display);font-size:15px;display:block;margin-bottom:5px;color:var(--coral-dark)}
+.studio p{margin:0 0 13px;font-size:13.5px;line-height:1.6;color:var(--anvil)}
+.studio a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:#fff;background:var(--coral);padding:10px 18px;border-radius:100px;text-decoration:none}
+.studio a:hover{opacity:.92}
 .foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
 @media(max-width:560px){.grid{grid-template-columns:1fr}}
 </style>
@@ -385,8 +390,11 @@ function resultHTML(c,f){
   h+='</div>';
 
   h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy form (Markdown)")+'</button>'+
-     '<button class="btn" data-act="restart">Start over</button>'+
-     '<button class="btn ghost" title="Add-on, to be specified">Analysis report &middot; add-on</button></div>';
+     '<button class="btn" data-act="restart">Start over</button>'+'</div>';
+
+  h+='<div class="studio"><b>This is the form. The review cycle is the hard part.</b>'+
+     '<p>A form is a document — someone still has to send it to the right people, chase the responses, and pull the results together. PeopleForge Studio builds that as a working system for how your company actually runs reviews.</p>'+
+     '<a href="/products/studio-intake">See what Studio builds &rarr;</a></div>';
   return h;
 }
 
