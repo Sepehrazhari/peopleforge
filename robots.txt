@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://peopleforge-ten.vercel.app/sitemap.xml
