@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All products — PeopleForge</title>
+<meta name="description" content="Every PeopleForge tool in one place. Four free builders that generate finished HR documents, plus PeopleForge Studio for custom-built people systems.">
+<link rel="canonical" href="https://peopleforge-ten.vercel.app/shop">
+<meta property="og:type" content="website">
+<meta property="og:title" content="All products — PeopleForge">
+<meta property="og:description" content="Every PeopleForge tool in one place. Four free builders that generate finished HR documents, plus PeopleForge Studio for custom-built people systems.">
+<meta property="og:url" content="https://peopleforge-ten.vercel.app/shop">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/css/brand.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="PeopleForge home">People<span>Forge</span></a>
+    <div class="nav-links">
+      <a href="/shop" class="active">Products</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="mailto:hello@peopleforge.co">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="/shop">Products</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@peopleforge.co">Contact</a>
+    <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+  </div>
+</nav>
+
+<main role="main">
+
+  <header style="padding:3rem 0 2rem;border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+        <div>
+          <p class="section-label">All products</p>
+          <h1 style="font-size:clamp(1.75rem,3vw,2.5rem);">The HR toolkit — built different</h1>
+        </div>
+        <input type="text" class="shop-search" id="shopSearch" placeholder="Search templates, frameworks..." oninput="filterShop()" aria-label="Search products">
+      </div>
+    </div>
+  </header>
+
+  <div style="padding:1rem 0;border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="filter-bar" role="group" aria-label="Filter products by category">
+        <button class="filter-btn active" onclick="setShopFilter('all',this)">All products</button>
+        <button class="filter-btn" onclick="setShopFilter('template',this)">Templates</button>
+        <button class="filter-btn" onclick="setShopFilter('framework',this)">Frameworks</button>
+        <button class="filter-btn" onclick="setShopFilter('ai',this)">AI tools</button>
+        <button class="filter-btn" onclick="setShopFilter('course',this)">Courses</button>
+        <button class="filter-btn" onclick="setShopFilter('consulting',this)">Consulting</button>
+        <button class="filter-btn" onclick="setShopFilter('bundle',this)">Bundles</button>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding:2rem 0;" id="bundleSection">
+    <div class="container">
+      <div class="bundle-card">
+        <div>
+          <div class="badge badge-teal" style="margin-bottom:0.85rem;">Best value bundle — save 40%</div>
+          <h2 style="font-size:22px;margin-bottom:0.75rem;">The complete HR starter kit</h2>
+          <p style="font-size:14px;color:var(--text-muted);max-width:500px;line-height:1.7;">Handbook + Onboarding Kit + Performance Eval + Career Ladder + Engagement Survey. Everything a growing company needs to go from zero to professional HR in a weekend.</p>
+        </div>
+        <div class="bundle-price-block">
+          <div class="bundle-original">$315 if bought separately</div>
+          <div class="bundle-now">$189</div>
+          <div class="bundle-save"><div class="pill-dot"></div>Save $126 (40% off)</div>
+          <button class="btn btn-primary" style="margin-top:1rem;width:100%;" disabled>Coming soon</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 0 4rem;">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <p id="shopCount" style="font-size:14px;color:var(--text-muted);">12 products</p>
+        <select onchange="sortShop(this.value)" style="font-size:13px;padding:7px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--white);font-family:'DM Sans',sans-serif;color:var(--text);" aria-label="Sort products">
+          <option value="default">Sort: featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="name">Name: A–Z</option>
+        </select>
+      </div>
+      <div class="grid-auto" id="shopGrid"></div>
+    </div>
+  </section>
+
+  <div class="trust-bar" role="region" aria-label="Trust and purchase guarantees">
+    <div class="trust-item"><div class="trust-label">Instant download</div>PDF + Notion formats</div>
+    <div class="trust-item"><div class="trust-label">Lifetime access</div>Free updates forever</div>
+    <div class="trust-item"><div class="trust-label">EU VAT handled</div>Automatic for all buyers</div>
+    <div class="trust-item"><div class="trust-label">14-day guarantee</div>Full refund if unsatisfied</div>
+  </div>
+
+  <!-- Pricing section -->
+  <section class="section" aria-labelledby="pricing-heading">
+    <div class="container">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-title" id="pricing-heading">Simple, transparent pricing</h2>
+      <p class="section-sub" style="margin-bottom:2.5rem;">Indicative pricing. Nothing is purchasable on the site yet — the live tools are free, and everything else is arranged directly with us.</p>
+      <div class="grid-4">
+        <div class="price-card">
+          <div class="price-tier">Starter</div>
+          <div class="price-desc">Individual templates. Buy only what you need.</div>
+          <div class="price-num">$15–299 <span>/ product</span></div>
+          <div class="price-features">
+            <div class="price-feature"><div class="price-check"></div>Instant download</div>
+            <div class="price-feature"><div class="price-check"></div>Lifetime access</div>
+            <div class="price-feature"><div class="price-check"></div>Notion + PDF formats</div>
+            <div class="price-feature"><div class="price-check"></div>Free updates</div>
+          </div>
+        </div>
+        <div class="price-card featured">
+          <div class="badge badge-coral" style="margin-bottom:0.85rem;">Most popular</div>
+          <div class="price-tier">Membership</div>
+          <div class="price-desc">Full library access + monthly new drops.</div>
+          <div class="price-num">$49 <span>/ month</span></div>
+          <div class="price-features">
+            <div class="price-feature"><div class="price-check"></div>Everything in the library</div>
+            <div class="price-feature"><div class="price-check"></div>New drops monthly</div>
+            <div class="price-feature"><div class="price-check"></div>Private community</div>
+            <div class="price-feature"><div class="price-check"></div>Priority support</div>
+          </div>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">Consulting</div>
+          <div class="price-desc">Done-for-you HR systems built around your company.</div>
+          <div class="price-num">$500+ <span>/ project</span></div>
+          <div class="price-features">
+            <div class="price-feature"><div class="price-check"></div>HR audit</div>
+            <div class="price-feature"><div class="price-check"></div>Custom deliverables</div>
+            <div class="price-feature"><div class="price-check"></div>Fractional CHRO option</div>
+            <div class="price-feature"><div class="price-check"></div>Retainer available</div>
+          </div>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">B2B license</div>
+          <div class="price-desc">White-label our templates for your clients.</div>
+          <div class="price-num">$999+ <span>/ year</span></div>
+          <div class="price-features">
+            <div class="price-feature"><div class="price-check"></div>Full library license</div>
+            <div class="price-feature"><div class="price-check"></div>Your branding</div>
+            <div class="price-feature"><div class="price-check"></div>Resell rights</div>
+            <div class="price-feature"><div class="price-check"></div>Dedicated support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">People<span>Forge</span></div>
+        <p class="footer-tagline">HR infrastructure for companies that give a damn about their people. Templates, frameworks, and consulting — built by practitioners, not consultancies.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <div class="footer-links">
+          <a href="/products/360-feedback">Performance evaluation form</a>
+          <a href="/products/career-ladder">Career ladder framework</a>
+          <a href="/products/recruiting">Recruiting framework</a>
+          <a href="/products/engagement-survey">Engagement survey</a>
+          <a href="/shop">All products</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/products/studio-intake">PeopleForge Studio</a>
+          <a href="mailto:hello@peopleforge.co?subject=HR%20audit">HR audit</a>
+          <a href="mailto:hello@peopleforge.co?subject=Consulting">Consulting</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about">About</a>
+          <a href="/blog">Blog</a>
+          <a href="mailto:hello@peopleforge.co">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PeopleForge. All rights reserved.</span>
+      <span>Registered in Germany · Free tools require no account</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+<script src="/assets/js/shop.js"></script>
+</body>
+</html>
