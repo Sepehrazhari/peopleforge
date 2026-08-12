@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Diagnostic — What to Fix First | PeopleForge</title>
+<meta name="description" content="Ten questions about how your company works today, and a prioritised answer to what to fix first. Weighted by company size, so you are not told to build things you do not need yet. Free, no account.">
+<link rel="canonical" href="https://peopleforge-ten.vercel.app/products/hr-diagnostic">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HR Diagnostic — What to Fix First | PeopleForge">
+<meta property="og:description" content="Ten questions about how your company works today, and a prioritised answer to what to fix first. Free, no account.">
+<meta property="og:url" content="https://peopleforge-ten.vercel.app/products/hr-diagnostic">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/assets/css/brand.css">
+<style>
+:root{
+  --muted:var(--text-muted); --light:var(--text-light);
+  --display:var(--font-display); --body:var(--font-body);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--linen);color:var(--anvil);font-family:var(--body)}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+.backlink{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:14px}
+.backlink:hover{color:var(--coral)}
+.brandbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--coral);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.3px}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.6px;margin:8px 0 20px}
+.prog{display:flex;gap:6px;margin-bottom:22px}
+.prog div{flex:1}
+.bar{height:4px;border-radius:4px;background:var(--border)}
+.bar.on{background:var(--coral)}
+.plab{font-size:11px;margin-top:6px;color:var(--light)}
+.plab.on{color:var(--anvil);font-weight:500}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card.step-anim{animation:stepIn .3s ease}
+.sec{margin-bottom:26px}
+.lab{font-family:var(--display);font-weight:700;font-size:15px}
+.hint{font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:10px}
+.chip{font-family:var(--body);font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;margin:0 8px 8px 0;transition:all .15s}
+.chip:hover{border-color:var(--coral)}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:500}
+input[type=text]{font-family:var(--body);font-size:15px;width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);outline:none}
+input[type=text]:focus{border-color:var(--coral)}
+.qblock{margin-bottom:24px}
+.qtext{font-family:var(--display);font-weight:700;font-size:15px}
+.qhint{font-size:12.5px;color:var(--muted);margin-top:1px;margin-bottom:9px}
+.opt{display:block;width:100%;text-align:left;cursor:pointer;padding:10px 14px;border-radius:10px;
+  border:1.5px solid var(--border);background:#fff;margin-bottom:7px;font-family:var(--body);
+  font-size:14px;line-height:1.4;color:var(--anvil);transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--coral)}
+.opt.on{border-color:var(--coral);background:var(--coral-light);font-weight:500}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;margin-top:14px}
+.k{font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.v{font-size:14px;margin-top:2px}
+.nav{display:flex;justify-content:space-between;margin-top:8px;gap:10px;align-items:center}
+.navnote{font-size:12.5px;color:var(--light)}
+.disclose{font-size:12.5px;color:var(--light);line-height:1.55;margin:16px 0 2px}
+.btn{font-family:var(--body);font-size:14px;padding:11px 20px;border-radius:100px;border:1.5px solid var(--border);
+  background:#fff;color:var(--anvil);cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--anvil)}
+.btn.dark{background:var(--anvil);color:#fff;border-color:var(--anvil);font-weight:500}
+.btn.coral{background:var(--coral);color:#fff;border-color:var(--coral);font-weight:500}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:disabled:hover{border-color:var(--border)}
+.note{font-size:13px;background:var(--coral-light);color:var(--coral-dark);padding:10px 14px;border-radius:10px;margin-bottom:18px;line-height:1.5}
+.fhead{border-bottom:2px solid var(--anvil);padding-bottom:14px;margin-bottom:18px}
+.eyebrow{font-size:12px;color:var(--coral);font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+.ftitle{font-family:var(--display);font-weight:700;font-size:22px;margin-top:4px}
+.fmeta{font-size:13px;color:var(--muted);margin-top:3px}
+.intro{font-size:14.5px;line-height:1.6;margin:0 0 20px}
+.h2{font-family:var(--display);font-weight:700;font-size:17px;margin:30px 0 6px;padding-top:16px;border-top:2px solid var(--anvil)}
+.h2sub{font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.55}
+.pri{border-left:3px solid var(--coral);padding:4px 0 4px 16px;margin-bottom:20px}
+.pri.next{border-left-color:var(--teal)}
+.pri.later{border-left-color:var(--border)}
+.priname{font-family:var(--display);font-weight:700;font-size:16px}
+.prinum{color:var(--coral)}
+.pristate{font-size:13px;color:var(--muted);font-style:italic;margin-top:2px}
+.pribody{font-size:14px;line-height:1.65;margin-top:8px}
+.pribody b{font-family:var(--display);font-size:13px;display:block;margin-top:9px}
+.pritool{display:inline-flex;align-items:center;gap:6px;margin-top:11px;font-size:13.5px;font-weight:500;
+  color:#fff;background:var(--coral);padding:8px 15px;border-radius:100px;text-decoration:none}
+.pritool:hover{opacity:.92}
+.pritool.soon{background:none;color:var(--muted);border:1.5px dashed var(--border);font-weight:400}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.studio{margin-top:22px;padding:18px 20px;border:1.5px solid var(--coral);border-radius:14px;background:var(--coral-light)}
+.studio b{font-family:var(--display);font-size:15px;display:block;margin-bottom:5px;color:var(--coral-dark)}
+.studio p{margin:0 0 13px;font-size:13.5px;line-height:1.6;color:var(--anvil)}
+.studio a{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:#fff;background:var(--coral);padding:10px 18px;border-radius:100px;text-decoration:none}
+.studio a:hover{opacity:.92}
+.foot{text-align:center;font-size:12px;color:var(--light);margin-top:16px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="/">&larr; Back to PeopleForge</a>
+  <div class="brandbar">
+    <div class="mark">P</div>
+    <div class="brand">PeopleForge</div>
+    <div class="tag">HR Diagnostic &middot; demo</div>
+  </div>
+  <h1>What should you fix first?</h1>
+  <div id="app"></div>
+  <div class="foot">Prototype &middot; the engine behind PeopleForge products</div>
+</div>
+
+<script>
+/* ============================================================
+   CONTENT LIBRARY
+   Deterministic, built in so the demo runs with no network at all.
+
+   Each area is scored 0-3 from a self-assessment, then weighted by
+   company size. The weighting is the point: a six-person company
+   being told to build career ladders is bad advice, however low it
+   scores. A weight of 0 means the area genuinely does not matter yet
+   at that size, and it is reported as "not yet" rather than as a gap.
+   ============================================================ */
+var SIZES = [
+  {v:"1-10",   l:"1-10 people",    i:0},
+  {v:"11-30",  l:"11-30 people",   i:1},
+  {v:"31-75",  l:"31-75 people",   i:2},
+  {v:"76-200", l:"76-200 people",  i:3},
+  {v:"200+",   l:"200+ people",    i:4}
+];
+
+var AREAS = [
+  {name:"Role clarity",
+   q:"Do people know what is expected of them?",
+   hint:"Not job titles — what good actually looks like in the role.",
+   opts:["Nothing written down; people work it out",
+         "Job descriptions exist but are out of date",
+         "Expectations are clear, revisited occasionally",
+         "Everyone knows what good looks like, and it is kept current"],
+   cost:"This is the cheapest problem on the list to fix and the most expensive to leave. Almost every complaint about underperformance turns out, on inspection, to be someone being measured against a standard nobody told them about.",
+   step:"Write down, for each role, the three things that role is actually accountable for. One page. Show it to the person doing the job and see whether they agree.",
+   tool:{label:"Build a performance evaluation form",url:"/products/360-feedback"},
+   notYet:"With a handful of people who all see each other work daily, expectations travel by conversation. Write them down when you can no longer keep everyone in one room.",
+   w:[3,3,3,2,2]},
+
+  {name:"Performance & feedback",
+   q:"How does feedback reach people?",
+   hint:"Including the uncomfortable kind.",
+   opts:["Only when something goes wrong",
+         "An annual review, mostly a formality",
+         "Regular one-to-ones, quality varies by manager",
+         "A consistent cycle people find genuinely useful"],
+   cost:"Feedback that only arrives when something is wrong teaches people that hearing from you is bad news. The cost shows up as surprise resignations from people who thought they were doing fine.",
+   step:"Start with the cycle, not the form. Decide how often feedback happens and who owns it, then build the document to serve that.",
+   tool:{label:"Build a performance evaluation form",url:"/products/360-feedback"},
+   notYet:"At this size feedback happens continuously and informally, which is better than a process. Formalise it when managers stop seeing everyone's work directly.",
+   w:[1,2,3,3,3]},
+
+  {name:"Levels & progression",
+   q:"Can people see how to advance?",
+   hint:"Both upward and sideways.",
+   opts:["No levels; promotions happen case by case",
+         "Titles exist but the criteria are unwritten",
+         "Levels are defined, applied inconsistently",
+         "Clear levels with criteria people can act on"],
+   cost:"Without written criteria, promotion looks like favouritism even when it is not, and the people who leave over it rarely tell you that is why. It also puts pressure on management as the only visible route up.",
+   step:"Define the levels you already have implicitly before inventing new ones. Then write what distinguishes each from the one below.",
+   tool:{label:"Build a career ladder",url:"/products/career-ladder"},
+   notYet:"Career ladders at this size solve a problem you do not have yet, and they harden decisions you should keep flexible. Revisit once you are past roughly thirty people.",
+   w:[0,1,3,3,3]},
+
+  {name:"Hiring process",
+   q:"How consistent is your interviewing?",
+   hint:"Across different interviewers and different candidates.",
+   opts:["Unstructured conversations, gut feel decides",
+         "Some agreed questions, no scoring",
+         "Structured questions and scorecards for most roles",
+         "Same process, same scale, written scores before debriefs"],
+   cost:"Unstructured interviews predict performance poorly and reliably favour candidates who resemble the interviewer. Every bad hire also costs you the salary, the notice period, and the team's patience.",
+   step:"Pick the competencies that actually matter for the role and agree who assesses which. Scores in writing before anyone talks.",
+   tool:{label:"Build a hiring kit",url:"/products/recruiting"},
+   notYet:"You are not hiring at a volume where process pays for itself yet. Get it in place before you make several hires at once.",
+   w:[2,3,3,3,2]},
+
+  {name:"Listening to your people",
+   q:"How do you find out what is actually going on?",
+   hint:"Beyond what people volunteer.",
+   opts:["We do not ask systematically",
+         "Occasional informal check-ins",
+         "A survey, but results rarely lead to action",
+         "Regular listening with visible follow-through"],
+   cost:"The failure mode is not the absence of a survey. It is running one and doing nothing, which teaches people that answering honestly changes nothing and makes the next one useless.",
+   step:"Only run a survey if you are willing to publish the results and act on three things. If you are not, do skip-level conversations instead.",
+   tool:{label:"Build an engagement survey",url:"/products/engagement-survey"},
+   notYet:"With a team this small, a survey adds noise and breaks anonymity by arithmetic. Ask people directly.",
+   w:[0,1,2,3,3]},
+
+  {name:"Onboarding",
+   q:"What happens in someone's first month?",
+   hint:"After the laptop and the accounts.",
+   opts:["They figure it out as they go",
+         "An informal checklist someone remembers",
+         "A structured first week, then it tails off",
+         "A deliberate 30-60-90 with a named owner"],
+   cost:"First impressions are close to permanent, and the ramp you lose in month one you rarely recover. Poor onboarding also disproportionately loses the people who had other options.",
+   step:"Write down what someone should be able to do independently by day 30, 60 and 90. Give each new starter one named person who owns their first month.",
+   tool:null,
+   notYet:"With very few hires, onboarding is whoever hired them paying attention. That works until it does not scale.",
+   w:[1,2,3,3,3]},
+
+  {name:"Manager capability",
+   q:"How prepared are your managers?",
+   hint:"Most were promoted for being good at a different job.",
+   opts:["No support; they work it out",
+         "Occasional advice when they ask",
+         "Some training, uneven in practice",
+         "Managers are supported, assessed and held to a standard"],
+   cost:"Manager quality is the single largest driver of whether people stay, and promoting your best individual contributor into management without support reliably costs you both a good specialist and a struggling manager.",
+   step:"Ask each manager what they find hardest, then fix the two things that come up most. That beats a generic training programme.",
+   tool:null,
+   notYet:"You do not have a management layer yet, so this is not your problem. It becomes urgent the moment you promote your first team lead.",
+   w:[0,2,3,3,3]},
+
+  {name:"Pay structure",
+   q:"How are pay decisions made?",
+   hint:"And could you explain them out loud?",
+   opts:["Case by case, largely negotiated",
+         "Rough internal consistency, nothing written",
+         "Bands exist, applied with exceptions",
+         "Clear bands and a rule for how people move within them"],
+   cost:"Negotiated pay systematically rewards confidence rather than contribution, and it compounds. It also becomes very expensive to correct later, once the inconsistencies are contractual.",
+   step:"Before benchmarking anything externally, check your own internal consistency: are people doing comparable work paid comparably? That question is free to ask and often uncomfortable.",
+   tool:null,
+   notYet:"With this few people you can hold the whole picture in your head. Build structure before you cannot.",
+   w:[1,1,2,3,3]},
+
+  {name:"Policies & documentation",
+   q:"Is the important stuff written down?",
+   hint:"Leave, conduct, the things you would need in a dispute.",
+   opts:["Almost nothing is written",
+         "Scattered documents, no single source",
+         "A handbook, not consistently maintained",
+         "Current, findable, and people actually use it"],
+   cost:"Undocumented policy is applied inconsistently by definition, and inconsistency is what turns an ordinary disagreement into a legal problem. It also means the same questions are answered repeatedly from memory.",
+   step:"Start with the policies you have already had to explain twice. Those are the ones costing you time. Take local employment law advice on anything contractual.",
+   tool:null,
+   notYet:"Keep it light at this size, but do not skip the statutory minimum for your jurisdiction — that applies from your first employee.",
+   w:[1,2,2,3,3]},
+
+  {name:"People data & systems",
+   q:"Where does your people information live?",
+   hint:"Headcount, salaries, review history, who reports to whom.",
+   opts:["Spreadsheets, and nobody is certain which is current",
+         "One spreadsheet, manually maintained",
+         "A mix of tools that do not talk to each other",
+         "One place people trust, kept current"],
+   cost:"When the data is scattered, every question takes a week and the answers disagree. The tell is being unable to say confidently how many people you employ, or what you spend on them, without a day of reconciliation.",
+   step:"Pick the single question you get asked most and make one source answer it correctly. Expand from there rather than buying a platform first.",
+   tool:{label:"See what Studio builds",url:"/products/studio-intake"},
+   notYet:"A spreadsheet is genuinely the right tool at this size. Do not let anyone sell you a platform yet.",
+   w:[0,1,2,3,3]}
+];
+
+var STEPS=["Your company","How you work","Systems & support","Review"];
+var GROUP1=[0,1,2,3,4], GROUP2=[5,6,7,8,9];
+
+/* ============================ STATE ============================ */
+var S={step:0,report:null,copied:false,cfg:{
+  company:"", size:"11-30", answers:{}
+}};
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+
+function sizeIndex(v){ var m=SIZES.filter(function(s){return s.v===v;})[0]; return m?m.i:1; }
+function answered(group){ return group.every(function(i){ return S.cfg.answers[AREAS[i].name]!=null; }); }
+
+/* ==================== GENERATION (deterministic) ==================== */
+function buildReport(cfg){
+  var si=sizeIndex(cfg.size);
+  var scored=AREAS.map(function(a){
+    var score=cfg.answers[a.name];
+    var weight=a.w[si];
+    return {
+      area:a, score:score, weight:weight,
+      stateLabel:a.opts[score],
+      // urgency rises as the gap widens and as the area matters more at this size
+      urgency: weight===0 ? -1 : (3-score)*weight
+    };
+  });
+
+  var relevant=scored.filter(function(x){return x.weight>0;});
+  var notYet  =scored.filter(function(x){return x.weight===0;});
+
+  // Anything already at 3 is working; do not manufacture a problem.
+  var solid   =relevant.filter(function(x){return x.score===3;});
+  var gaps    =relevant.filter(function(x){return x.score<3;})
+                       .sort(function(a,b){ return b.urgency-a.urgency || a.area.name.localeCompare(b.area.name); });
+
+  var first=gaps.slice(0,3), then=gaps.slice(3);
+
+  return {first:first, then:then, notYet:notYet, solid:solid, sizeLabel:SIZES.filter(function(s){return s.v===cfg.size;})[0].l};
+}
+
+/* ============================ RENDER ============================ */
+var app=document.getElementById("app");
+
+function chips(list,key){
+  return list.map(function(o){
+    var val=typeof o==="object"?o.v:o, lab=typeof o==="object"?o.l:o;
+    var on=S.cfg[key]===val;
+    return '<button class="chip'+(on?" on":"")+'" data-act="set" data-k="'+key+'" data-v="'+esc(val)+'">'+esc(lab)+'</button>';
+  }).join("");
+}
+
+function questionHTML(i){
+  var a=AREAS[i], cur=S.cfg.answers[a.name];
+  var h='<div class="qblock"><div class="qtext">'+esc(a.q)+'</div><div class="qhint">'+esc(a.hint)+'</div>';
+  a.opts.forEach(function(label,idx){
+    h+='<button class="opt'+(cur===idx?" on":"")+'" data-act="ans" data-k="'+esc(a.name)+'" data-v="'+idx+'">'+esc(label)+'</button>';
+  });
+  return h+'</div>';
+}
+
+function render(){
+  var c=S.cfg,h="";
+
+  if(S.step<4){
+    h+='<div class="prog">'+STEPS.map(function(s,i){
+      return '<div><div class="bar'+(i<=S.step?" on":"")+'"></div><div class="plab'+(i===S.step?" on":"")+'">'+s+'</div></div>';
+    }).join("")+'</div>';
+  }
+
+  h+='<div class="card">';
+
+  if(S.step===0){
+    h+='<div class="sec"><div class="lab">Team or company name</div><div class="hint">Appears at the top of the report. Optional.</div>'+
+       '<input type="text" id="company" value="'+esc(c.company)+'" placeholder="e.g. Fakir Technology"></div>';
+    h+='<div class="sec"><div class="lab">How many people work there?</div>'+
+       '<div class="hint">This changes the answer more than anything else you tell us. Priorities that are right at 200 people are wrong at 8.</div>'+
+       chips(SIZES,"size")+'</div>';
+  }
+
+  if(S.step===1){
+    h+='<div class="hint" style="margin-bottom:18px">Answer for how things actually are, not how you would like them to be. Nothing is stored against you.</div>';
+    GROUP1.forEach(function(i){ h+=questionHTML(i); });
+  }
+
+  if(S.step===2){
+    h+='<div class="hint" style="margin-bottom:18px">Five more. Same rule: answer for the current reality.</div>';
+    GROUP2.forEach(function(i){ h+=questionHTML(i); });
+  }
+
+  if(S.step===3){
+    var answers=AREAS.map(function(a){
+      var v=S.cfg.answers[a.name];
+      return '<div><div class="k">'+esc(a.name)+'</div><div class="v">'+esc(a.opts[v])+'</div></div>';
+    }).join("");
+    h+='<div class="lab">Review your answers</div><div class="hint">Step back to change anything.</div>'+
+       '<div class="grid" style="margin-bottom:18px"><div><div class="k">Company</div><div class="v">'+esc(c.company||"-")+'</div></div>'+
+       '<div><div class="k">Size</div><div class="v">'+esc(SIZES.filter(function(s){return s.v===c.size;})[0].l)+'</div></div></div>'+
+       '<div class="grid">'+answers+'</div>';
+  }
+
+  if(S.step===4&&S.report){ h+=resultHTML(c,S.report); }
+
+  if(S.step<4){
+    var ready = S.step===0 ? true : S.step===1 ? answered(GROUP1) : S.step===2 ? answered(GROUP2) : true;
+    if(S.step===3){ h+='<div class="disclose">When you generate, a copy of the report and the answers you gave are sent to the PeopleForge team so we can see which tools people actually use. Please do not enter anything confidential.</div>'; }
+    h+='<div class="nav"><button class="btn" data-act="back"'+(S.step===0?" disabled":"")+'>&larr; Back</button>';
+    if(!ready) h+='<span class="navnote">Answer all five to continue</span>';
+    h+= S.step<3
+      ? '<button class="btn dark" data-act="next"'+(ready?"":" disabled")+'>Continue &rarr;</button>'
+      : '<button class="btn coral" data-act="gen">Show me what to fix first</button>';
+    h+='</div>';
+  }
+
+  h+='</div>';
+  app.innerHTML=h;
+}
+
+function priBlock(x,i,kind){
+  var a=x.area;
+  var h='<div class="pri'+(kind?" "+kind:"")+'">'+
+        '<div class="priname">'+(kind?'':'<span class="prinum">'+("0"+(i+1)).slice(-2)+'</span>&nbsp; ')+esc(a.name)+'</div>'+
+        '<div class="pristate">Today: '+esc(x.stateLabel.toLowerCase())+'</div>'+
+        '<div class="pribody">'+esc(a.cost)+
+        '<b>Where to start</b>'+esc(a.step)+'</div>';
+  if(a.tool){ h+='<a class="pritool" href="'+a.tool.url+'">'+esc(a.tool.label)+' &rarr;</a>'; }
+  else { h+='<div class="pritool soon">No PeopleForge tool for this one yet</div>'; }
+  return h+'</div>';
+}
+
+function resultHTML(c,r){
+  var h="";
+  h+='<div class="note">This is a self-assessment, not a measurement. It reflects the ten answers you just gave, weighted for a company of your size — treat it as a starting point for a conversation rather than a verdict.</div>';
+
+  h+='<div class="fhead"><div class="eyebrow">HR Diagnostic</div>'+
+     '<div class="ftitle">'+esc(c.company||"What to fix first")+'</div>'+
+     '<div class="fmeta">'+esc(r.sizeLabel)+' &middot; '+r.first.length+' to fix first &middot; '+r.then.length+' after that &middot; '+r.notYet.length+' not yet</div></div>';
+
+  var opening;
+  if(!r.first.length){
+    opening="On your own assessment there is nothing urgent here, which is unusual and worth sanity-checking with someone other than yourself. The areas below are either working or genuinely do not apply at your size yet.";
+  } else if(r.solid.length>=4){
+    opening="Most of what matters at your size is already working. That makes the "+r.first.length+" below easier to take seriously, because you are not trying to fix everything at once.";
+  } else {
+    opening="Everything below is ordered for a company of your size. Do the first section and nothing else until it is done — the most common way this goes wrong is trying to fix all of it in one quarter and finishing none of it.";
+  }
+  h+='<p class="intro">'+esc(opening)+'</p>';
+
+  if(r.first.length){
+    h+='<div class="h2">Fix these first</div>'+
+       '<div class="h2sub">Highest gap between where you are and what a company your size needs.</div>';
+    r.first.forEach(function(x,i){ h+=priBlock(x,i,""); });
+  }
+
+  if(r.then.length){
+    h+='<div class="h2">Then these</div>'+
+       '<div class="h2sub">Real gaps, but they will still be there when the first three are done.</div>';
+    r.then.forEach(function(x,i){ h+=priBlock(x,i,"next"); });
+  }
+
+  if(r.solid.length){
+    h+='<div class="h2">Already working</div>'+
+       '<div class="h2sub">On your own answers, these are in good shape. Worth protecting when things get busy.</div>'+
+       '<p class="pribody" style="margin-top:0">'+r.solid.map(function(x){return esc(x.area.name);}).join(" &middot; ")+'</p>';
+  }
+
+  if(r.notYet.length){
+    h+='<div class="h2">Not yet</div>'+
+       '<div class="h2sub">These matter later. Building them now would cost you time and lock in decisions you should keep flexible.</div>';
+    r.notYet.forEach(function(x){
+      h+='<div class="pri later"><div class="priname">'+esc(x.area.name)+'</div>'+
+         '<div class="pribody" style="margin-top:5px">'+esc(x.area.notYet)+'</div></div>';
+    });
+  }
+
+  h+='<div class="acts"><button class="btn dark" data-act="copy">'+(S.copied?"Copied":"Copy report (Markdown)")+'</button>'+
+     '<button class="btn" data-act="restart">Start over</button></div>';
+
+  h+='<div class="studio"><b>Some of this is not a document problem.</b>'+
+     '<p>Half of what is above can be fixed by writing something down, and the free tools will do that with you. The other half — people data that disagrees with itself, processes that only work when someone remembers to run them — needs a system rather than a document. That is what PeopleForge Studio builds.</p>'+
+     '<a href="/products/studio-intake">See what Studio builds &rarr;</a></div>';
+  return h;
+}
+
+/* ============================ MARKDOWN ============================ */
+function toMarkdown(c,r){
+  var m="# HR Diagnostic"+(c.company?" - "+c.company:"")+"\n";
+  m+="_"+r.sizeLabel+" | "+r.first.length+" to fix first | "+r.then.length+" after that | "+r.notYet.length+" not yet_\n\n";
+  m+="This is a self-assessment, not a measurement. It reflects ten answers, weighted for a company of this size.\n\n";
+
+  function block(x,n){
+    var a=x.area, s="";
+    s+= (n?"### "+n+". ":"### ")+a.name+"\n";
+    s+="_Today: "+x.stateLabel.toLowerCase()+"_\n\n";
+    s+=a.cost+"\n\n";
+    s+="**Where to start:** "+a.step+"\n";
+    if(a.tool) s+="**Tool:** "+a.tool.label+" — https://peopleforge-ten.vercel.app"+a.tool.url+"\n";
+    else s+="**Tool:** none yet\n";
+    return s+"\n";
+  }
+
+  if(r.first.length){
+    m+="## Fix these first\n\n";
+    r.first.forEach(function(x,i){ m+=block(x,i+1); });
+  }
+  if(r.then.length){
+    m+="## Then these\n\n";
+    r.then.forEach(function(x){ m+=block(x,null); });
+  }
+  if(r.solid.length){
+    m+="## Already working\n\n"+r.solid.map(function(x){return "- "+x.area.name;}).join("\n")+"\n\n";
+  }
+  if(r.notYet.length){
+    m+="## Not yet\n\nThese matter later. Building them now would lock in decisions you should keep flexible.\n\n";
+    r.notYet.forEach(function(x){ m+="**"+x.area.name+"** — "+x.area.notYet+"\n\n"; });
+  }
+  m+="## Where a document is not enough\n";
+  m+="Some of the above is fixed by writing something down. The rest — people data that disagrees with itself, processes that only run when someone remembers — needs a system. That is what PeopleForge Studio builds: https://peopleforge-ten.vercel.app/products/studio-intake\n";
+  return m;
+}
+
+/* ============================ NOTIFY (best-effort, never blocks) ============================ */
+function notifyBackground(cfg,report){
+  try{
+    var payload={
+      config:{company:cfg.company,size:cfg.size,answers:cfg.answers,
+        fixFirst:report.first.map(function(x){return x.area.name;}).join(", ")},
+      document:toMarkdown(cfg,report)
+    };
+    fetch("/api/notify",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+      .catch(function(){});
+  }catch(e){}
+}
+
+/* ============================ STEP TRANSITION ============================ */
+function renderStep(){
+  render();
+  var card=app.querySelector(".card");
+  if(card) card.classList.add("step-anim");
+}
+
+/* ============================ EVENTS ============================ */
+app.addEventListener("input",function(e){
+  if(e.target.id==="company") S.cfg.company=e.target.value;
+});
+
+app.addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act"),k=b.getAttribute("data-k"),v=b.getAttribute("data-v");
+
+  if(act==="set"){ S.cfg[k]=v; render(); }
+  else if(act==="ans"){ S.cfg.answers[k]=parseInt(v,10); render(); }
+  else if(act==="next"){ S.step++; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="back"){ S.step--; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="gen"){ S.report=buildReport(S.cfg); S.step=4; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); notifyBackground(S.cfg,S.report); }
+  else if(act==="restart"){ S.step=0; S.report=null; S.copied=false; S.cfg.answers={}; renderStep(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else if(act==="copy"){
+    var txt=toMarkdown(S.cfg,S.report);
+    var done=function(){ S.copied=true; render(); setTimeout(function(){S.copied=false;render();},1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();});
+    } else { fallbackCopy(txt); done(); }
+  }
+});
+
+function fallbackCopy(t){
+  var ta=document.createElement("textarea");
+  ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand("copy");}catch(err){}
+  document.body.removeChild(ta);
+}
+
+render();
+</script>
+</body>
+</html>

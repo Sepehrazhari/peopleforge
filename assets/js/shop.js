@@ -2,6 +2,7 @@
    Only loaded on shop.html. */
 
 const shopProducts=[
+  {id:0,name:"HR diagnostic",desc:"Ten questions about how you work today, and a prioritised answer to what to fix first — weighted for your company size.",price:0,cat:"framework",icon:"DX",ic:"icon-p",link:"/products/hr-diagnostic",cta:"Start the diagnostic →"},
   {id:1,name:"Custom Performance Evaluation Form",desc:"Forms, rating rubrics, and manager guide. A complete review process, not just a form.",price:19,cat:"template",icon:"PE",ic:"icon-c",link:"/products/360-feedback",cta:"Build your form →"},
   {id:2,name:"Company handbook",desc:"Full Notion + PDF template covering culture, policies, and values. Editable in 30 minutes.",price:79,cat:"template",icon:"HB",ic:"icon-t"},
   {id:3,name:"Onboarding & offboarding kit",desc:"30-60-90 day plans, buddy programs, and exit interview frameworks.",price:49,cat:"template",icon:"OB",ic:"icon-b"},
@@ -27,7 +28,7 @@ function renderShop(list){
     const tag=p.link?'a':'div';
     const href=p.link?` href="${p.link}"`:'';
     const footer=p.link
-      ? `<span class="product-price">$${p.price.toLocaleString()}</span><span class="product-add">${p.cta||'Build it →'}</span>`
+      ? `<span class="product-price">${p.price?'$'+p.price.toLocaleString():'Free'}</span><span class="product-add">${p.cta||'Build it →'}</span>`
       : `<span class="product-price">$${p.price.toLocaleString()}${p.cat==='consulting'?'+':''}</span><span class="badge badge-gray">Coming soon</span>`;
     return `
     <${tag} class="product-card${p.link?'':' is-soon'}"${href}>
