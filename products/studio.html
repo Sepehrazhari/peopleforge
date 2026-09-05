@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom HR System Built Around Your Process | PeopleForge Studio</title>
+<meta name="description" content="A custom HR and people management system built around how your company already works, running in your own cloud account. One-time build, no per-employee fees, you own it. Engineered by Fakir Technology Consultants.">
+<link rel="canonical" href="https://peopleforge-ten.vercel.app/products/studio">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Custom HR System Built Around Your Process | PeopleForge Studio">
+<meta property="og:description" content="A custom HR and people management system built around how your company already works, running in your own cloud account. One-time build, no per-employee fees, you own it.">
+<meta property="og:url" content="https://peopleforge-ten.vercel.app/products/studio">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/css/brand.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+.st-hero{padding:4.5rem 0 3rem}
+.st-eyebrow{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-dark);margin-bottom:1rem}
+.st-hero h1{font-size:clamp(2rem,4vw,3.1rem);max-width:760px;line-height:1.08;margin-bottom:1.25rem}
+.st-lede{font-size:17px;color:var(--text-muted);max-width:620px;line-height:1.7;margin-bottom:1.75rem}
+.st-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.st-by{font-size:13px;color:var(--text-muted);margin-top:1.25rem}
+.st-by strong{color:var(--text)}
+.st-band{background:var(--linen);padding:3.5rem 0}
+.st-h2{font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:.6rem}
+.st-sub{font-size:15px;color:var(--text-muted);max-width:640px;line-height:1.7;margin-bottom:2rem}
+.st-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.st-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.st-card h3{font-size:16px;margin-bottom:.5rem}
+.st-card p{font-size:14px;color:var(--text-muted);line-height:1.65}
+.st-pillar{display:grid;grid-template-columns:auto 1fr;gap:1rem 1.25rem;align-items:start;margin-bottom:2rem}
+.st-pnum{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--coral);border:1.5px solid var(--coral);
+  border-radius:100px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.st-pillar h3{font-size:18px;margin-bottom:.45rem}
+.st-pillar p{font-size:14.5px;color:var(--text-muted);line-height:1.7;max-width:640px}
+.st-maths{background:var(--anvil);color:#fff;border-radius:var(--radius);padding:1.6rem 1.75rem;margin-top:1rem;max-width:640px}
+.st-maths b{font-family:var(--font-display);font-size:14px;display:block;margin-bottom:.6rem}
+.st-maths p{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.82);margin:0}
+.st-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:1rem}
+.st-table th,.st-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.st-table th{font-family:var(--font-display);font-size:13px}
+.st-table thead th{border-bottom:2px solid var(--anvil)}
+.st-table td:first-child{color:var(--text-muted);width:30%}
+.st-table .yes{color:var(--teal);font-weight:500}
+.st-scroll{overflow-x:auto}
+.st-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.st-step{border-left:3px solid var(--coral);padding:.2rem 0 .2rem 1.1rem}
+.st-step b{font-family:var(--font-display);font-size:15px;display:block;margin-bottom:.4rem}
+.st-step p{font-size:14px;color:var(--text-muted);line-height:1.65;margin:0}
+.st-not{border:1.5px solid var(--border);border-radius:var(--radius);padding:1.6rem 1.75rem;max-width:760px}
+.st-not li{font-size:14.5px;line-height:1.7;margin-bottom:.7rem;color:var(--text-muted)}
+.st-not li b{color:var(--text);font-family:var(--font-display);font-size:14.5px}
+.st-faq{max-width:760px}
+.st-faq details{border-bottom:1px solid var(--border);padding:1rem 0}
+.st-faq summary{font-family:var(--font-display);font-weight:700;font-size:15.5px;cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}
+.st-faq summary::-webkit-details-marker{display:none}
+.st-faq summary::after{content:"+";color:var(--coral);font-size:19px;line-height:1;flex-shrink:0}
+.st-faq details[open] summary::after{content:"\2212"}
+.st-faq p{font-size:14.5px;color:var(--text-muted);line-height:1.7;margin:.75rem 0 0;max-width:700px}
+.st-final{background:var(--anvil);color:#fff;border-radius:var(--radius);padding:2.5rem 2rem;text-align:center}
+.st-final h2{font-size:clamp(1.4rem,2.4vw,1.9rem);margin-bottom:.75rem}
+.st-final p{font-size:15px;color:rgba(255,255,255,.78);max-width:520px;margin:0 auto 1.5rem;line-height:1.7}
+.st-final .st-ctas{justify-content:center}
+@media(max-width:860px){.st-3,.st-steps{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://peopleforge-ten.vercel.app/products/studio#service",
+      "name": "PeopleForge Studio",
+      "serviceType": "Custom HR and people management system development",
+      "description": "A custom HR and people management system built around an organisation's existing processes, deployed into the client's own cloud account. One-time build with no per-employee licence fees; the client owns the system and the data.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Fakir Technology Consultants",
+        "address": { "@type": "PostalAddress", "addressLocality": "Frankfurt", "addressCountry": "DE" }
+      },
+      "areaServed": "Worldwide",
+      "audience": { "@type": "BusinessAudience", "audienceType": "Startups, scale-ups and small companies" },
+      "url": "https://peopleforge-ten.vercel.app/products/studio"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is a custom HR system?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A custom HR system is people management software built around one organisation's existing processes rather than sold as a standard product. Instead of adapting how you work to fit a vendor's model, the system encodes the workflows you already use for hiring, reviews, progression and people data. It is typically deployed into infrastructure the company controls, so the company owns both the software and the data." } },
+        { "@type": "Question", "name": "How is this different from Personio, BambooHR or HiBob?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Those are per-seat products: you pay monthly for every employee, indefinitely, and the bill grows each time you hire. They are well built, but you adapt your process to their model and your data sits in their infrastructure. PeopleForge Studio is a one-time build shaped around your process, deployed in your own cloud account, with no per-employee licence. If you stop paying us, the system keeps running." } },
+        { "@type": "Question", "name": "Why not just build it in Airtable or Notion?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Airtable and Notion are good at structured lists and documents, and plenty of companies get a long way with them. They tend to break down on process logic: permissions that differ by role, steps that must happen in order, calculations that have to be right, and anything that needs to run without someone remembering to trigger it. They also charge per seat, and the setup usually lives in one person's head until that person leaves." } },
+        { "@type": "Question", "name": "How much does a custom HR system cost?",
+          "acceptedAnswer": { "@type": "Answer", "text": "PeopleForge Studio is quoted per project after a discovery call, because the cost depends entirely on how much you need it to do. A useful comparison is to take what you currently pay per employee per month for HR software, multiply it by your headcount and then by thirty-six months. That is your three-year cost for software you will never own." } },
+        { "@type": "Question", "name": "Who owns the system and the data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You do. The system is deployed into your own cloud account, so employee data stays inside infrastructure you control and never sits on a vendor's servers. For companies in the EU this simplifies GDPR questions considerably, because you determine where the data is hosted and who can reach it." } },
+        { "@type": "Question", "name": "Is a custom HR system only worth it for large companies?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Headcount is the wrong test. What matters is whether your process is unusual enough that off-the-shelf tools force you into workarounds, and whether you are already paying per seat for several tools that only partly fit. Small companies with distinctive processes often benefit sooner than large ones with conventional ones." } },
+        { "@type": "Question", "name": "Does it handle payroll?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No, and you should be wary of anyone who says otherwise. Payroll is regulated, jurisdiction-specific and changes constantly, so it belongs with a specialist provider. A custom system integrates with your payroll provider rather than replacing it." } },
+        { "@type": "Question", "name": "What happens when we need changes later?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Because you own the system and the source, you can have changes made by us, by another developer, or by your own team. Ongoing support and new features are available as an optional subscription, but nothing about the system stops working if you decline it." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="PeopleForge home">People<span>Forge</span></a>
+    <div class="nav-links">
+      <a href="/shop">Products</a>
+      <a href="/products/studio" class="active">Studio</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="mailto:hello@peopleforge.co">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="/shop">Products</a>
+    <a href="/products/studio">Studio</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@peopleforge.co">Contact</a>
+    <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+  </div>
+</nav>
+
+
+<main role="main">
+
+  <section class="hero st-hero">
+    <div class="container">
+      <p class="st-eyebrow">PeopleForge Studio</p>
+      <h1>A people management system built around <em>your</em> process — not the other way round.</h1>
+      <p class="st-lede">Every HR tool comes with an opinion about how your company should work. When yours differs, you get workarounds: the tool for some of it, spreadsheets for the rest, and nobody certain which is current. Studio builds the system around the process you already have.</p>
+      <div class="st-ctas">
+        <a class="btn btn-primary" href="/products/studio-intake">Tell us what you need →</a>
+        <a class="btn btn-outline" href="mailto:hello@peopleforge.co?subject=PeopleForge%20Studio%20%E2%80%94%20discovery%20call">Book a discovery call</a>
+      </div>
+      <p class="st-by">Engineered by <strong>Fakir Technology Consultants</strong>, Frankfurt. We run our own people operations on a system built this way.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="st-h2">The problem is rarely the tool. It is the gap around it.</h2>
+      <p class="st-sub">Three failure modes we see repeatedly, in companies of every size.</p>
+      <div class="st-3">
+        <div class="st-card">
+          <h3>The workaround tax</h3>
+          <p>The tool covers most of a process, so the rest lives in a spreadsheet beside it. Now the same information exists twice and disagrees, and every question needs two places checked before anyone can answer it.</p>
+        </div>
+        <div class="st-card">
+          <h3>Paying to grow</h3>
+          <p>Per-seat pricing bills you more precisely as you hire, which is exactly when budget is tightest. Multiple part-fitting tools multiply that, and none of the spend ever becomes an asset you own.</p>
+        </div>
+        <div class="st-card">
+          <h3>The person-shaped dependency</h3>
+          <p>Someone clever wires it together in Airtable or Notion. It works, until they leave and nobody else understands the automations, the permissions, or why that column exists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="st-h2">What makes this different</h2>
+      <p class="st-sub">Three things, in the order they usually matter to the people making the decision.</p>
+
+      <div class="st-pillar">
+        <div class="st-pnum">01</div>
+        <div>
+          <h3>It fits the process you already run</h3>
+          <p>We start from how your company actually works — your stages, your approvals, your definitions — and build to that. If your promotion process has a calibration step that no product supports, it gets built. You stop maintaining the gap between the tool and reality, which is where most HR admin time actually goes.</p>
+        </div>
+      </div>
+
+      <div class="st-pillar">
+        <div class="st-pnum">02</div>
+        <div>
+          <h3>You own it instead of renting it</h3>
+          <p>One build, no per-employee licence. Hiring ten more people does not increase what the system costs you. And because there is no subscription holding it hostage, the software keeps working whether or not you keep paying anyone — including us.</p>
+          <div class="st-maths">
+            <b>Do the sum on your own numbers</b>
+            <p>Take what you pay per employee per month for HR software. Multiply by your headcount. Multiply by thirty-six. That is your three-year cost for something you will never own — and it rises every time you hire. Compare that with a one-time build. We would rather you ran that arithmetic yourself than took our word for it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="st-pillar">
+        <div class="st-pnum">03</div>
+        <div>
+          <h3>Your data stays in your own cloud</h3>
+          <p>The system is deployed into your own cloud account. Employee records, salary history and review notes stay inside infrastructure you control, rather than a vendor's. For EU companies that removes most of the awkward part of a GDPR conversation: you decide where it is hosted and who can reach it, and there is no third-party processor to justify.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="st-band">
+    <div class="container">
+      <h2 class="st-h2">Side by side</h2>
+      <p class="st-sub">An honest comparison. Per-seat products are good software — they are simply a different deal.</p>
+      <div class="st-scroll">
+        <table class="st-table">
+          <thead>
+            <tr><th></th><th>Per-seat HR software</th><th>PeopleForge Studio</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cost shape</td><td>Monthly, per employee, indefinitely</td><td class="yes">One-time build</td></tr>
+            <tr><td>Cost as you grow</td><td>Rises with every hire</td><td class="yes">Unchanged</td></tr>
+            <tr><td>Whose process wins</td><td>You adapt to the product</td><td class="yes">Built to yours</td></tr>
+            <tr><td>Where employee data lives</td><td>The vendor's infrastructure</td><td class="yes">Your own cloud account</td></tr>
+            <tr><td>If you stop paying</td><td>Access ends</td><td class="yes">It keeps running</td></tr>
+            <tr><td>Getting a change made</td><td>Request it and wait for the roadmap</td><td class="yes">Commission it, or do it yourself</td></tr>
+            <tr><td>Time to first value</td><td class="yes">Days — sign up and start</td><td>Weeks — it has to be built</td></tr>
+            <tr><td>Payroll and filings</td><td class="yes">Often included</td><td>Integrates with a specialist provider</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="st-h2">How it works</h2>
+      <p class="st-sub">Scope and timeline are fixed in writing before any building starts. No open-ended engagements.</p>
+      <div class="st-steps">
+        <div class="st-step">
+          <b>01 · Tell us what you need</b>
+          <p>Fill in the intake form or book a call. We want to understand the process you run today, including the parts that only exist in someone's head.</p>
+        </div>
+        <div class="st-step">
+          <b>02 · We design and build it</b>
+          <p>You get a fixed scope, a fixed timeline and a quote before work begins. Then we build it and deploy it into your cloud account.</p>
+        </div>
+        <div class="st-step">
+          <b>03 · You own it outright</b>
+          <p>The system and its source are yours. Ongoing changes and support are available by subscription — genuinely optional, never a condition of it continuing to work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="st-h2">When this is the wrong choice</h2>
+      <p class="st-sub">Headcount is not the test — small companies with unusual processes often benefit sooner than large ones with conventional ones. These are the real disqualifiers.</p>
+      <div class="st-not">
+        <ul style="margin:0;padding-left:1.1rem">
+          <li><b>You need payroll.</b> Payroll is regulated, jurisdiction-specific and changes constantly. Use a specialist provider and integrate with it. Be wary of anyone who offers to build you one.</li>
+          <li><b>An off-the-shelf tool genuinely fits.</b> If your process is conventional and a product already covers it without workarounds, buy the product. Paying for custom to arrive at the same place is a waste.</li>
+          <li><b>You need something running next week.</b> Signing up for a SaaS tool takes an afternoon. Building takes weeks. If the deadline is immediate, buy something now and revisit this later.</li>
+          <li><b>Your process is still changing weekly.</b> A custom system encodes decisions. If you have not settled how hiring or reviews work yet, wait until it stops moving — otherwise you are paying to set today's guess in stone.</li>
+          <li><b>Nobody internally will own it.</b> Any system needs someone whose job includes keeping it current. If there is no such person, an external product with a support line is the safer choice.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="st-h2">Questions people ask</h2>
+      <div class="st-faq">
+        <details><summary>What is a custom HR system?</summary><p>A custom HR system is people management software built around one organisation's existing processes rather than sold as a standard product. Instead of adapting how you work to fit a vendor's model, the system encodes the workflows you already use for hiring, reviews, progression and people data. It is typically deployed into infrastructure the company controls, so the company owns both the software and the data.</p></details>
+        <details><summary>How is this different from Personio, BambooHR or HiBob?</summary><p>Those are per-seat products: you pay monthly for every employee, indefinitely, and the bill grows each time you hire. They are well built, but you adapt your process to their model and your data sits in their infrastructure. Studio is a one-time build shaped around your process, deployed in your own cloud account, with no per-employee licence. If you stop paying us, the system keeps running.</p></details>
+        <details><summary>Why not just build it in Airtable or Notion?</summary><p>Airtable and Notion are good at structured lists and documents, and plenty of companies get a long way with them. They tend to break down on process logic: permissions that differ by role, steps that must happen in a set order, calculations that have to be right, and anything that needs to run without someone remembering to trigger it. They also charge per seat, and the setup usually lives in one person's head until that person leaves.</p></details>
+        <details><summary>How much does a custom HR system cost?</summary><p>It is quoted per project after a discovery call, because the cost depends entirely on how much you need it to do. The useful comparison is your own current spend: take what you pay per employee per month, multiply by headcount, multiply by thirty-six months. That is your three-year cost for software you will never own.</p></details>
+        <details><summary>Who owns the system and the data?</summary><p>You do. The system is deployed into your own cloud account, so employee data stays inside infrastructure you control and never sits on a vendor's servers. For companies in the EU this simplifies GDPR questions considerably, because you determine where the data is hosted and who can reach it.</p></details>
+        <details><summary>Is a custom HR system only worth it for large companies?</summary><p>No — headcount is the wrong test. What matters is whether your process is unusual enough that off-the-shelf tools force you into workarounds, and whether you are already paying per seat across several tools that each only partly fit. Small companies with distinctive processes often benefit sooner than large ones with conventional ones.</p></details>
+        <details><summary>Does it handle payroll?</summary><p>No, and you should be wary of anyone who says otherwise. Payroll is regulated, jurisdiction-specific and changes constantly, so it belongs with a specialist provider. A custom system integrates with your payroll provider rather than replacing it.</p></details>
+        <details><summary>What happens when we need changes later?</summary><p>Because you own the system and its source, changes can be made by us, by another developer, or by your own team. Ongoing support and new features are available as an optional subscription, but nothing stops working if you decline it.</p></details>
+        <details><summary>How long does it take?</summary><p>It depends on scope, and you get a fixed timeline in writing before anything starts rather than an open-ended engagement. A first version covering one or two workflows is a smaller undertaking than a system spanning the whole employee lifecycle, and we would usually suggest starting with the former.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="st-final">
+        <h2>Tell us what does not fit.</h2>
+        <p>The intake form takes about two minutes and asks what you use today, what breaks, and what you need it to handle. We read it and reply personally. If it is not a fit, we will tell you that too.</p>
+        <div class="st-ctas">
+          <a class="btn btn-primary" href="/products/studio-intake">Tell us what you need →</a>
+          <a class="btn btn-invert" href="mailto:hello@peopleforge.co?subject=PeopleForge%20Studio%20%E2%80%94%20discovery%20call">Book a discovery call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">People<span>Forge</span></div>
+        <p class="footer-tagline">HR infrastructure for companies that give a damn about their people. Templates, frameworks, and consulting — built by practitioners, not consultancies.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <div class="footer-links">
+          <a href="/products/360-feedback">Performance evaluation form</a>
+          <a href="/products/career-ladder">Career ladder framework</a>
+          <a href="/products/recruiting">Recruiting framework</a>
+          <a href="/products/engagement-survey">Engagement survey</a>
+          <a href="/shop">All products</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/products/studio-intake">PeopleForge Studio</a>
+          <a href="mailto:hello@peopleforge.co?subject=HR%20audit">HR audit</a>
+          <a href="mailto:hello@peopleforge.co?subject=Consulting">Consulting</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about">About</a>
+          <a href="/blog">Blog</a>
+          <a href="mailto:hello@peopleforge.co">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PeopleForge. All rights reserved.</span>
+      <span>Registered in Germany · Free tools require no account</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+
+
+<script src="/assets/js/site.js"></script>
+</body>
+</html>

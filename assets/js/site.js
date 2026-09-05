@@ -37,6 +37,13 @@ if(!reduceMotion && 'IntersectionObserver' in window){
     });
   },{threshold:0.15});
   document.querySelectorAll('main section:not(.hero)').forEach(el=>{
+    // Anything already on screen at load is shown immediately. Hiding it and
+    // waiting for the observer causes a visible flash of missing content, and
+    // there is nothing to animate in for something the reader can already see.
+    if(el.getBoundingClientRect().top < window.innerHeight){
+      el.classList.add('reveal','in-view');
+      return;
+    }
     el.classList.add('reveal'); revealObserver.observe(el);
   });
 }
