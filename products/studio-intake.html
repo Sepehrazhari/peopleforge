@@ -175,11 +175,9 @@ function confirmHTML(c){
   var h='<div class="confirm">';
   h+='<div class="big">&#10003;</div>';
   h+='<h2>Got it, '+esc(c.name.split(" ")[0]||"thanks")+'.</h2>';
-  h+='<p>We’ve got what you sent and will reply at '+esc(c.email)+' within a couple of business days. '+
-     'If it’s urgent, feel free to book a call in the meantime.</p>';
+  h+='<p>We’ve got what you sent and will reply at '+esc(c.email)+' within a couple of business days to arrange your free discovery call.</p>';
   h+='<div class="nav" style="justify-content:center;gap:10px">'+
      '<button class="btn" onclick="location.href=\'/\'">&larr; Back to Acuolo</button>'+
-     '<button class="btn dark" onclick="location.href=\'mailto:hello@acuolo.com?subject=Acuolo%20Studio%20%E2%80%94%20discovery%20call\'">Book a discovery call</button>'+
      '</div>';
   h+='</div>';
   return h;
