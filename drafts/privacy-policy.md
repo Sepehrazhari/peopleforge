@@ -24,7 +24,8 @@ Email: [[AN ADDRESS THAT RECEIVES MAIL]]
 - Fonts are served from this website, not from Google or any other third party.
 - If you use a free tool, a copy of your choices and the generated document is
   sent to us. The tools tell you this before you generate.
-- If you send a Studio enquiry, we receive what you typed so we can reply.
+- If you send a Studio enquiry or request a call, we receive what you typed so
+  we can reply.
 - Purchases are handled by Gumroad, which acts as the seller.
 
 ## 1. Visiting the website
@@ -76,6 +77,19 @@ notes you add. We use them only to reply and to prepare a possible project.
 - **How it reaches us:** as a Telegram message, as in section 2.
 - **Retention:** [[e.g. deleted 12 months after our last contact, unless a
   project follows]].
+
+## 3a. Call requests
+
+If you request a call through the booking page, we receive your name, the contact
+details you give (email, phone or messenger), your company if you add it, what you
+would like to talk about, and the times that suit you. We use them only to arrange
+and prepare the call.
+
+- **Legal basis:** Art. 6(1)(b) GDPR — steps taken at your request before a
+  possible contract.
+- **How it reaches us:** as a Telegram message, as in section 2.
+- **Retention:** [[e.g. deleted 12 months after the call, or after we last heard
+  from you if no call took place]].
 
 ## 4. Emailing us
 

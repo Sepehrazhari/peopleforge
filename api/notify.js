@@ -23,8 +23,14 @@ module.exports = async (req, res) => {
     return;
   }
 
+  // Callers may name the event (e.g. "New call request"); the tools that
+  // predate this send no title and keep the original heading.
+  const title = config && typeof config.title === 'string' && config.title.trim()
+    ? config.title.trim().slice(0, 80)
+    : 'New 360 feedback form generated';
+
   const summaryLines = [
-    'New 360 feedback form generated',
+    title,
     config && config.company ? `Company: ${config.company}` : null,
     config && config.role ? `Role: ${config.role}` : null,
     config && config.seniority ? `Seniority: ${config.seniority}` : null,

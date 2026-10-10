@@ -26,8 +26,7 @@ const shopProducts=[
   {id:8,name:"AI prompt library for HR",desc:"200+ prompts for JDs, offer letters, PIPs, and performance reviews.",price:39,cat:"ai",topics:["hiring","performance"],icon:"AI",ic:"icon-b"},
   {id:9,name:"Recruiting framework",desc:"Interview scorecards, structured question banks, hiring decision rubrics, and email templates for every stage.",price:79,cat:"framework",topics:["hiring"],icon:"RC",ic:"icon-a",link:"/products/recruiting",cta:"Build your kit →"},
   {id:10,name:"Manager bootcamp course",desc:"Self-paced course for first-time managers. The leadership curriculum they never got.",price:197,cat:"course",topics:["performance"],icon:"MB",ic:"icon-p"},
-  {id:11,name:"HR audit & strategy session",desc:"90-min deep-dive into your current HR setup with a written action plan.",price:500,cat:"consulting",topics:["advisory"],icon:"HA",ic:"icon-c"},
-  {id:12,name:"Fractional CHRO retainer",desc:"Monthly HR leadership for companies not ready to hire full-time.",price:2000,cat:"consulting",topics:["advisory"],icon:"FR",ic:"icon-t"},
+  {id:11,name:"60-minute call",desc:"Talk through anything people-related: career ladders, pay, reviews, hiring or setting up HR. Any topic.",price:250,cat:"consulting",topics:["advisory"],icon:"60",ic:"icon-c",link:"/book-a-call",cta:"Book a call →"},
 ];
 
 /* One state object, one pipeline: topic, availability, search and sort all

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a call — Acuolo</title>
+<meta name="description" content="Book a 60-minute call with Acuolo about anything people-related: career ladders, pay, performance reviews, hiring or setting up HR. $250 per call.">
+<link rel="canonical" href="https://peopleforge-ten.vercel.app/book-a-call">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Book a call — Acuolo">
+<meta property="og:description" content="A 60-minute call about anything people-related. $250 per call, any topic.">
+<meta property="og:url" content="https://peopleforge-ten.vercel.app/book-a-call">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/assets/css/brand.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+.call-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start}
+.call-price{display:inline-flex;align-items:baseline;gap:.5rem;margin:1.5rem 0 1.25rem;font-family:var(--font-display);font-weight:700;font-size:40px;letter-spacing:-.02em}
+.call-price span{font-family:var(--font-body);font-weight:400;font-size:15px;color:var(--text-muted);letter-spacing:0}
+.call-list{list-style:none;padding:0;margin:0 0 1.5rem;display:grid;gap:.6rem}
+.call-list li{font-size:15px;color:var(--text-muted);line-height:1.6;padding-left:1.4rem;position:relative}
+.call-list li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--teal)}
+.call-form{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.call-form label{display:block;font-size:14px;font-weight:500;margin:0 0 .4rem}
+.call-form .opt{font-weight:400;color:var(--text-muted)}
+.call-form .hint{font-size:13px;color:var(--text-muted);margin:-.15rem 0 .45rem}
+.call-form input,.call-form textarea{width:100%;box-sizing:border-box;font:15px var(--font-body);padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);background:var(--white);color:var(--text);margin-bottom:1.15rem}
+.call-form input:focus,.call-form textarea:focus{outline:none;border-color:var(--coral)}
+.call-form textarea{min-height:120px;resize:vertical}
+.call-form .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.call-note{font-size:13px;color:var(--text-muted);line-height:1.6;margin:.25rem 0 1.25rem}
+.call-error{color:var(--coral-dark);font-size:14px;margin:0 0 1rem;display:none}
+.call-done{display:none;text-align:center;padding:1.5rem .5rem}
+.call-done h2{font-size:24px;margin-bottom:.6rem}
+.call-done p{color:var(--text-muted);font-size:15px;line-height:1.7}
+@media(max-width:860px){.call-wrap{grid-template-columns:1fr;gap:2rem}.call-form{padding:1.4rem}}
+</style>
+</head>
+
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="Acuolo home">Acuolo<span>.</span></a>
+    <div class="nav-links">
+      <a href="/shop">Products</a>
+      <a href="/products/studio">Studio</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="mailto:hello@acuolo.com">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="/shop">Products</a>
+    <a href="/products/studio">Studio</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@acuolo.com">Contact</a>
+    <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+  </div>
+</nav>
+
+<main role="main">
+  <section class="section">
+    <div class="container call-wrap">
+      <div>
+        <p class="section-label">Book a call</p>
+        <h1 style="font-size:clamp(2rem,4vw,3.25rem);max-width:520px;">Talk it through with someone who has done it.</h1>
+        <div class="call-price">$250 <span>per 60-minute call · any topic</span></div>
+        <ul class="call-list">
+          <li>Career ladders and levels</li>
+          <li>Pay, raises and salary bands</li>
+          <li>Performance reviews and feedback</li>
+          <li>Hiring and interviews</li>
+          <li>Setting up HR from scratch, or getting the Acuolo playbooks running</li>
+        </ul>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.75;max-width:460px;">Tell us what you'd like to talk about. We'll reply with available times and how to pay. Need more than an hour? Book as many calls as you like.</p>
+      </div>
+
+      <form class="call-form" id="callForm" novalidate>
+        <div id="callFields">
+          <label for="cName">Your name</label>
+          <input type="text" id="cName" autocomplete="name" maxlength="120" required>
+
+          <label for="cContact">How can we reach you?</label>
+          <p class="hint">Email, phone or messenger — whatever you prefer.</p>
+          <input type="text" id="cContact" autocomplete="email" maxlength="200" required>
+
+          <label for="cCompany">Company <span class="opt">(optional)</span></label>
+          <input type="text" id="cCompany" autocomplete="organization" maxlength="120">
+
+          <label for="cTopic">What would you like to talk about?</label>
+          <textarea id="cTopic" maxlength="2000" required></textarea>
+
+          <label for="cTimes">When suits you? <span class="opt">(optional — days, times and your time zone)</span></label>
+          <input type="text" id="cTimes" maxlength="200">
+
+          <div class="hp" aria-hidden="true"><label for="cWebsite">Website</label><input type="text" id="cWebsite" tabindex="-1" autocomplete="off"></div>
+
+          <p class="call-note">Your details are sent to us only so we can reply to this request.</p>
+          <p class="call-error" id="callError" role="alert"></p>
+          <button type="submit" class="btn btn-primary" id="callSubmit" style="width:100%;">Send request &rarr;</button>
+        </div>
+        <div class="call-done" id="callDone" role="status">
+          <h2>Thanks — your request is in.</h2>
+          <p>We'll get back to you with available times and how to pay for the call.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Acuolo<span>.</span></div>
+        <p class="footer-tagline">HR infrastructure for companies that give a damn about their people. Templates, frameworks, and consulting — built by practitioners, not consultancies.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <div class="footer-links">
+          <a href="/products/360-feedback">Performance evaluation form</a>
+          <a href="/products/career-ladder">Career ladder framework</a>
+          <a href="/products/recruiting">Recruiting framework</a>
+          <a href="/products/engagement-survey">Engagement survey</a>
+          <a href="/shop">All products</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/products/studio">Acuolo Studio</a>
+          <a href="/book-a-call">Book a call</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about">About</a>
+          <a href="/blog">Blog</a>
+          <a href="mailto:hello@acuolo.com">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Acuolo. All rights reserved.</span>
+      <span>Free tools require no account</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+<script>
+(function(){
+  var form=document.getElementById('callForm'), err=document.getElementById('callError'),
+      btn=document.getElementById('callSubmit');
+  function val(id){return document.getElementById(id).value.trim();}
+  function fail(msg){err.textContent=msg;err.style.display='block';}
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); err.style.display='none';
+    if(val('cWebsite')) return;                       // honeypot: bots fill hidden fields
+    var name=val('cName'), contact=val('cContact'), topic=val('cTopic');
+    if(!name||!contact||!topic){ fail('Please fill in your name, how to reach you, and what you would like to talk about.'); return; }
+    var lines=['Name: '+name,'Contact: '+contact,'Company: '+(val('cCompany')||'-'),
+               'When: '+(val('cTimes')||'-'),'','Topic:',topic];
+    btn.disabled=true; btn.textContent='Sending…';
+    fetch('/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({config:{title:'New call request ($250 / 60 min)',company:val('cCompany')},document:lines.join('\n')})})
+      .then(function(r){return r.json().then(function(d){if(!r.ok||!d.ok) throw 0;});})
+      .then(function(){document.getElementById('callFields').style.display='none';
+                       document.getElementById('callDone').style.display='block';})
+      .catch(function(){btn.disabled=false;btn.textContent='Send request →';
+        fail('Something went wrong sending your request. Please try again in a moment.');});
+  });
+})();
+</script>
+</body>
+</html>
