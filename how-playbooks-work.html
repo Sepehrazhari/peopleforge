@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to run an Acuolo playbook in ChatGPT or Claude — Acuolo</title>
+<meta name="description" content="Step-by-step: load an Acuolo HR playbook into ChatGPT or Claude, run the setup interview, save your company profile, and use it for career ladders, feedback and pay reviews.">
+<link rel="canonical" href="https://peopleforge-ten.vercel.app/how-playbooks-work">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to run an Acuolo playbook in ChatGPT or Claude">
+<meta property="og:description" content="Load the file, type Start, answer the setup questions, save your company profile. Here is exactly how.">
+<meta property="og:url" content="https://peopleforge-ten.vercel.app/how-playbooks-work">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="/assets/css/brand.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HowTo",
+      "name": "How to run an Acuolo playbook in ChatGPT or Claude",
+      "description": "Load an Acuolo HR playbook into your AI assistant, run its setup interview and save your company profile.",
+      "totalTime": "PT45M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Create a Project", "text": "In ChatGPT or Claude, create a new Project for your company's people processes." },
+        { "@type": "HowToStep", "position": 2, "name": "Add the playbook file", "text": "Upload the playbook .md file to the Project's files (ChatGPT) or project knowledge (Claude)." },
+        { "@type": "HowToStep", "position": 3, "name": "Type Start", "text": "Open a new conversation in the Project and type Start. The assistant runs a setup interview about your company." },
+        { "@type": "HowToStep", "position": 4, "name": "Save your company profile", "text": "At the end of setup the assistant gives you a company profile block. Save it as a file and add it to the Project, so every future conversation knows your company." },
+        { "@type": "HowToStep", "position": 5, "name": "Use the commands", "text": "Start each task with the playbook's commands, for example 'Build the ladder for Customer Success' or 'Open window for Jonas'." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Do I need a paid ChatGPT or Claude plan?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Free plans are enough to get started, but they limit how many files you can add and how much you can use the assistant. Paid plans give more room. If your plan has no Projects, paste the playbook into a single conversation instead." } },
+        { "@type": "Question", "name": "Why does the AI ask the setup questions again?",
+          "acceptedAnswer": { "@type": "Answer", "text": "AI assistants do not remember between conversations. Add your saved company profile file to the Project, or paste it at the start of the conversation." } },
+        { "@type": "Question", "name": "Is it safe to share employee information with an AI assistant?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Share only what the task needs, follow your company's rules on AI tools, and check your provider's data settings. Business plans are generally designed for company data. The playbooks remind you of this the first time you share details about a person." } },
+        { "@type": "Question", "name": "Does the AI make the decisions?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Every Acuolo playbook makes the AI recommend and explain; a person in your company decides." } }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+.hp-wrap{max-width:860px;margin:0 auto}
+.hp-intro{font-size:17px;color:var(--text-muted);line-height:1.75;max-width:680px}
+.hp-need{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 3rem}
+.hp-need div{background:var(--linen);border-radius:12px;padding:1.1rem 1.2rem;font-size:14px;line-height:1.6;color:var(--text-muted)}
+.hp-need strong{display:block;color:var(--text);font-size:15px;margin-bottom:.25rem}
+.hp-h2{font-size:clamp(1.4rem,2.4vw,1.9rem);margin:3.25rem 0 1rem}
+.hp-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.hp-tool{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.4rem}
+.hp-tool h3{font-size:18px;margin:0 0 .9rem}
+.hp-tool ol{margin:0;padding-left:1.15rem;font-size:14px;line-height:1.65;color:var(--text-muted)}
+.hp-tool li{margin-bottom:.45rem}
+.hp-tool code,.hp-wrap code{font-size:.92em;background:var(--linen);padding:.08em .35em;border-radius:5px;color:var(--text)}
+.hp-callout{border-left:3px solid var(--coral);background:var(--coral-light);padding:1.1rem 1.25rem;border-radius:0 12px 12px 0;margin:1.5rem 0;font-size:15px;line-height:1.7}
+.hp-callout strong{color:var(--text)}
+.hp-steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.hp-steps li{counter-increment:s;position:relative;padding:0 0 1.2rem 3rem;font-size:15px;line-height:1.7;color:var(--text-muted)}
+.hp-steps li::before{content:counter(s);position:absolute;left:0;top:.05rem;width:2rem;height:2rem;border-radius:50%;background:var(--anvil);color:var(--linen);display:grid;place-items:center;font-size:14px;font-weight:500}
+.hp-steps strong{color:var(--text)}
+.hp-table{width:100%;border-collapse:collapse;font-size:14px;margin:.5rem 0 1rem}
+.hp-table th,.hp-table td{text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--border);vertical-align:top}
+.hp-table th{font-weight:500;color:var(--text)}
+.hp-table td{color:var(--text-muted)}
+.hp-list{font-size:15px;line-height:1.75;color:var(--text-muted);padding-left:1.2rem}
+.hp-list li{margin-bottom:.4rem}
+.hp-list strong{color:var(--text)}
+.hp-faq details{border-bottom:1px solid var(--border);padding:1rem 0}
+.hp-faq summary{cursor:pointer;font-weight:500;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.hp-faq summary::after{content:"+";color:var(--coral);font-size:20px;line-height:1}
+.hp-faq details[open] summary::after{content:"–"}
+.hp-faq p{margin:.7rem 0 0;font-size:15px;line-height:1.7;color:var(--text-muted)}
+@media(max-width:860px){.hp-need,.hp-tools{grid-template-columns:1fr}.hp-table{font-size:13px}}
+</style>
+</head>
+
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="Acuolo home">Acuolo<span>.</span></a>
+    <div class="nav-links">
+      <a href="/shop">Products</a>
+      <a href="/products/studio">Studio</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="mailto:hello@acuolo.com">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="/shop">Products</a>
+    <a href="/products/studio">Studio</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@acuolo.com">Contact</a>
+    <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+  </div>
+</nav>
+
+<main role="main">
+  <section class="section">
+    <div class="container hp-wrap">
+      <p class="section-label">AI playbooks</p>
+      <h1 style="font-size:clamp(2rem,4vw,3.25rem);margin-bottom:1rem;">How to run an Acuolo playbook</h1>
+      <p class="hp-intro">An Acuolo playbook is a file you give to your AI assistant. It turns ChatGPT or Claude into an experienced People &amp; Culture partner that runs one process with you — building a career ladder, running a feedback round, or deciding a pay review — step by step, for your company. There is nothing to install, and no account with us.</p>
+
+      <div class="hp-need">
+        <div><strong>An AI assistant</strong>ChatGPT or Claude. Free plans work to get started; paid plans give you more room.</div>
+        <div><strong>The playbook file</strong>A <code>.md</code> file you receive after buying. You can open it in any text editor.</div>
+        <div><strong>30–45 minutes</strong>Once, for the setup interview. After that, each task starts in seconds.</div>
+      </div>
+
+      <h2 class="hp-h2">1. Load the playbook</h2>
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.7;">Use a <strong style="color:var(--text)">Project</strong> where you can: it keeps the playbook loaded for every conversation, so you set it up once.</p>
+      <div class="hp-tools">
+        <div class="hp-tool">
+          <h3>ChatGPT</h3>
+          <ol>
+            <li>In the sidebar, create a new <strong>Project</strong> — for example "People processes".</li>
+            <li>Open the Project and add the playbook file to its <strong>files</strong>.</li>
+            <li>Start a new chat inside the Project.</li>
+          </ol>
+        </div>
+        <div class="hp-tool">
+          <h3>Claude</h3>
+          <ol>
+            <li>Go to <strong>Projects</strong> and create a new one.</li>
+            <li>Add the playbook file to the Project's <strong>knowledge</strong>.</li>
+            <li>Start a new chat inside the Project.</li>
+          </ol>
+        </div>
+        <div class="hp-tool">
+          <h3>No Projects?</h3>
+          <ol>
+            <li>Open a new conversation in any AI assistant.</li>
+            <li>Upload the file, or open it in a text editor and paste the whole text in.</li>
+            <li>Keep that conversation for this process — or paste the file again next time.</li>
+          </ol>
+        </div>
+      </div>
+
+      <h2 class="hp-h2">2. Type <code>Start</code> and answer the setup questions</h2>
+      <ol class="hp-steps">
+        <li><strong>The AI interviews you</strong> about your company — one or two questions at a time, each with a suggested answer you can simply accept. It asks things like your levels, your teams, who decides what, and how you want things written.</li>
+        <li><strong>Have these to hand if you can</strong> (none are required): your job titles, any job descriptions or existing ladder, your company values, and — for Pay Progression — your own salary data. The AI never invents salaries or market data.</li>
+        <li><strong>It confirms each part</strong> back to you in a sentence, so nothing is assumed.</li>
+      </ol>
+
+      <h2 class="hp-h2">3. Save your company profile — the step people miss</h2>
+      <div class="hp-callout"><strong>AI assistants don't remember between conversations.</strong> At the end of setup, the AI gives you a <em>company profile</em> block. Copy it into a file — for example <code>company-profile.md</code> — and add it to the same Project. From then on, every conversation knows your company, and you never answer the setup questions twice.</div>
+      <ul class="hp-list">
+        <li><strong>Using more than one playbook?</strong> Put all of them in the same Project, and keep <strong>one</strong> profile file with every playbook's profile block in it. They share your levels and competencies, and it keeps you within the file limits of free plans.</li>
+        <li><strong>Things change.</strong> When the AI re-issues the profile (or, for Pay Progression, the people list and decision register), replace the file with the new version.</li>
+      </ul>
+
+      <h2 class="hp-h2">4. Use it</h2>
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.7;">Start each task with a command. A few to begin with — every playbook lists all of its commands near the top.</p>
+      <table class="hp-table">
+        <thead><tr><th>Playbook</th><th>Try</th><th>You get</th></tr></thead>
+        <tbody>
+          <tr><td>Career Ladder</td><td><code>Build the ladder for Customer Success</code></td><td>A complete ladder for that role family</td></tr>
+          <tr><td>Career Ladder</td><td><code>Where does Maria sit?</code></td><td>An evidence-based level assessment</td></tr>
+          <tr><td>Growth Feedback</td><td><code>Plan the quarter</code></td><td>Who's in this round, and focus-area prompts</td></tr>
+          <tr><td>Growth Feedback</td><td><code>Summaries</code></td><td>Growth summaries, lead briefs and the pattern log</td></tr>
+          <tr><td>Pay Progression</td><td><code>Practice case</code></td><td>A full fictional review, so you can see the process first</td></tr>
+          <tr><td>Pay Progression</td><td><code>Windows this month</code></td><td>Whose annual review opens now</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="hp-h2">Good habits</h2>
+      <ul class="hp-list">
+        <li><strong>One case, one conversation.</strong> Start a new chat for each person's review or each feedback round. Long conversations make any AI less reliable.</li>
+        <li><strong>Read before you send.</strong> The AI drafts every message and report; you check it and send it.</li>
+        <li><strong>The AI recommends, you decide.</strong> Every playbook is built that way. Decisions about people stay with your company.</li>
+        <li><strong>If it drifts,</strong> say so: <em>"Please follow the playbook — section 5."</em> It will correct itself.</li>
+      </ul>
+
+      <h2 class="hp-h2">Your data</h2>
+      <ul class="hp-list">
+        <li><strong>Share only what the task needs.</strong> Initials or roles often work as well as full names.</li>
+        <li><strong>Follow your company's rules</strong> on using AI tools with employee information.</li>
+        <li><strong>Check your AI provider's data settings.</strong> Personal plans usually let you control whether your chats are used to train models; business plans are generally designed for company data.</li>
+        <li><strong>Nothing goes to Acuolo.</strong> The playbook runs entirely in your own AI account.</li>
+      </ul>
+
+      <h2 class="hp-h2">Questions</h2>
+      <div class="hp-faq">
+        <details><summary>Do I need a paid ChatGPT or Claude plan?</summary><p>No. Free plans are enough to get started, but they limit how many files you can add and how much you can use the assistant each day. Paid plans give more room. If your plan has no Projects, paste the playbook into a single conversation instead.</p></details>
+        <details><summary>Why does the AI ask the setup questions again?</summary><p>Because it doesn't remember between conversations. Add your saved company profile file to the Project, or paste it at the start of the conversation.</p></details>
+        <details><summary>The file won't upload. What now?</summary><p>Open it in any text editor (it is plain text), copy everything, and paste it into the conversation. It works the same way.</p></details>
+        <details><summary>Can I use it in another language?</summary><p>Yes. Tell the AI your language and tone during setup, and it writes everything in it.</p></details>
+        <details><summary>Can I change the playbook?</summary><p>Yes, freely, for use inside your own company. The licence at the end of each file explains what you can't do (mainly: resell or share it outside your company).</p></details>
+        <details><summary>Can it connect to our HR system?</summary><p>Not on its own. With <a href="/products/studio" style="color:var(--coral);">Acuolo Studio</a>, the same playbooks run in "connected mode" — reading your records and filing reports in your own systems, always with your approval before anything is sent.</p></details>
+        <details><summary>I'm stuck.</summary><p><a href="/book-a-call" style="color:var(--coral);">Book a 60-minute call</a> and we'll get you running.</p></details>
+      </div>
+
+      <div style="margin-top:3rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="/shop#performance">See the playbooks &rarr;</a>
+        <a class="btn btn-outline" href="/book-a-call">Book a call</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Acuolo<span>.</span></div>
+        <p class="footer-tagline">HR infrastructure for companies that give a damn about their people. Templates, frameworks, and consulting — built by practitioners, not consultancies.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Tools</div>
+        <div class="footer-links">
+          <a href="/products/360-feedback">Performance evaluation form</a>
+          <a href="/products/recruiting">Recruiting framework</a>
+          <a href="/products/engagement-survey">Engagement survey</a>
+          <a href="/how-playbooks-work">How playbooks work</a>
+          <a href="/shop">All products</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <div class="footer-links">
+          <a href="/products/studio">Acuolo Studio</a>
+          <a href="/book-a-call">Book a call</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/about">About</a>
+          <a href="/blog">Blog</a>
+          <a href="mailto:hello@acuolo.com">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Acuolo. All rights reserved.</span>
+      <span>Free tools require no account</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+</body>
+</html>
