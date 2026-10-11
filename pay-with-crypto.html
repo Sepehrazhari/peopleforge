@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay with crypto — Acuolo</title>
+<meta name="description" content="Buy Acuolo playbooks and calls with USDC or Bitcoin.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://peopleforge-ten.vercel.app/pay-with-crypto">
+<link rel="stylesheet" href="/assets/css/brand.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+.cx-wrap{max-width:720px;margin:0 auto}
+.cx-step{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.25rem}
+.cx-step h2{font-size:19px;margin:0 0 1rem;display:flex;gap:.6rem;align-items:center}
+.cx-step h2 span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--coral-light);color:var(--coral-dark);font-size:13px;font-family:var(--font-body);font-weight:500}
+.cx-options{display:grid;gap:.6rem}
+.cx-opt{display:flex;align-items:center;gap:.8rem;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;font-size:15px}
+.cx-opt:hover{background:var(--linen)}
+.cx-opt input{accent-color:var(--coral);width:17px;height:17px;margin:0;flex:none}
+.cx-opt .cx-name{flex:1}
+.cx-opt .cx-price{font-weight:500}
+.cx-opt.is-checked{border-color:var(--coral);background:var(--coral-light)}
+.cx-pay{display:none}
+.cx-amount{font-family:var(--font-display);font-weight:700;font-size:30px;margin:.2rem 0 .9rem;letter-spacing:-.02em}
+.cx-addr{display:flex;gap:.5rem;align-items:stretch;margin:.4rem 0 1rem}
+.cx-addr code{flex:1;min-width:0;overflow-wrap:anywhere;font-size:14px;background:var(--linen);border:1px solid var(--border);border-radius:10px;padding:.75rem .9rem;line-height:1.5}
+.cx-addr button{flex:none}
+.cx-warn{border-left:3px solid var(--coral);background:var(--coral-light);padding:.85rem 1rem;border-radius:0 10px 10px 0;font-size:14px;line-height:1.6;color:var(--text)}
+.cx-label{display:block;font-size:14px;font-weight:500;margin:0 0 .4rem}
+.cx-hint{font-size:13px;color:var(--text-muted);margin:-.15rem 0 .45rem}
+.cx-input{width:100%;box-sizing:border-box;font:15px var(--font-body);padding:11px 14px;border-radius:10px;border:1.5px solid var(--border);margin-bottom:1.1rem;background:var(--white);color:var(--text)}
+.cx-input:focus{outline:none;border-color:var(--coral)}
+.cx-check{display:flex;gap:.6rem;align-items:flex-start;font-size:14px;line-height:1.55;color:var(--text-muted);margin-bottom:1.1rem;cursor:pointer}
+.cx-check input{accent-color:var(--coral);width:17px;height:17px;margin:.15rem 0 0;flex:none}
+.cx-error{color:var(--coral-dark);font-size:14px;margin:0 0 1rem;display:none}
+.cx-done,.cx-closed{display:none;text-align:center;padding:2rem 1rem}
+.cx-done h2,.cx-closed h2{font-size:24px;margin-bottom:.6rem;justify-content:center}
+.cx-done p,.cx-closed p{color:var(--text-muted);font-size:15px;line-height:1.7;max-width:480px;margin:0 auto}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media(max-width:600px){.cx-step{padding:1.25rem}.cx-addr{flex-direction:column}}
+</style>
+</head>
+
+<body>
+
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="nav-logo" href="/" aria-label="Acuolo home">Acuolo<span>.</span></a>
+    <div class="nav-links">
+      <a href="/shop">Products</a>
+      <a href="/products/studio">Studio</a>
+      <a href="/about">About</a>
+      <a href="/blog">Blog</a>
+      <a href="mailto:hello@acuolo.com">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMobilePanel" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <a href="/shop">Products</a>
+    <a href="/products/studio">Studio</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+    <a href="mailto:hello@acuolo.com">Contact</a>
+    <a class="btn btn-primary btn-sm" href="/shop">Browse products &rarr;</a>
+  </div>
+</nav>
+
+<main role="main">
+  <section class="section">
+    <div class="container cx-wrap">
+      <p class="section-label">Pay with crypto</p>
+      <h1 style="font-size:clamp(1.9rem,3.6vw,2.8rem);margin-bottom:.75rem;">Pay with USDC or Bitcoin</h1>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.75;margin-bottom:2rem;max-width:600px;">Choose what you're buying, send the payment, then tell us the transaction ID. We check it and send your playbook — or arrange your call — by email as soon as we've checked it. Prefer a card? <a href="/shop" style="color:var(--coral);">Buy through the shop</a>.</p>
+
+      <div class="cx-closed" id="cxClosed">
+        <h2>Crypto payments open soon</h2>
+        <p>We're getting this ready. In the meantime, <a href="/book-a-call" style="color:var(--coral);">get in touch</a> and we'll help you pay another way.</p>
+      </div>
+
+      <form id="cxForm" novalidate>
+        <div class="cx-step">
+          <h2><span>1</span>What are you buying?</h2>
+          <div class="cx-options" id="cxProducts"></div>
+        </div>
+
+        <div class="cx-step">
+          <h2><span>2</span>How will you pay?</h2>
+          <div class="cx-options" id="cxCoins"></div>
+        </div>
+
+        <div class="cx-step cx-pay" id="cxPay">
+          <h2><span>3</span>Send the payment</h2>
+          <div id="cxPayBody"></div>
+        </div>
+
+        <div class="cx-step cx-pay" id="cxConfirm">
+          <h2><span>4</span>Tell us you've paid</h2>
+          <label class="cx-label" for="cxTx">Transaction ID</label>
+          <p class="cx-hint" id="cxTxHint">Your wallet shows it after sending — also called the transaction hash.</p>
+          <input class="cx-input" type="text" id="cxTx" autocomplete="off" spellcheck="false" maxlength="120">
+
+          <label class="cx-label" for="cxEmail">Your email</label>
+          <p class="cx-hint">We send your playbook, or arrange your call, here.</p>
+          <input class="cx-input" type="email" id="cxEmail" autocomplete="email" maxlength="200">
+
+          <label class="cx-label" for="cxName">Name or company <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+          <input class="cx-input" type="text" id="cxName" autocomplete="organization" maxlength="160">
+
+          <div class="hp" aria-hidden="true"><label for="cxWebsite">Website</label><input type="text" id="cxWebsite" tabindex="-1" autocomplete="off"></div>
+
+          <label class="cx-check"><input type="checkbox" id="cxConsent"><span id="cxConsentText"></span></label>
+          <label class="cx-check"><input type="checkbox" id="cxFinal"><span>I understand that crypto payments can't be reversed, and that I sent the exact amount on the network shown above.</span></label>
+
+          <p style="font-size:13px;color:var(--text-muted);line-height:1.6;margin:0 0 1.1rem;">Your details are sent to us only to check your payment and deliver what you bought.</p>
+          <p class="cx-error" id="cxError" role="alert"></p>
+          <button type="submit" class="btn btn-primary" id="cxSubmit" style="width:100%;">I've paid — send my order &rarr;</button>
+        </div>
+      </form>
+
+      <div class="cx-step cx-done" id="cxDone" role="status">
+        <h2>Thank you — we're on it.</h2>
+        <p>We'll check your payment on the blockchain and email you at <strong id="cxDoneEmail"></strong> as soon as it's confirmed. Keep your transaction ID in case we need it.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;">
+      <span>© 2026 Acuolo. All rights reserved.</span>
+      <span>Prices in US dollars</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/site.js"></script>
+<script>
+(function(){
+/* ============================ SETTINGS ============================
+   The page stays closed ("open soon") until at least one address is set.
+   Only PUBLIC wallet addresses go here — never a recovery phrase or key. */
+var WALLETS = {
+  usdc: { address: '', network: 'base' },   // network: base | polygon | solana | ethereum | arbitrum
+  btc:  { address: '' }
+};
+var PRODUCTS = [
+  { id:'career-ladder',   name:'Career Ladder Playbook',   usd:79,  kind:'file' },
+  { id:'growth-feedback', name:'Growth Feedback Playbook', usd:79,  kind:'file' },
+  { id:'pay-progression', name:'Pay Progression Playbook', usd:119, kind:'file' },
+  { id:'bundle',          name:'All three playbooks',      usd:199, kind:'file' },
+  { id:'call',            name:'60-minute call',           usd:250, kind:'call' }
+];
+var BTC_TOLERANCE = 0.02;   // accept a Bitcoin payment within 2% of the dollar price
+/* ================================================================== */
+
+var NETWORKS = {
+  base:     { label:'Base',         explorer:'https://basescan.org/tx/',    tx:/^0x[0-9a-fA-F]{64}$/ },
+  polygon:  { label:'Polygon PoS',  explorer:'https://polygonscan.com/tx/', tx:/^0x[0-9a-fA-F]{64}$/ },
+  ethereum: { label:'Ethereum',     explorer:'https://etherscan.io/tx/',    tx:/^0x[0-9a-fA-F]{64}$/ },
+  arbitrum: { label:'Arbitrum One', explorer:'https://arbiscan.io/tx/',     tx:/^0x[0-9a-fA-F]{64}$/ },
+  solana:   { label:'Solana',       explorer:'https://solscan.io/tx/',      tx:/^[1-9A-HJ-NP-Za-km-z]{64,90}$/ }
+};
+var BTC = { label:'Bitcoin', explorer:'https://mempool.space/tx/', tx:/^[0-9a-fA-F]{64}$/ };
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+var $=function(id){return document.getElementById(id);};
+
+var coins=[];
+if(WALLETS.usdc.address && NETWORKS[WALLETS.usdc.network]) coins.push({id:'usdc',label:'USDC',sub:'on '+NETWORKS[WALLETS.usdc.network].label,net:NETWORKS[WALLETS.usdc.network],address:WALLETS.usdc.address});
+if(WALLETS.btc.address) coins.push({id:'btc',label:'Bitcoin',sub:'on the Bitcoin network',net:BTC,address:WALLETS.btc.address});
+
+if(!coins.length){ $('cxForm').style.display='none'; $('cxClosed').style.display='block'; return; }
+
+var state={product:null,coin:null};
+var pre=new URLSearchParams(location.search).get('product');
+
+function radio(group,id,name,right,checked){
+  return '<label class="cx-opt'+(checked?' is-checked':'')+'"><input type="radio" name="'+group+'" value="'+esc(id)+'"'+(checked?' checked':'')+'>'+
+    '<span class="cx-name">'+name+'</span>'+(right?'<span class="cx-price">'+right+'</span>':'')+'</label>';
+}
+$('cxProducts').innerHTML=PRODUCTS.map(function(p){return radio('product',p.id,esc(p.name),'$'+p.usd,p.id===pre);}).join('');
+$('cxCoins').innerHTML=coins.map(function(c){return radio('coin',c.id,'<strong>'+c.label+'</strong> <span style="color:var(--text-muted)">'+esc(c.sub)+'</span>','',coins.length===1);}).join('');
+if(pre) state.product=PRODUCTS.filter(function(p){return p.id===pre;})[0]||null;
+if(coins.length===1) state.coin=coins[0];
+
+function mark(container){
+  [].forEach.call(container.querySelectorAll('.cx-opt'),function(l){l.classList.toggle('is-checked',l.querySelector('input').checked);});
+}
+function render(){
+  var show=state.product&&state.coin;
+  $('cxPay').style.display=$('cxConfirm').style.display=show?'block':'none';
+  if(!show) return;
+  var p=state.product,c=state.coin,body;
+  if(c.id==='usdc'){
+    body='<div class="cx-amount">'+p.usd+' USDC</div>'+
+      '<p class="cx-label">Send exactly this amount to:</p>'+
+      '<div class="cx-addr"><code id="cxAddr">'+esc(c.address)+'</code><button type="button" class="btn btn-outline btn-sm" id="cxCopy">Copy</button></div>'+
+      '<div class="cx-warn"><strong>Send USDC on '+esc(c.net.label)+' only.</strong> USDC sent on any other network, or any other coin sent to this address, may be lost for good. Network fees are paid by you, on top of the amount.</div>';
+  } else {
+    body='<div class="cx-amount">$'+p.usd+' in Bitcoin</div>'+
+      '<p class="cx-label">Send Bitcoin worth $'+p.usd+' at the time you pay to:</p>'+
+      '<div class="cx-addr"><code id="cxAddr">'+esc(c.address)+'</code><button type="button" class="btn btn-outline btn-sm" id="cxCopy">Copy</button></div>'+
+      '<div class="cx-warn"><strong>Bitcoin network only.</strong> Most wallets show the dollar value as you send. We accept payments within '+Math.round(BTC_TOLERANCE*100)+'% of the price, to allow for price movement. Network fees are paid by you, on top of the amount.</div>';
+  }
+  $('cxPayBody').innerHTML=body;
+  $('cxTxHint').textContent=c.id==='btc'
+    ?'Your wallet shows it after sending — a 64-character code, also called the transaction hash.'
+    :(c.net===NETWORKS.solana?'Your wallet shows it after sending — also called the transaction signature.':'Your wallet shows it after sending — starts with 0x, also called the transaction hash.');
+  $('cxConsentText').textContent=p.kind==='file'
+    ?'I ask for the playbook to be delivered as soon as my payment is confirmed, and I understand that I lose my right to withdraw from the purchase once it has been delivered.'
+    :'I understand the call is arranged by email after my payment is confirmed, and that the fee is not refundable once the call has taken place.';
+  $('cxCopy').onclick=function(){
+    var t=$('cxAddr').textContent,b=this;
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy';},1500);},function(){
+      var r=document.createRange();r.selectNodeContents($('cxAddr'));var s=getSelection();s.removeAllRanges();s.addRange(r);});
+  };
+}
+$('cxProducts').addEventListener('change',function(e){state.product=PRODUCTS.filter(function(p){return p.id===e.target.value;})[0];mark(this);render();});
+$('cxCoins').addEventListener('change',function(e){state.coin=coins.filter(function(c){return c.id===e.target.value;})[0];mark(this);render();});
+render();
+
+function fail(m){$('cxError').textContent=m;$('cxError').style.display='block';}
+$('cxForm').addEventListener('submit',function(e){
+  e.preventDefault(); $('cxError').style.display='none';
+  if($('cxWebsite').value) return;
+  var p=state.product,c=state.coin,tx=$('cxTx').value.trim(),email=$('cxEmail').value.trim();
+  if(!p||!c) return fail('Please choose what you are buying and how you will pay.');
+  if(!c.net.tx.test(tx)) return fail('That doesn’t look like a '+c.label+' transaction ID. Please copy it again from your wallet.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail('Please enter the email address we should send your order to.');
+  if(!$('cxConsent').checked||!$('cxFinal').checked) return fail('Please tick both boxes to confirm.');
+  var expect=c.id==='usdc'?p.usd+' USDC':'$'+p.usd+' in BTC (accept within '+Math.round(BTC_TOLERANCE*100)+'%)';
+  var lines=['Product: '+p.name+' ($'+p.usd+')','Paid with: '+c.label+' '+c.sub,'Expected: '+expect,'To address: '+c.address,
+             'Transaction: '+tx,'Check it: '+c.net.explorer+tx,'','Email: '+email,'Name/company: '+($('cxName').value.trim()||'-'),
+             'Consent: '+$('cxConsentText').textContent,'Submitted: '+new Date().toISOString()];
+  var btn=$('cxSubmit'); btn.disabled=true; btn.textContent='Sending…';
+  fetch('/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({config:{title:'New crypto payment to verify'},document:lines.join('\n')})})
+    .then(function(r){return r.json().then(function(d){if(!r.ok||!d.ok) throw 0;});})
+    .then(function(){$('cxForm').style.display='none';$('cxDoneEmail').textContent=email;$('cxDone').style.display='block';scrollTo(0,0);})
+    .catch(function(){btn.disabled=false;btn.textContent='I’ve paid — send my order →';
+      fail('We couldn’t send your confirmation. Your payment is safe on the blockchain — please try again, or get in touch through the booking page with your transaction ID.');});
+});
+})();
+</script>
+</body>
+</html>

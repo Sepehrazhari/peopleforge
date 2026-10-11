@@ -109,6 +109,16 @@ provide support and keep records required by law.
   record-keeping).
 - **Retention:** for as long as tax and accounting law requires.
 
+## 5a. Paying with crypto
+
+If you pay with USDC or Bitcoin, you send us the transaction ID, your email
+address and, optionally, your name or company. We use them to check your payment
+on the blockchain and deliver what you bought, and keep them for as long as tax
+and accounting law requires. Note that blockchain transactions are **public and
+permanent**: anyone can see the payment itself, though not who made it unless
+they link it to you. These details reach us as a Telegram message, as in
+section 2. Legal basis: Art. 6(1)(b) and (c) GDPR.
+
 ## 6. Your rights
 
 You have the right to access your data, to have it corrected or deleted, to
