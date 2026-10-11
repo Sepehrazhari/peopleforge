@@ -67,7 +67,7 @@ const MODS=[
 ];
 const BENEFITS=['Built around your process','Runs in your own cloud','You own it — no per-seat fees'];
 const TOOLS=[['DX','HR diagnostic','#EEEDFE','#3C3489','/products/hr-diagnostic'],['PE','Performance evaluation','#FAECE7','#993C1D','/products/360-feedback'],
-  ['CL','Career ladder','#FAEEDA','#633806','/products/career-ladder'],['RC','Recruiting kit','#FAEEDA','#633806','/products/recruiting'],
+  ['RC','Recruiting kit','#FAEEDA','#633806','/products/recruiting'],
   ['ES','Engagement survey','#E1F5EE','#085041','/products/engagement-survey']];
 const CHECK='<svg viewBox="0 0 24 24"><path d="M5 12.5 10 17.5 19 7"/></svg>';
 const NS='http://www.w3.org/2000/svg';
@@ -171,7 +171,7 @@ window.AcuoloStory=function(stage,{W,H,tall=false,web=false}){
     const C=L.cards;const e=link('as-card as-abs '+(C.row?'as-v':'as-h'),
       `<div class="as-hl"></div><div class="as-ic" style="background:${bg};color:${fg}">${ab}</div><b>${name}</b><span class="as-free">Free</span>`,href);
     let x,y;
-    if(C.row){const cw=C.w*u,gap=C.gap*u,total=5*cw+4*gap;x=(W-total)/2+cw/2+i*(cw+gap);y=C.y*H;e.style.width=cw+'px';e.style.height=C.h*u+'px'}
+    if(C.row){const k=TOOLS.length,cw=C.w*u,gap=C.gap*u,total=k*cw+(k-1)*gap;x=(W-total)/2+cw/2+i*(cw+gap);y=C.y*H;e.style.width=cw+'px';e.style.height=C.h*u+'px'}
     else{const ch=C.h*u,gap=C.gap*u;x=W/2;y=C.top*H+ch/2+i*(ch+gap);e.style.width=C.w*W+'px';e.style.height=ch+'px'}
     e.style.left=x+'px';e.style.top=y+'px';
     return {el:e,hl:e.querySelector('.as-hl'),free:e.querySelector('.as-free')};

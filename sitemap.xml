@@ -16,11 +16,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://peopleforge-ten.vercel.app/products/career-ladder</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://peopleforge-ten.vercel.app/products/recruiting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

@@ -1,3 +1,10 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/products/career-ladder",
+      "destination": "/shop#performance",
+      "permanent": false
+    }
+  ]
 }

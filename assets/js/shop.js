@@ -12,14 +12,14 @@ const TOPICS=[
   {id:'advisory',label:'Diagnostics & advisory'},
 ];
 
-const FORMAT_LABEL={framework:'Framework',template:'Template',ai:'AI tool',course:'Course',consulting:'Consulting'};
+const FORMAT_LABEL={framework:'Framework',template:'Template',ai:'AI tool',course:'Course',consulting:'Consulting',playbook:'AI playbook'};
 
 const shopProducts=[
   {id:0,name:"HR diagnostic",desc:"Ten questions about how you work today, and a prioritised answer to what to fix first — weighted for your company size.",price:0,cat:"framework",topics:["advisory"],icon:"DX",ic:"icon-p",link:"/products/hr-diagnostic",cta:"Start the diagnostic →"},
   {id:1,name:"Custom Performance Evaluation Form",desc:"Forms, rating rubrics, and manager guide. A complete review process, not just a form.",price:19,cat:"template",topics:["performance"],icon:"PE",ic:"icon-c",link:"/products/360-feedback",cta:"Build your form →"},
   {id:2,name:"Company handbook",desc:"Full Notion + PDF template covering culture, policies, and values. Editable in 30 minutes.",price:79,cat:"template",topics:["culture"],icon:"HB",ic:"icon-t"},
   {id:3,name:"Onboarding & offboarding kit",desc:"30-60-90 day plans, buddy programs, and exit interview frameworks.",price:49,cat:"template",topics:["hiring"],icon:"OB",ic:"icon-b"},
-  {id:4,name:"Career ladder framework",desc:"Level definitions, competencies, and promotion criteria for any team size.",price:99,cat:"framework",topics:["performance"],icon:"CL",ic:"icon-a",link:"/products/career-ladder",cta:"Build your ladder →"},
+  {id:4,name:"Career ladder playbook",desc:"Your AI assistant builds a career ladder around your company, then helps you place people, plan growth and write promotion cases.",price:79,cat:"playbook",topics:["performance"],icon:"CL",ic:"icon-a"},
   {id:5,name:"Compensation system",desc:"Salary bands, benchmarking guide, and pay equity audit template.",price:149,cat:"framework",topics:["pay"],icon:"CS",ic:"icon-c"},
   {id:6,name:"Engagement survey + playbook",desc:"The survey questions, plus what a bad score on each topic usually means and what to do about it.",price:59,cat:"template",topics:["culture"],icon:"ES",ic:"icon-t",link:"/products/engagement-survey",cta:"Build your survey →"},
   {id:7,name:"Remote & hybrid work playbook",desc:"Async norms, meeting rhythms, and time-zone policies for distributed teams.",price:49,cat:"template",topics:["culture"],icon:"RW",ic:"icon-p"},
