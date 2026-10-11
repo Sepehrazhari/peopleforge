@@ -26,6 +26,9 @@ const shopProducts=[
   {id:8,name:"AI prompt library for HR",desc:"200+ prompts for JDs, offer letters, PIPs, and performance reviews.",price:39,cat:"ai",topics:["hiring","performance"],icon:"AI",ic:"icon-b"},
   {id:9,name:"Recruiting framework",desc:"Interview scorecards, structured question banks, hiring decision rubrics, and email templates for every stage.",price:79,cat:"framework",topics:["hiring"],icon:"RC",ic:"icon-a",link:"/products/recruiting",cta:"Build your kit →"},
   {id:10,name:"Manager bootcamp course",desc:"Self-paced course for first-time managers. The leadership curriculum they never got.",price:197,cat:"course",topics:["performance"],icon:"MB",ic:"icon-p"},
+  {id:13,name:"Hiring playbook",desc:"Role brief, job ad with salary range, scenario interviews, independent scoring and fair offers — your AI assistant runs it, you decide.",price:99,cat:"playbook",topics:["hiring"],icon:"HP",ic:"icon-b"},
+  {id:14,name:"Growth feedback playbook",desc:"Quarterly feedback from the people who work with someone, turned into a growth summary with clear next steps.",price:79,cat:"playbook",topics:["performance","culture"],icon:"GF",ic:"icon-t"},
+  {id:15,name:"Pay progression playbook",desc:"Salary reviews without negotiation: pay follows growth on your career ladder, checked for consistency.",price:119,cat:"playbook",topics:["pay"],icon:"PP",ic:"icon-c"},
   {id:11,name:"60-minute call",desc:"Talk through anything people-related: career ladders, pay, reviews, hiring or setting up HR. Any topic.",price:250,cat:"consulting",topics:["advisory"],icon:"60",ic:"icon-c",link:"/book-a-call",cta:"Book a call →"},
 ];
 
