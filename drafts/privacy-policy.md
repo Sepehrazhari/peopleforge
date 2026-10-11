@@ -111,7 +111,7 @@ provide support and keep records required by law.
 
 ## 5a. Paying with crypto
 
-If you pay with USDC or Bitcoin, you send us the transaction ID, your email
+If you pay with USDC, USDT or Bitcoin, you send us the transaction ID, your email
 address and, optionally, your name or company. We use them to check your payment
 on the blockchain and deliver what you bought, and keep them for as long as tax
 and accounting law requires. Note that blockchain transactions are **public and
